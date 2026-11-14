@@ -199,11 +199,13 @@
         {@render bookBand()}
     {/if}
 
+    {#if navigation}
+        {@render bookPager("mt-5")}
+    {/if}
+
     <h1 class="reading-measure text-xl font-bold mt-4 mb-5">{data.contentNode.title}</h1>
 
-    {#if navigation}
-        {@render bookPager("mt-5 mb-8")}
-    {:else}
+    {#if !navigation}
         <dl class="reading-measure grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-sm mb-8">
             <dt class="text-gray-500">{m.documents_column_authors()}</dt>
             <dd>{data.contentNode.authors.length > 0 ? data.contentNode.authors.join(", ") : "—"}</dd>
