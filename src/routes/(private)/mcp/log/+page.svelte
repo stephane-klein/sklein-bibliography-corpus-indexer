@@ -28,6 +28,8 @@
         minute: "2-digit",
     });
 
+    const integerFormatter = new Intl.NumberFormat(getLocale());
+
     function fmtTime(value) {
         const date = new Date(value);
         return Number.isNaN(date.getTime()) ? value : dateFormatter.format(date);
@@ -56,6 +58,32 @@
             tokens: row.embedding_tokens ?? 0,
             cost: formatUsd(row.embedding_cost_usd ?? 0),
         });
+    }
+
+    function vectorizationSummary(row) {
+        const calls = row.vectorize_calls ?? 0;
+        const cached = row.vectorize_cache_hits ?? 0;
+        const count = calls + cached;
+
+        if (count === 0) return "—";
+
+        if (calls === 0) return m.mcp_log_vectorization_cached({ count });
+
+        return m.mcp_log_vectorization_tokens({
+            count,
+            tokens: integerFormatter.format(row.embedding_tokens ?? 0),
+        });
+    }
+
+    function vectorizationTitle(row) {
+        const summary = embeddingSummary(row);
+        const parts = [];
+
+        if (summary !== "—") parts.push(summary);
+        if (row.embedding_model) parts.push(row.embedding_model);
+        if (row.embedding_ms != null) parts.push(`${row.embedding_ms} ms`);
+
+        return parts.join(" · ");
     }
 
     function formatArguments(row) {
@@ -231,6 +259,7 @@
                 <span class="mcp-log-count">{m.mcp_log_col_results()}</span>
                 <span class="mcp-log-duration">{m.mcp_log_col_duration()}</span>
                 <span class="mcp-log-tool">{m.mcp_log_col_tool()}</span>
+                <span class="mcp-log-vectorization">{m.mcp_log_col_vectorization()}</span>
                 <span class="mcp-log-status">{m.mcp_log_col_status()}</span>
             </div>
             {#each data.rows as row (row.id)}
@@ -272,6 +301,10 @@
                             <span class="mcp-log-tool">
                                 <span class="font-mono text-xs text-gray-700 whitespace-nowrap">{row.tool_name}</span>
                             </span>
+                            <span
+                                class="mcp-log-vectorization"
+                                title={vectorizationTitle(row)}>{vectorizationSummary(row)}</span
+                            >
                             <span class="mcp-log-status">
                                 {#if row.truncated}
                                     <span
@@ -437,7 +470,7 @@
 
     .mcp-log-grid {
         display: grid;
-        grid-template-columns: 5.25rem minmax(0, 1fr) 5rem 3.5rem 8rem 4rem;
+        grid-template-columns: 5.25rem minmax(0, 1fr) 5rem 3.5rem 8rem 7.75rem 4rem;
         gap: 0.75rem;
         align-items: start;
     }
@@ -471,6 +504,14 @@
     .mcp-log-duration {
         color: #6b7280;
         font-size: 0.75rem;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .mcp-log-vectorization {
+        color: #374151;
+        font-size: 0.75rem;
+        font-variant-numeric: tabular-nums;
         text-align: right;
         white-space: nowrap;
     }
@@ -608,13 +649,17 @@
             order: 4;
         }
 
-        .mcp-log-status {
+        .mcp-log-vectorization {
             order: 5;
+        }
+
+        .mcp-log-status {
+            order: 6;
         }
 
         .mcp-log-content {
             flex-basis: 100%;
-            order: 6;
+            order: 7;
         }
     }
 </style>

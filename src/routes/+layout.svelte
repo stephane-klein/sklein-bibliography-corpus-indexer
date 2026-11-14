@@ -24,8 +24,8 @@
                 >
                 |
                 <a
-                    href="/about"
-                    class="text-gray-500 no-underline hover:underline">{m.footer_about()}</a
+                    href="/mcp"
+                    class="text-gray-500 no-underline hover:underline">{m.footer_mcp()}</a
                 >
                 |
                 <a
@@ -34,8 +34,8 @@
                 >
                 |
                 <a
-                    href="/mcp"
-                    class="text-gray-500 no-underline hover:underline">{m.footer_mcp()}</a
+                    href="/about"
+                    class="text-gray-500 no-underline hover:underline">{m.footer_about()}</a
                 >
             </nav>
 
