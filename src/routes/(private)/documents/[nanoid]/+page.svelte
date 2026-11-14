@@ -190,49 +190,48 @@
 {/snippet}
 
 <main class="page px-5 pt-7 pb-16">
-    <div class="mx-auto max-w-[46rem]">
-        <a
-            href="/documents"
-            class="text-sm text-blue-600 no-underline hover:underline">{m.documents_back()}</a
-        >
+    <a
+        href="/documents"
+        class="text-sm text-blue-600 no-underline hover:underline">{m.documents_back()}</a
+    >
 
-        {#if navigation}
-            {@render bookBand()}
-        {/if}
+    {#if navigation}
+        {@render bookBand()}
+    {/if}
 
-        <h1 class="text-xl font-bold mt-4 mb-5">{data.contentNode.title}</h1>
+    <h1 class="reading-measure text-xl font-bold mt-4 mb-5">{data.contentNode.title}</h1>
 
-        {#if navigation}
-            {@render bookPager("mt-5 mb-8")}
-        {:else}
-            <dl class="grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-sm mb-8">
-                <dt class="text-gray-500">{m.documents_column_authors()}</dt>
-                <dd>{data.contentNode.authors.length > 0 ? data.contentNode.authors.join(", ") : "—"}</dd>
+    {#if navigation}
+        {@render bookPager("mt-5 mb-8")}
+    {:else}
+        <dl class="reading-measure grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-sm mb-8">
+            <dt class="text-gray-500">{m.documents_column_authors()}</dt>
+            <dd>{data.contentNode.authors.length > 0 ? data.contentNode.authors.join(", ") : "—"}</dd>
 
-                <dt class="text-gray-500">{m.documents_column_original_date()}</dt>
-                <dd>{data.contentNode.original_published_date ?? "—"}</dd>
+            <dt class="text-gray-500">{m.documents_column_original_date()}</dt>
+            <dd>{data.contentNode.original_published_date ?? "—"}</dd>
 
-                <dt class="text-gray-500">{m.documents_detail_source_label()}</dt>
-                <dd>
-                    {#if data.contentNode.source_url}
-                        <a
-                            href={data.contentNode.source_url}
-                            class="text-blue-600 break-all no-underline hover:underline"
-                            >{data.contentNode.source_url}</a
-                        >
-                    {:else if data.contentNode.source_kind === "epub"}
-                        <span
-                            class="inline-block rounded-sm border border-gray-200 bg-gray-100 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-gray-600"
-                            >{m.documents_source_epub()}</span
-                        >
-                    {:else}
-                        —
-                    {/if}
-                </dd>
-            </dl>
-        {/if}
+            <dt class="text-gray-500">{m.documents_detail_source_label()}</dt>
+            <dd>
+                {#if data.contentNode.source_url}
+                    <a
+                        href={data.contentNode.source_url}
+                        class="text-blue-600 break-all no-underline hover:underline">{data.contentNode.source_url}</a
+                    >
+                {:else if data.contentNode.source_kind === "epub"}
+                    <span
+                        class="inline-block rounded-sm border border-gray-200 bg-gray-100 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-gray-600"
+                        >{m.documents_source_epub()}</span
+                    >
+                {:else}
+                    —
+                {/if}
+            </dd>
+        </dl>
+    {/if}
 
-        {#if data.outline}
+    {#if data.outline}
+        <div class="reading-measure">
             <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
                 {m.documents_outline_title()}
                 <span class="ml-2 font-normal normal-case tracking-normal text-gray-500">
@@ -302,24 +301,30 @@
                     </table>
                 </div>
             {/if}
-        {:else}
-            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
-                {m.documents_detail_content()}
-            </h2>
-            <article class="markdown-body">
-                <!-- The HTML comes from renderMarkdown, where raw HTML is escaped. -->
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html data.contentHtml}
-            </article>
-        {/if}
+        </div>
+    {:else}
+        <h2 class="reading-measure text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
+            {m.documents_detail_content()}
+        </h2>
+        <article class="markdown-body reading-measure">
+            <!-- The HTML comes from renderMarkdown, where raw HTML is escaped. -->
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+            {@html data.contentHtml}
+        </article>
+    {/if}
 
-        {#if navigation}
-            {@render bookPager("mt-10")}
-        {/if}
-    </div>
+    {#if navigation}
+        {@render bookPager("mt-10")}
+    {/if}
 </main>
 
 <style>
+    /* The page follows the `page` shell width; the text blocks keep a reading measure. */
+    .reading-measure {
+        max-width: 46rem;
+        margin-inline: auto;
+    }
+
     .markdown-body {
         font-size: 1.0625rem;
         line-height: 1.7;
