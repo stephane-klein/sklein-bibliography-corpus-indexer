@@ -147,31 +147,6 @@
         <h3>Réponse</h3>
 
         <p class="mb-2">
-            La réponse porte <code class={codeClass}>query</code>, <code class={codeClass}>filters</code>,
-            <code class={codeClass}>page</code>, <code class={codeClass}>total</code>,
-            <code class={codeClass}>total_pages</code>, <code class={codeClass}>hybrid</code>,
-            <code class={codeClass}>semantic_error</code>, <code class={codeClass}>semantic_diagnostics</code>,
-            <code class={codeClass}>next_step</code> et <code class={codeClass}>documents</code>.
-        </p>
-
-        <p class="mb-2">
-            Chaque document porte <code class={codeClass}>content_node_id</code>,
-            <code class={codeClass}>nanoid</code>, <code class={codeClass}>title</code>,
-            <code class={codeClass}>authors</code>, <code class={codeClass}>original_published_date</code>,
-            <code class={codeClass}>source_url</code>, <code class={codeClass}>kind</code>,
-            <code class={codeClass}>chunk_index</code>, <code class={codeClass}>heading_path</code>,
-            <code class={codeClass}>excerpt</code>, <code class={codeClass}>distance</code>,
-            <code class={codeClass}>bm25_rank</code>, <code class={codeClass}>vector_rank</code> et
-            <code class={codeClass}>rrf</code>.
-        </p>
-
-        <p class="mb-2">
-            Rejouez ensuite <code class={codeClass}>content_node_id</code> et
-            <code class={codeClass}>chunk_index</code> dans <code class={codeClass}>readOnlySqlQuery</code> pour lire le passage
-            complet. Ne sélectionnez pas tous les passages d'un document.
-        </p>
-
-        <p class="mb-2">
             Si le fournisseur d'embeddings est indisponible, l'outil se rabat sur BM25 et renvoie
             <code class={codeClass}>semantic_error: "unavailable"</code>. L'appel réussit quand même.
         </p>
@@ -192,53 +167,52 @@
     <section>
         <h2 id="readonlysqlquery">readOnlySqlQuery</h2>
 
-        <h3>Lecture seule par conception</h3>
+        <section>
+            <h3>Accès SQL en lecture seule par conception</h3>
 
-        <p class="mb-2">L'accès est en lecture seule à trois niveaux :</p>
+            <p class="mb-2">L'accès SQL est limité en lecture par ces deux mécanismes :</p>
 
-        <ul class="list-disc pl-6 mb-2">
-            <li>
-                Rôle PostgreSQL : les requêtes utilisent le rôle dédié
-                <code class={codeClass}>{data.readerRole}</code>, avec SELECT sur les tables du corpus et rien d'autre.
-            </li>
-            <li>
-                Transaction : chaque requête s'exécute dans une transaction READ ONLY avec un délai d'expiration de 10
-                secondes.
-            </li>
-            <li>
-                Authentification HTTP : chaque requête doit porter
-                <code class={codeClass}>Authorization: Bearer &lt;your-token&gt;</code>. Créez un jeton dans
+            <ul class="list-disc pl-6 mb-2">
+                <li>
+                    Rôle PostgreSQL : les requêtes utilisent le rôle dédié
+                    <code class={codeClass}>{data.readerRole}</code>, avec SELECT sur les tables du corpus et rien
+                    d'autre.
+                </li>
+                <li>
+                    Transaction : chaque requête s'exécute dans une transaction READ ONLY avec un délai d'expiration de
+                    10 secondes.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Recherche vectorielle avec readOnlySqlQuery</h3>
+
+            <p class="mb-2">
+                Il est possible de générer des embeddings directement en SQL à l'aide de la fonction
+                <code class={codeClass}>vectorize('some text')</code>, ce qui permet d'effectuer des recherches
+                sémantiques.
+            </p>
+
+            <p class="mb-2">
+                L'argument de <code class={codeClass}>vectorize</code> doit être un seul littéral de type chaîne. Les
+                colonnes et les expressions sont refusées. Une requête peut utiliser au plus {data.maxTexts} textes distincts,
+                avec au plus {data.maxChars} caractères chacun.
+            </p>
+
+            <p class="mb-2">
+                Le serveur génère les embeddings avec le modèle de requête
+                <code class={codeClass}>voyage-4-lite</code> de
                 <a
-                    href="/my/tokens/"
-                    class="text-blue-600 hover:underline">Jetons MCP</a
+                    href="https://docs.voyageai.com/docs/embeddings"
+                    class="text-blue-600 hover:underline">Voyage AI</a
                 >.
-            </li>
-        </ul>
+            </p>
 
-        <h3>Recherche vectorielle avec readOnlySqlQuery</h3>
+            <p class="mb-2">Exemple :</p>
 
-        <p class="mb-2">
-            Cette fonction n'est disponible que dans les requêtes SQL envoyées à l'outil
-            <code class={codeClass}>readOnlySqlQuery</code>. L'outil
-            <code class={codeClass}>semanticSearch</code> effectue déjà sa propre recherche vectorielle ; il n'utilise
-            pas <code class={codeClass}>vectorize()</code>.
-        </p>
-
-        <p class="mb-2">
-            <code class={codeClass}>vectorize('some text')</code>
-            est une fonction virtuelle. Le serveur MCP remplace chaque appel par un littéral vector avant l'exécution ; PostgreSQL
-            ne voit jamais de fonction <code class={codeClass}>vectorize()</code>.
-        </p>
-
-        <p class="mb-2">
-            L'argument doit être un seul littéral de chaîne. Les colonnes et les expressions sont refusées. Une requête
-            peut utiliser au plus {data.maxTexts} textes distincts, avec au plus
-            {data.maxChars} caractères chacun.
-        </p>
-
-        <p class="mb-2">Exemple :</p>
-
-        <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.sqlExample}</pre>
+            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.sqlExample}</pre>
+        </section>
 
         <h3>Tables disponibles</h3>
 

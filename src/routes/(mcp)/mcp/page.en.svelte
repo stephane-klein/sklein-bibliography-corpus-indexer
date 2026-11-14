@@ -145,31 +145,6 @@
         <h3>Response</h3>
 
         <p class="mb-2">
-            The response carries <code class={codeClass}>query</code>, <code class={codeClass}>filters</code>,
-            <code class={codeClass}>page</code>, <code class={codeClass}>total</code>,
-            <code class={codeClass}>total_pages</code>, <code class={codeClass}>hybrid</code>,
-            <code class={codeClass}>semantic_error</code>, <code class={codeClass}>semantic_diagnostics</code>,
-            <code class={codeClass}>next_step</code> and <code class={codeClass}>documents</code>.
-        </p>
-
-        <p class="mb-2">
-            Each document carries <code class={codeClass}>content_node_id</code>,
-            <code class={codeClass}>nanoid</code>, <code class={codeClass}>title</code>,
-            <code class={codeClass}>authors</code>, <code class={codeClass}>original_published_date</code>,
-            <code class={codeClass}>source_url</code>, <code class={codeClass}>kind</code>,
-            <code class={codeClass}>chunk_index</code>, <code class={codeClass}>heading_path</code>,
-            <code class={codeClass}>excerpt</code>, <code class={codeClass}>distance</code>,
-            <code class={codeClass}>bm25_rank</code>, <code class={codeClass}>vector_rank</code> and
-            <code class={codeClass}>rrf</code>.
-        </p>
-
-        <p class="mb-2">
-            Then replay <code class={codeClass}>content_node_id</code> and
-            <code class={codeClass}>chunk_index</code> in <code class={codeClass}>readOnlySqlQuery</code> to read the full
-            passage. Do not select every passage of a document.
-        </p>
-
-        <p class="mb-2">
             If the embedding provider is unavailable, the tool falls back to BM25 and returns
             <code class={codeClass}>semantic_error: "unavailable"</code>. The call still succeeds.
         </p>
@@ -190,49 +165,49 @@
     <section>
         <h2 id="readonlysqlquery">readOnlySqlQuery</h2>
 
-        <h3>Read-only by design</h3>
+        <section>
+            <h3>Read-only SQL access by design</h3>
 
-        <p class="mb-2">Access is read-only at three levels:</p>
+            <p class="mb-2">SQL access is read-only through two mechanisms:</p>
 
-        <ul class="list-disc pl-6 mb-2">
-            <li>
-                Database role: queries run as the dedicated PostgreSQL role
-                <code class={codeClass}>{data.readerRole}</code>, with SELECT on the corpus tables and nothing else.
-            </li>
-            <li>Transaction: every query runs inside a READ ONLY transaction with a 10-second statement timeout.</li>
-            <li>
-                HTTP authentication: every request must carry
-                <code class={codeClass}>Authorization: Bearer &lt;your-token&gt;</code>. Create a token in
+            <ul class="list-disc pl-6 mb-2">
+                <li>
+                    Database role: queries run as the dedicated PostgreSQL role
+                    <code class={codeClass}>{data.readerRole}</code>, with SELECT on the corpus tables and nothing else.
+                </li>
+                <li>
+                    Transaction: every query runs inside a READ ONLY transaction with a 10-second statement timeout.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Vector search with readOnlySqlQuery</h3>
+
+            <p class="mb-2">
+                It is possible to generate embeddings directly in SQL with the
+                <code class={codeClass}>vectorize('some text')</code> function, which enables semantic searches.
+            </p>
+
+            <p class="mb-2">
+                The argument of <code class={codeClass}>vectorize</code> must be one string literal. Column references
+                and expressions are rejected. A query can use at most {data.maxTexts} distinct texts, with at most
+                {data.maxChars} characters each.
+            </p>
+
+            <p class="mb-2">
+                The server generates embeddings with the query model
+                <code class={codeClass}>voyage-4-lite</code> from
                 <a
-                    href="/my/tokens/"
-                    class="text-blue-600 hover:underline">MCP tokens</a
+                    href="https://docs.voyageai.com/docs/embeddings"
+                    class="text-blue-600 hover:underline">Voyage AI</a
                 >.
-            </li>
-        </ul>
+            </p>
 
-        <h3>Vector search with readOnlySqlQuery</h3>
+            <p class="mb-2">Example:</p>
 
-        <p class="mb-2">
-            This function is only available in SQL queries sent to the
-            <code class={codeClass}>readOnlySqlQuery</code> tool. The
-            <code class={codeClass}>semanticSearch</code> tool already performs its own vector search; it does not use
-            <code class={codeClass}>vectorize()</code>.
-        </p>
-
-        <p class="mb-2">
-            <code class={codeClass}>vectorize('some text')</code>
-            is a virtual function. The MCP server replaces each call with a vector literal before execution; PostgreSQL never
-            sees a <code class={codeClass}>vectorize()</code> function.
-        </p>
-
-        <p class="mb-2">
-            The argument must be one string literal. Column references and expressions are rejected. A query can use at
-            most {data.maxTexts} distinct texts, with at most {data.maxChars} characters each.
-        </p>
-
-        <p class="mb-2">Example:</p>
-
-        <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.sqlExample}</pre>
+            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.sqlExample}</pre>
+        </section>
 
         <h3>Available tables</h3>
 
