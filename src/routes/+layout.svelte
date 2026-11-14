@@ -2,6 +2,7 @@
     import { m } from "#lib/paraglide/messages.js";
     import { locales, getLocale, setLocale } from "#lib/paraglide/runtime.js";
     import "uno.css";
+    import "../app.css";
     import TechInfoPopup from "#lib/client/TechInfoPopup.svelte";
 
     let { children } = $props();

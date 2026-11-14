@@ -9,8 +9,8 @@
     <title>{title}</title>
 </svelte:head>
 
-<main class="page px-5 pt-9 pb-24">
-    <h1 class="text-xl font-bold mb-6 tracking-tight">{title}</h1>
+<main class="doc">
+    <h1>{title}</h1>
 
     <p class="mb-2">
         <em>Sklein Bibliography Corpus RAG Manager</em> expose un serveur
@@ -22,8 +22,22 @@
         <code class={codeClass}>{snippets.endpoint}</code>.
     </p>
 
+    <nav
+        aria-label="Sur cette page"
+        class="doc-toc"
+    >
+        <p>Sur cette page</p>
+        <ul>
+            <li><a href="#outils">Outils</a></li>
+            <li><a href="#semanticsearch">semanticSearch</a></li>
+            <li><a href="#readonlysqlquery">readOnlySqlQuery</a></li>
+            <li><a href="#utilisation">Utilisation</a></li>
+            <li><a href="#configuration">Configuration dans un Harness</a></li>
+        </ul>
+    </nav>
+
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">Outils</h2>
+        <h2 id="outils">Outils</h2>
 
         <p>Ce serveur MCP expose deux outils :</p>
 
@@ -55,7 +69,7 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">semanticSearch</h2>
+        <h2 id="semanticsearch">semanticSearch</h2>
 
         <p class="mb-2">
             <code class={codeClass}>semanticSearch</code> cherche dans le corpus par le sens. Il lance une recherche BM25
@@ -65,7 +79,7 @@
 
         <p class="mb-2">L'outil exécute une requête fixe avec le rôle applicatif. Il n'accepte pas de SQL.</p>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Paramètres</h3>
+        <h3>Paramètres</h3>
 
         <table class="my-4 text-sm">
             <thead>
@@ -130,7 +144,7 @@
             </tbody>
         </table>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Réponse</h3>
+        <h3>Réponse</h3>
 
         <p class="mb-2">
             La réponse porte <code class={codeClass}>query</code>, <code class={codeClass}>filters</code>,
@@ -162,7 +176,7 @@
             <code class={codeClass}>semantic_error: "unavailable"</code>. L'appel réussit quand même.
         </p>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Exemple</h3>
+        <h3>Exemple</h3>
 
         <p class="mb-2">Appel :</p>
 
@@ -176,9 +190,9 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">readOnlySqlQuery</h2>
+        <h2 id="readonlysqlquery">readOnlySqlQuery</h2>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Lecture seule par conception</h3>
+        <h3>Lecture seule par conception</h3>
 
         <p class="mb-2">L'accès est en lecture seule à trois niveaux :</p>
 
@@ -201,7 +215,7 @@
             </li>
         </ul>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Recherche vectorielle avec readOnlySqlQuery</h3>
+        <h3>Recherche vectorielle avec readOnlySqlQuery</h3>
 
         <p class="mb-2">
             Cette fonction n'est disponible que dans les requêtes SQL envoyées à l'outil
@@ -226,7 +240,7 @@
 
         <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.sqlExample}</pre>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Tables disponibles</h3>
+        <h3>Tables disponibles</h3>
 
         {#if data.schema}
             <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{data.schema}</pre>
@@ -238,7 +252,7 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">Utilisation</h2>
+        <h2 id="utilisation">Utilisation</h2>
 
         <p class="mb-2">Lister les outils :</p>
 
@@ -251,15 +265,15 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">Configuration dans un Harness</h2>
+        <h2 id="configuration">Configuration dans un Harness</h2>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">OpenCode</h3>
+        <h3>OpenCode</h3>
 
         <p class="mb-2">Ajoutez ceci à votre opencode.jsonc :</p>
 
         <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.opencodeConfig}</pre>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Claude Desktop</h3>
+        <h3>Claude Desktop</h3>
 
         <p class="mb-2">
             Dans Claude Desktop, ouvrez Settings → Connectors → Add custom connector et saisissez l'URL

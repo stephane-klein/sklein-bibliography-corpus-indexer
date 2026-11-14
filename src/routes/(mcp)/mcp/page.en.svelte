@@ -9,8 +9,8 @@
     <title>{title}</title>
 </svelte:head>
 
-<main class="page px-5 pt-9 pb-24">
-    <h1 class="text-xl font-bold mb-6 tracking-tight">{title}</h1>
+<main class="doc">
+    <h1>{title}</h1>
 
     <p class="mb-2">
         The service exposes a
@@ -22,8 +22,22 @@
         <code class={codeClass}>{snippets.endpoint}</code>.
     </p>
 
+    <nav
+        aria-label="On this page"
+        class="doc-toc"
+    >
+        <p>On this page</p>
+        <ul>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#semanticsearch">semanticSearch</a></li>
+            <li><a href="#readonlysqlquery">readOnlySqlQuery</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#configuration">Configuration in a Harness</a></li>
+        </ul>
+    </nav>
+
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">Tools</h2>
+        <h2 id="tools">Tools</h2>
 
         <p>This MCP server exposes two tools:</p>
 
@@ -55,7 +69,7 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">semanticSearch</h2>
+        <h2 id="semanticsearch">semanticSearch</h2>
 
         <p class="mb-2">
             <code class={codeClass}>semanticSearch</code> searches the corpus by meaning. It runs a BM25 search over documents
@@ -64,7 +78,7 @@
 
         <p class="mb-2">The tool runs a fixed query with the application role. It does not accept SQL.</p>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Parameters</h3>
+        <h3>Parameters</h3>
 
         <table class="my-4 text-sm">
             <thead>
@@ -128,7 +142,7 @@
             </tbody>
         </table>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Response</h3>
+        <h3>Response</h3>
 
         <p class="mb-2">
             The response carries <code class={codeClass}>query</code>, <code class={codeClass}>filters</code>,
@@ -160,7 +174,7 @@
             <code class={codeClass}>semantic_error: "unavailable"</code>. The call still succeeds.
         </p>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <h3>Example</h3>
 
         <p class="mb-2">Call:</p>
 
@@ -174,9 +188,9 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">readOnlySqlQuery</h2>
+        <h2 id="readonlysqlquery">readOnlySqlQuery</h2>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Read-only by design</h3>
+        <h3>Read-only by design</h3>
 
         <p class="mb-2">Access is read-only at three levels:</p>
 
@@ -196,7 +210,7 @@
             </li>
         </ul>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Vector search with readOnlySqlQuery</h3>
+        <h3>Vector search with readOnlySqlQuery</h3>
 
         <p class="mb-2">
             This function is only available in SQL queries sent to the
@@ -220,7 +234,7 @@
 
         <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.sqlExample}</pre>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Available tables</h3>
+        <h3>Available tables</h3>
 
         {#if data.schema}
             <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{data.schema}</pre>
@@ -232,7 +246,7 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">Usage</h2>
+        <h2 id="usage">Usage</h2>
 
         <p class="mb-2">List the tools:</p>
 
@@ -245,15 +259,15 @@
     </section>
 
     <section>
-        <h2 class="text-lg font-bold mb-3 mt-6">Configuration in a Harness</h2>
+        <h2 id="configuration">Configuration in a Harness</h2>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">OpenCode</h3>
+        <h3>OpenCode</h3>
 
         <p class="mb-2">Add this to your opencode.jsonc:</p>
 
         <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs font-mono mb-4">{snippets.opencodeConfig}</pre>
 
-        <h3 class="text-lg font-bold mb-3 mt-6">Claude Desktop</h3>
+        <h3>Claude Desktop</h3>
 
         <p class="mb-2">
             In Claude Desktop, open Settings → Connectors → Add custom connector and enter the URL
