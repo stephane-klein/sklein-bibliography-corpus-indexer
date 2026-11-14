@@ -12,7 +12,9 @@
 
     let query = $state(untrack(() => data.q));
     let title = $state(untrack(() => data.title));
-    let kind = $state(untrack(() => data.kind));
+    // "all" is the combo box value that means no type filter; the form maps it
+    // back to an empty kind parameter.
+    let kind = $state(untrack(() => data.kind || "all"));
     let semantic = $state(untrack(() => data.semantic));
     let authors = $state(untrack(() => [...data.authors]));
 
@@ -22,12 +24,17 @@
     $effect(() => {
         query = data.q;
         title = data.title;
-        kind = data.kind;
+        kind = data.kind || "all";
         semantic = data.semantic;
         authors = [...data.authors];
     });
 
     const authorPickerOptions = $derived(data.authorOptions.map((author) => ({ value: author, label: author })));
+    const typePickerOptions = $derived([
+        { value: "all", label: m.documents_filter_type_any() },
+        { value: "document", label: m.documents_filter_type_documents() },
+        { value: "book", label: m.documents_filter_type_books() },
+    ]);
 
     // Svelecte announces its selection and its dropdown in a live region. These
     // messages keep that text in the page language instead of the library
@@ -46,6 +53,17 @@
             aria_inputFocused: () => m.documents_filter_authors_input_focused(),
             aria_removeItemLabel: (author, labelField) =>
                 m.documents_filter_authors_remove({ name: author[labelField] }),
+        };
+    }
+
+    function typePickerI18n() {
+        return {
+            aria_label: m.documents_filter_type(),
+            aria_selected: (kinds) =>
+                kinds.length === 0 ? "" : m.documents_filter_type_selected({ name: kinds.join(", ") }),
+            aria_listActive: (option, labelField, count) =>
+                m.documents_filter_type_list_active({ name: option[labelField], count }),
+            aria_inputFocused: () => m.documents_filter_type_input_focused(),
         };
     }
 
@@ -301,7 +319,7 @@
 {/snippet}
 
 {#snippet authorsControl()}
-    <div class="author-picker">
+    <div class="filter-picker">
         <Svelecte
             name="author"
             inputId="authors"
@@ -328,16 +346,21 @@
 {/snippet}
 
 {#snippet typeSelect()}
-    <select
-        id="kind"
-        name="kind"
-        bind:value={kind}
-        class="w-full px-2 py-1.5 border border-gray-300 rounded-sm text-sm text-gray-900 bg-white focus:outline-2 focus:outline-blue-600 focus:border-blue-600"
-    >
-        <option value="">{m.documents_filter_type_all()}</option>
-        <option value="book">{m.documents_type_book()}</option>
-        <option value="document">{m.documents_type_document()}</option>
-    </select>
+    <div class="filter-picker type-picker">
+        <Svelecte
+            inputId="kind"
+            options={typePickerOptions}
+            bind:value={kind}
+            searchable={false}
+            placeholder={m.documents_filter_type_any()}
+            i18n={typePickerI18n()}
+        />
+        <input
+            type="hidden"
+            name="kind"
+            value={kind === "all" ? "" : kind}
+        />
+    </div>
 {/snippet}
 
 {#snippet filterButton()}
@@ -741,7 +764,7 @@
         padding: 0 1px;
     }
 
-    .author-picker {
+    .filter-picker {
         --sv-min-height: 32px;
         --sv-border: 1px solid #d1d5db;
         --sv-border-radius: 3px;
@@ -758,10 +781,17 @@
         font-size: 14px;
     }
 
-    .author-picker :global(.svelecte.is-focused .sv-control) {
+    .filter-picker :global(.svelecte.is-focused .sv-control) {
         outline: 2px solid #2563eb;
         outline-offset: -1px;
         border-color: #2563eb;
+    }
+
+    /* The type picker is not searchable. Svelecte still focuses its internal
+       read-only input, which would show a caret and a text cursor. */
+    .type-picker :global(.sv-input--text) {
+        caret-color: transparent;
+        cursor: pointer;
     }
 
     /* One field per line, in the order Type, Authors, Title. The second column
@@ -778,10 +808,12 @@
         min-width: 0;
     }
 
+    /* Wide enough for "Seulement les documents" even while the control has
+       focus, when Svelecte also lays out its input. */
     .filter-type {
         grid-column: 1;
         grid-row: 1;
-        max-width: 12rem;
+        max-width: 20rem;
     }
 
     .filter-authors {

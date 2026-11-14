@@ -217,7 +217,21 @@
     }
   ],
   "documents_filter_type": "Type",
-  "documents_filter_type_all": "Tous les types",
+  "documents_filter_type_any": "Livres et documents",
+  "documents_filter_type_books": "Seulement les livres",
+  "documents_filter_type_documents": "Seulement les documents",
+  "documents_filter_type_selected": "{name} sélectionné.",
+  "documents_filter_type_list_active": [
+    {
+      "declarations": ["input name", "input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "Option {name}. {count} résultat disponible.",
+        "countPlural=other": "Option {name}. {count} résultats disponibles."
+      }
+    }
+  ],
+  "documents_filter_type_input_focused": "Utilisez les flèches pour parcourir la liste.",
   "documents_filter_title": "Titre",
   "documents_filter_submit": "Filtrer",
   "documents_filters_help": "Le sélecteur Auteurs, le champ Titre et le sélecteur Type définissent la sélection. Un document correspond s'il a l'un des auteurs sélectionnés, si son titre contient tous les mots du filtre et si son type est celui choisi ; un chapitre compte comme faisant partie de son livre. Les accents sont ignorés.",

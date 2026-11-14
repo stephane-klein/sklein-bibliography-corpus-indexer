@@ -217,7 +217,21 @@
     }
   ],
   "documents_filter_type": "Type",
-  "documents_filter_type_all": "All types",
+  "documents_filter_type_any": "Books and documents",
+  "documents_filter_type_books": "Only books",
+  "documents_filter_type_documents": "Only documents",
+  "documents_filter_type_selected": "{name} selected.",
+  "documents_filter_type_list_active": [
+    {
+      "declarations": ["input name", "input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "Option {name}. {count} result available.",
+        "countPlural=other": "Option {name}. {count} results available."
+      }
+    }
+  ],
+  "documents_filter_type_input_focused": "Use the arrow keys to browse the list.",
   "documents_filter_title": "Title",
   "documents_filter_submit": "Filter",
   "documents_filters_help": "The Authors picker, the Title field and the Type picker define the selection. A document matches if it has one of the selected authors, its title contains every title word, and its type is the selected one; a chapter counts as part of its book. Accents are ignored.",
