@@ -85,12 +85,13 @@ The tool accepts:
 - `query` (required): natural language question or keywords.
 - `authors`: optional string or string array; every word must match.
 - `title`: optional title words; every word must match.
+- `kind`: optional document type, `book` or `document`. Omit to search both.
 - `page`: default 1.
 - `limit`: default 10, maximum 20.
 - `purpose` (required): recorded in `mcp_access_log`.
 
 Each result carries `content_node_id`, `nanoid`, `title`, `authors`,
-`original_published_date`, `source_url`, `chunk_index`, `heading_path`,
+`original_published_date`, `source_url`, `kind`, `chunk_index`, `heading_path`,
 `excerpt`, `distance`, `bm25_rank`, `vector_rank` and `rrf`. The agent can use
 `content_node_id` and `chunk_index` with `readOnlySqlQuery` to read the full
 chunk.
@@ -162,8 +163,8 @@ values go to `mcp_access_log`.
 
 - `no-vectors`: no chunk is vectorized for the current document model and
   strategy.
-- `filtered-out`: vectorized chunks exist, but the `authors` or `title` filters
-  remove all of them.
+- `filtered-out`: vectorized chunks exist, but the `authors`, `title` or `kind`
+  filters remove all of them.
 - `no-matches`: no filter is active, but the query matches no vector.
 - `unavailable`: the embedding provider or cache failed; the result is BM25 only.
 
@@ -197,7 +198,7 @@ hit, and `query` holds the natural language query.
 
 `tool_arguments` holds the arguments specific to the tool, without `query` and
 `purpose` (already stored in their own columns). For `semanticSearch` it records
-`authors`, `title`, `limit`, `page` and `maxCharacters`; for `readOnlySqlQuery`
+`authors`, `title`, `kind`, `limit`, `page` and `maxCharacters`; for `readOnlySqlQuery`
 it records `maxCharacters`. Strings are capped at 200 characters, arrays at 20
 items and the whole JSON at 4 KB. It never contains a vector.
 

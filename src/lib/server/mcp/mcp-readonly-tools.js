@@ -1,7 +1,7 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 
-import { searchDocuments } from "#lib/server/document-search.js";
+import { DOCUMENT_KINDS, searchDocuments } from "#lib/server/document-search.js";
 import { getEmbeddingInfo } from "#lib/server/embedding.js";
 import { logger } from "#lib/server/logger.js";
 import { recordMcpAccess } from "#lib/server/mcp-access-log.js";
@@ -118,9 +118,10 @@ export async function createMcpReadonlyServer({ context }) {
                     "only the returned passages with readOnlySqlQuery, using content_node_id and " +
                     "chunk_index. Do not select every chunk of a document.\n" +
                     "Each result contains content_node_id, nanoid, title, authors, " +
-                    "original_published_date, source_url, chunk_index, heading_path, excerpt, " +
-                    "distance, bm25_rank, vector_rank and rrf.\n" +
-                    "Filters: authors and title match all words, accent- and case-insensitively.\n" +
+                    "original_published_date, source_url, kind, chunk_index, heading_path, excerpt, " +
+                    "distance, bm25_rank, vector_rank and rrf. kind is 'book' or 'document'.\n" +
+                    "Filters: authors and title match all words, accent- and case-insensitively; " +
+                    "kind restricts results to books or documents.\n" +
                     (embeddingInfo
                         ? `The query embedding uses ${embeddingInfo.query_model}; the chunks use ${embeddingInfo.model}.\n`
                         : "Semantic search falls back to BM25 when the embedding provider is unavailable.\n"),
@@ -138,6 +139,14 @@ export async function createMcpReadonlyServer({ context }) {
                         title: {
                             type: "string",
                             description: "Optional title words; all words must match",
+                        },
+                        kind: {
+                            type: "string",
+                            enum: DOCUMENT_KINDS,
+                            description:
+                                "Optional document type: 'book' for a work whose root node has no " +
+                                "Markdown file, 'document' for a Markdown-backed document. " +
+                                "Omit to search both.",
                         },
                         page: {
                             type: "integer",
@@ -351,6 +360,12 @@ async function handleSemanticSearch(args, context, server, clientSessionId) {
         return errorResponse("The 'purpose' field is required and must be 1 to 400 characters.");
     }
 
+    const kind = typeof args.kind === "string" ? args.kind.trim() : "";
+
+    if (kind.length > 0 && !DOCUMENT_KINDS.includes(kind)) {
+        return errorResponse(`The 'kind' field must be one of: ${DOCUMENT_KINDS.join(", ")}.`);
+    }
+
     const clientInfo = server.getClientVersion?.() ?? {};
     const startedAt = Date.now();
     const query = args.query.trim();
@@ -367,6 +382,7 @@ async function handleSemanticSearch(args, context, server, clientSessionId) {
     const toolArguments = {
         authors: args.authors ?? null,
         title: args.title ?? null,
+        kind: kind || null,
         limit,
         page,
         maxCharacters: Number.isInteger(args.maxCharacters) ? args.maxCharacters : null,
@@ -388,6 +404,7 @@ async function handleSemanticSearch(args, context, server, clientSessionId) {
             authorWords: normalizeWords(args.authors),
             titleWords: normalizeWords(args.title),
             semantic: true,
+            kind,
             requestedPage: page,
             pageSize: limit,
         });
@@ -406,6 +423,7 @@ async function handleSemanticSearch(args, context, server, clientSessionId) {
         const filters = {
             authors: args.authors ?? null,
             title: args.title ?? null,
+            kind: kind || null,
         };
         const payload = {
             query,

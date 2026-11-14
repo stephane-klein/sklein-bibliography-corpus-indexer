@@ -214,7 +214,8 @@ async function hybridSearch({ q, filterConditions, requestedPage, pageSize, corp
 
     const [bm25Docs, vectorRows] = await Promise.all([
         sql`
-            SELECT n.id, n.nanoid, n.title, n.authors, n.original_published_date, n.source_url, n.source_kind
+            SELECT n.id, n.nanoid, n.title, n.authors, n.original_published_date, n.source_url, n.source_kind,
+                   ${documentKindExpression()} AS kind
               FROM hierarchical_content_nodes n
               ${whereClause([bm25Condition(q), ...filterConditions])}
              ORDER BY pdb.score(n.id) DESC, n.id ASC
@@ -228,6 +229,7 @@ async function hybridSearch({ q, filterConditions, requestedPage, pageSize, corp
                    n.original_published_date,
                    n.source_url,
                    n.source_kind,
+                   ${documentKindExpression()} AS kind,
                    c.heading_path,
                    left(c.content, ${BEST_CHUNK_CHARS + 1}) AS best_chunk,
                    length(c.content) > ${BEST_CHUNK_CHARS} AS best_chunk_truncated,
@@ -323,6 +325,7 @@ async function bm25Search({
                    original_published_date,
                    source_url,
                    source_kind,
+                   ${documentKindExpression()} AS kind,
                    pdb.snippets(
                        content_fr,
                        max_num_chars => 200,
@@ -381,6 +384,7 @@ function groupVectorRows(rows) {
             original_published_date: row.original_published_date,
             source_url: row.source_url,
             source_kind: row.source_kind,
+            kind: row.kind,
             bestChunk: {
                 heading_path: row.heading_path,
                 chunk_index: row.chunk_index,
@@ -552,10 +556,10 @@ function anyAuthorCondition(names) {
 
 // A work is a book when its root node has no Markdown file, and a document when
 // it has one. A chapter takes the type of its root, so a content search keeps
-// matching the chapters of a book. The condition walks up to that root and
-// therefore needs the node alias n: every query that applies filterConditions
-// aliases hierarchical_content_nodes as n.
-function documentKindCondition(kind) {
+// matching the chapters of a book. The expression walks up to that root and
+// therefore needs the node alias n: every query that selects or filters on the
+// kind aliases hierarchical_content_nodes as n.
+function documentKindExpression() {
     return sql`(WITH RECURSIVE ancestors AS (
             SELECT id, parent_id, markdown_source_file
               FROM hierarchical_content_nodes
@@ -568,7 +572,11 @@ function documentKindCondition(kind) {
         SELECT CASE WHEN markdown_source_file IS NULL THEN 'book' ELSE 'document' END
           FROM ancestors
          WHERE parent_id IS NULL
-    ) = ${kind}`;
+    )`;
+}
+
+function documentKindCondition(kind) {
+    return sql`${documentKindExpression()} = ${kind}`;
 }
 
 function ilikeCondition(column, word) {

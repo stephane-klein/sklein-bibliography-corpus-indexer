@@ -247,10 +247,10 @@ log.
 - `semanticSearch` searches the corpus by meaning. It runs BM25 over documents
   and vector search over paragraph chunks, fuses the rankings with Reciprocal
   Rank Fusion, and returns the best matching passage for each document. Each result
-  carries `content_node_id`, `nanoid`, `chunk_index`, `heading_path`,
+  carries `content_node_id`, `nanoid`, `chunk_index`, `heading_path`, `kind`,
   `source_url` and an excerpt, so a follow-up SQL query can read the full text.
-  It accepts `query`, optional `authors` and `title` filters, `page` and `limit`
-  (default 10, max 20).
+  It accepts `query`, optional `authors`, `title` and `kind` filters (`book` or
+  `document`), `page` and `limit` (default 10, max 20).
 - `readOnlySqlQuery` accepts one `SELECT`, `WITH ... SELECT` or
   `EXPLAIN SELECT` statement. Use it for drill-down and custom queries.
 

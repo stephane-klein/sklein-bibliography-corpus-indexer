@@ -4,7 +4,7 @@ const MAX_JSON_CHARS = 4096;
 
 const TOOL_ARGUMENT_KEYS = {
     readOnlySqlQuery: ["maxCharacters"],
-    semanticSearch: ["authors", "title", "limit", "page", "maxCharacters"],
+    semanticSearch: ["authors", "title", "kind", "limit", "page", "maxCharacters"],
 };
 
 function sanitizeValue(value, depth = 0) {

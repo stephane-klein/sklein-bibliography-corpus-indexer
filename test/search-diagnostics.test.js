@@ -48,6 +48,18 @@ test("mentions the title filter when it is the active filter", () => {
     assert.match(step, /title filter/);
 });
 
+test("mentions the kind filter when it is the active filter", () => {
+    const step = buildSemanticNextStep({
+        total: 0,
+        semanticError: "filtered-out",
+        diagnostics: { corpus_vectors: 10 },
+        filters: { authors: null, title: null, kind: "book" },
+    });
+
+    assert.match(step, /kind="book"/);
+    assert.match(step, /Remove the kind filter/);
+});
+
 test("explains a corpus without vectors", () => {
     const step = buildSemanticNextStep({
         total: 0,

@@ -36,6 +36,7 @@ export function toSemanticResult(document) {
         authors: document.authors ?? [],
         original_published_date: document.original_published_date,
         source_url: document.source_url,
+        kind: document.kind ?? null,
         chunk_index: chunk?.chunk_index ?? null,
         heading_path: chunk?.heading_path ?? null,
         excerpt: excerpt === null ? null : cleanExcerpt(excerpt),

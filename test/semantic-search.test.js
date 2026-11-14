@@ -23,6 +23,7 @@ test("maps a hybrid result", () => {
         authors: ["Thibaut Giraud"],
         original_published_date: "2017-05-24",
         source_url: "https://example.test",
+        kind: "book",
         bestChunk: { heading_path: "A > B", chunk_index: 41, content: "Un extrait." },
         distance: 0.2,
         bm25Rank: 3,
@@ -31,6 +32,7 @@ test("maps a hybrid result", () => {
     });
 
     assert.equal(result.content_node_id, 83);
+    assert.equal(result.kind, "book");
     assert.equal(result.chunk_index, 41);
     assert.equal(result.excerpt, "Un extrait.");
     assert.equal(result.bm25_rank, 3);

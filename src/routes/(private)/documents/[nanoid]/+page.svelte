@@ -143,49 +143,36 @@
 
 {#snippet bookPager(extraClass)}
     <nav
-        class={extraClass}
+        class="book-pager reading-measure {extraClass}"
         aria-label={m.documents_nav_label()}
     >
-        <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            {#if navigation.previous}
-                <a
-                    href="/documents/{navigation.previous.nanoid}/"
-                    rel="prev"
-                    class="book-pager-card"
-                    aria-label={m.documents_nav_previous_aria({ title: navigation.previous.title })}
-                >
-                    <span class="book-pager-label">← {m.documents_nav_previous()}</span>
-                    <span class="book-pager-title">{navigation.previous.title}</span>
-                </a>
-            {:else}
-                <span class="book-pager-empty">← {m.documents_nav_start()}</span>
-            {/if}
+        {#if navigation.previous}
+            <a
+                href="/documents/{navigation.previous.nanoid}/"
+                rel="prev"
+                class="book-pager-start"
+                aria-label={m.documents_nav_previous_aria({ title: navigation.previous.title })}
+                >← {m.documents_nav_previous()}</a
+            >
+        {/if}
 
-            {#if navigation.parent}
-                <a
-                    href="/documents/{navigation.parent.nanoid}/"
-                    class="book-pager-card"
-                    aria-label={m.documents_nav_parent_aria({ title: navigation.parent.title })}
-                >
-                    <span class="book-pager-label">↑ {m.documents_nav_parent()}</span>
-                    <span class="book-pager-title">{navigation.parent.title}</span>
-                </a>
-            {/if}
+        {#if navigation.parent}
+            <a
+                href="/documents/{navigation.parent.nanoid}/"
+                class="book-pager-center"
+                aria-label={m.documents_nav_parent_aria({ title: navigation.parent.title })}
+                >↑ {m.documents_nav_parent()}</a
+            >
+        {/if}
 
-            {#if navigation.next}
-                <a
-                    href="/documents/{navigation.next.nanoid}/"
-                    rel="next"
-                    class="book-pager-card"
-                    aria-label={m.documents_nav_next_aria({ title: navigation.next.title })}
-                >
-                    <span class="book-pager-label">{m.documents_nav_next()} →</span>
-                    <span class="book-pager-title">{navigation.next.title}</span>
-                </a>
-            {:else}
-                <span class="book-pager-empty">{m.documents_nav_end()} →</span>
-            {/if}
-        </div>
+        {#if navigation.next}
+            <a
+                href="/documents/{navigation.next.nanoid}/"
+                rel="next"
+                class="book-pager-end"
+                aria-label={m.documents_nav_next_aria({ title: navigation.next.title })}>{m.documents_nav_next()} →</a
+            >
+        {/if}
     </nav>
 {/snippet}
 
@@ -233,7 +220,7 @@
     {/if}
 
     {#if data.outline}
-        <div class="reading-measure">
+        <div>
             <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
                 {m.documents_outline_title()}
                 <span class="ml-2 font-normal normal-case tracking-normal text-gray-500">
@@ -467,50 +454,40 @@
         overflow: hidden;
     }
 
-    .book-pager-card,
-    .book-pager-empty {
-        display: block;
-        min-height: 3.5rem;
-        padding: 0.5rem 0.75rem;
-        border: 1px solid #e5e7eb;
-        border-radius: 3px;
+    .book-pager {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: baseline;
+        gap: 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    .book-pager a {
+        color: #2563eb;
         text-decoration: none;
     }
 
-    .book-pager-card:hover {
-        border-color: #bfdbfe;
-        background: #eff6ff;
+    .book-pager-start {
+        grid-column: 1;
+        justify-self: start;
     }
 
-    .book-pager-card:focus-visible {
+    .book-pager-center {
+        grid-column: 2;
+        justify-self: center;
+    }
+
+    .book-pager-end {
+        grid-column: 3;
+        justify-self: end;
+    }
+
+    .book-pager a:hover {
+        text-decoration: underline;
+    }
+
+    .book-pager a:focus-visible {
         outline: 2px solid #2563eb;
         outline-offset: 2px;
-    }
-
-    .book-pager-label {
-        display: block;
-        font-size: 0.6875rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #6b7280;
-    }
-
-    .book-pager-title {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin-top: 0.15rem;
-        font-size: 0.875rem;
-        font-weight: 600;
-        line-height: 1.35;
-        color: #111827;
-    }
-
-    .book-pager-empty {
-        border-style: dashed;
-        font-size: 0.875rem;
-        color: #9ca3af;
     }
 </style>

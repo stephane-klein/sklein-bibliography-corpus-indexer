@@ -3,6 +3,7 @@ function formatFilters(filters) {
 
     if (filters?.authors != null) parts.push(`authors=${JSON.stringify(filters.authors)}`);
     if (filters?.title != null) parts.push(`title=${JSON.stringify(filters.title)}`);
+    if (filters?.kind != null) parts.push(`kind=${JSON.stringify(filters.kind)}`);
 
     return parts.join(", ");
 }
@@ -39,7 +40,9 @@ export function buildSemanticNextStep({ total, semanticError, diagnostics, filte
                     ? "The stored author name may use a different spelling; list authors with readOnlySqlQuery or remove the authors filter."
                     : filters?.title != null
                       ? "The stored title may use a different spelling; remove the title filter or try fewer words."
-                      : "Remove the filters or try different keywords.";
+                      : filters?.kind != null
+                        ? "Remove the kind filter to search both books and documents."
+                        : "Remove the filters or try different keywords.";
 
             return (
                 `0 matches with the current filters${filterText}. ` +
@@ -56,7 +59,7 @@ export function buildSemanticNextStep({ total, semanticError, diagnostics, filte
             return "Semantic search is unavailable; these are BM25 results only. Retry later or use a keyword search.";
         default:
             return activeFilters
-                ? "No passage matches this query. Try different keywords, or remove the author/title filters."
+                ? "No passage matches this query. Try different keywords, or remove the author/title/kind filters."
                 : "No passage matches this query. Try different keywords.";
     }
 }

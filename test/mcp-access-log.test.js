@@ -9,6 +9,7 @@ test("keeps only the allowed arguments for semanticSearch", () => {
         purpose: "Find passages",
         authors: "Monsieur Phi",
         title: null,
+        kind: "book",
         limit: 10,
         page: 1,
         maxCharacters: null,
@@ -18,6 +19,7 @@ test("keeps only the allowed arguments for semanticSearch", () => {
     assert.deepEqual(args, {
         authors: "Monsieur Phi",
         title: null,
+        kind: "book",
         limit: 10,
         page: 1,
         maxCharacters: null,
