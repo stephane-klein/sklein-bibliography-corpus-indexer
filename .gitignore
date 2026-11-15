@@ -8,6 +8,7 @@ NEXT_STEPS.md
 TODO.md
 TASKS.md
 .DS_Store
+*.tgz
 src/lib/paraglide/
 project.inlang/cache/
 .opencode/*.backup

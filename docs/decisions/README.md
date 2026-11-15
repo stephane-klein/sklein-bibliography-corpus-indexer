@@ -8,3 +8,4 @@ Files are named `YYYY-MM_NNN-short-description.md` where `YYYY-MM` is the
 decision month and `NNN` is a zero-padded sequence number.
 
 - [`2026-07_001-paraglide-i18n.md`](./2026-07_001-paraglide-i18n.md) — Internationalization with Paraglide JS
+- [`2026-11_002-cli-package.md`](./2026-11_002-cli-package.md) — Publish the corpus CLI as a workspace package

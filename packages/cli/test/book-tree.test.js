@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { buildBookTree } from "../src/lib/server/book-tree.js";
+import { buildBookTree } from "../src/book-tree.js";
 
 const toc = {
     title: "Test Book",

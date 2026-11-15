@@ -1,19 +1,13 @@
-#!/usr/bin/env node
 import { createHash } from "node:crypto";
-import { access, readdir, readFile, rename, stat, unlink, writeFile } from "node:fs/promises";
-import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
-import { fileURLToPath } from "node:url";
+import { access, readdir, readFile } from "node:fs/promises";
+import { basename, dirname, join, relative, sep } from "node:path";
 import * as yaml from "js-yaml";
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
-import { readEmbeddingsFile, writeEmbeddingsFile } from "./lib/server/embeddings-file.js";
-import { logger } from "./lib/server/logger.js";
+import { createApiClient, resolveApiOptions } from "./api-client.js";
+import { resolveTarget } from "./context.js";
+import { readEmbeddingsFile, writeEmbeddingsFile } from "./embeddings-file.js";
+import { logger } from "./logger.js";
+import { writeSidecarFile } from "./sidecar.js";
 
-const PROJECT_ROOT = fileURLToPath(new URL("..", import.meta.url));
-const CONTENTS_ROOT = join(PROJECT_ROOT, "contents");
-const ALLOWED_ROOTS = [join(CONTENTS_ROOT, "single-document-texts"), join(CONTENTS_ROOT, "books")];
-const DEFAULT_PATH = "contents/single-document-texts";
-const ADMIN_TOKEN = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN;
 const EMBEDDING_INPUT_FORMAT = "heading_path_text_v1";
 const EMBEDDING_INPUT_TYPE = "document";
 const EMBEDDING_STRATEGY = "standard";
@@ -23,115 +17,31 @@ const COST_BASIS = "list_price";
 const MAX_TEXTS_PER_REQUEST = 128;
 const MAX_CHARS_PER_REQUEST = 200_000;
 
-const argv = yargs(hideBin(process.argv))
-    .option("path", {
-        type: "string",
-        default: DEFAULT_PATH,
-        description: "Markdown file or directory under contents/single-document-texts or contents/books",
-    })
-    .option("url", {
-        type: "string",
-        default: process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_API_URL || "http://localhost:5173",
-        description: "Base URL of the webapp",
-    })
-    .option("dry-run", {
-        type: "boolean",
-        default: false,
-        description: "Report what would be embedded without generating vectors",
-    })
-    .option("force", {
-        type: "boolean",
-        default: false,
-        description: "Regenerate embeddings even when they match",
-    })
-    .parse();
+export async function runGenerateEmbeddings({ path, contentsDir, url, token, dryRun, force }) {
+    const context = await resolveTarget({ path, contentsDir, command: "generate-embeddings" });
+    const api = createApiClient(resolveApiOptions({ url, token }));
+    const sidecarPaths = await findSidecarPaths(context);
 
-const apiUrl = argv.url.replace(/\/+$/, "");
-const importTarget = resolve(PROJECT_ROOT, argv.path);
-const insideAllowedRoot = ALLOWED_ROOTS.some((root) => {
-    const relativeToRoot = relative(root, importTarget);
-
-    return (
-        relativeToRoot === "" ||
-        (relativeToRoot !== ".." && !relativeToRoot.startsWith(`..${sep}`) && !isAbsolute(relativeToRoot))
+    logger.info(
+        { path, kind: context.isDirectory ? "directory" : "file", files: sidecarPaths.length },
+        "Found sidecar files",
     );
-});
 
-if (!insideAllowedRoot) {
-    logger.error({ path: argv.path }, "Path must be inside contents/single-document-texts or contents/books");
-    process.exit(1);
-}
+    let info;
 
-if (!ADMIN_TOKEN || ADMIN_TOKEN.length < 32) {
-    logger.error("SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN is not set or is shorter than 32 characters");
-    process.exit(1);
-}
-
-let targetStat;
-
-try {
-    targetStat = await stat(importTarget);
-} catch (error) {
-    logger.error({ path: argv.path, code: error.code }, "Path does not exist");
-    process.exit(1);
-}
-
-const isDirectory = targetStat.isDirectory();
-
-if (!isDirectory && !targetStat.isFile()) {
-    logger.error({ path: argv.path }, "Path must be a Markdown file or a directory");
-    process.exit(1);
-}
-
-if (!isDirectory && (!importTarget.endsWith(".md") || importTarget.endsWith(".dialogue.md"))) {
-    logger.error({ path: argv.path }, "File must be a Markdown file, excluding *.dialogue.md");
-    process.exit(1);
-}
-
-const directoryRoot = isDirectory ? importTarget : dirname(importTarget);
-const sidecarPaths = isDirectory
-    ? (await readdir(directoryRoot, { recursive: true }))
-          .filter((fileName) => fileName.endsWith(".md.yaml"))
-          .sort()
-          .map((fileName) => join(directoryRoot, fileName))
-    : [`${importTarget}.yaml`];
-
-if (sidecarPaths.length === 0) {
-    logger.error({ path: argv.path }, "No sidecar files found; run generate-sidecars first");
-    process.exit(1);
-}
-
-if (!isDirectory) {
     try {
-        await access(sidecarPaths[0]);
-    } catch {
-        logger.error({ path: argv.path }, "Sidecar not found; run generate-sidecars first");
-        process.exit(1);
+        info = await fetchEmbeddingInfo(api);
+    } catch (error) {
+        throw new Error(`Could not read the embedding configuration: ${error.message}`, { cause: error });
     }
-}
 
-logger.info(
-    { path: argv.path, kind: isDirectory ? "directory" : "file", files: sidecarPaths.length },
-    "Found sidecar files",
-);
+    logger.info(
+        { provider: info.provider, model: info.model, query_model: info.query_model, dimension: info.dimension },
+        "Embedding configuration",
+    );
 
-let info;
+    const counts = { embedded: 0, skipped: 0, chunks: 0, tokens: 0, costUsd: 0, pricedFiles: 0, unpricedFiles: 0 };
 
-try {
-    info = await fetchEmbeddingInfo();
-} catch (error) {
-    logger.error({ err: error }, "Could not read the embedding configuration");
-    process.exit(1);
-}
-
-logger.info(
-    { provider: info.provider, model: info.model, query_model: info.query_model, dimension: info.dimension },
-    "Embedding configuration",
-);
-
-const counts = { embedded: 0, skipped: 0, chunks: 0, tokens: 0, costUsd: 0, pricedFiles: 0, unpricedFiles: 0 };
-
-try {
     for (const sidecarPath of sidecarPaths) {
         const sourcePath = sidecarPath.replace(/\.yaml$/, "");
 
@@ -139,7 +49,7 @@ try {
             throw new Error(`Sidecar is not next to a Markdown file: ${sidecarPath}`);
         }
 
-        const relativeToContents = relative(CONTENTS_ROOT, sourcePath).split(sep).join("/");
+        const relativeToContents = relative(context.contentsDir, sourcePath).split(sep).join("/");
 
         try {
             await access(sidecarPath);
@@ -148,7 +58,7 @@ try {
         }
 
         const document = yaml.load(await readFile(sidecarPath, "utf8"));
-        const { manifest, chunks } = validateSidecar(document, sourcePath);
+        const { manifest, chunks } = validateSourceSidecar(document, sourcePath, relativeToContents);
         const sourceHash = `sha256:${createHash("sha256")
             .update(await readFile(sourcePath))
             .digest("hex")}`;
@@ -157,20 +67,23 @@ try {
             throw new Error(`Sidecar is stale for ${relativeToContents}; run generate-sidecars first`);
         }
 
-        if (!argv.force && (await isCurrent(manifest, chunks, info, sourcePath))) {
+        if (!force && (await isCurrent(manifest, chunks, info, sourcePath))) {
             counts.skipped += 1;
             logger.info({ file: relativeToContents, chunks: chunks.length }, "Sidecar embeddings unchanged");
             continue;
         }
 
-        if (argv.dryRun) {
+        if (dryRun) {
             counts.embedded += 1;
             counts.chunks += chunks.length;
             logger.info({ file: relativeToContents, chunks: chunks.length }, "Sidecar embeddings would be generated");
             continue;
         }
 
-        const { embeddings, tokens, costUsd, costBasis, pricePerMillionTokensUsd } = await embedChunks(chunks);
+        const { embeddings, tokens, costUsd, costBasis, pricePerMillionTokensUsd } = await embedChunks(chunks, {
+            api,
+            info,
+        });
         const binaryName = `${basename(sourcePath)}.embeddings.bin`;
         const binaryPath = join(dirname(sourcePath), binaryName);
         const header = {
@@ -206,7 +119,7 @@ try {
         manifest.embedding_input_format = EMBEDDING_INPUT_FORMAT;
         manifest.embedding_input_type = EMBEDDING_INPUT_TYPE;
         manifest.embedding_strategy = EMBEDDING_STRATEGY;
-        await writeSidecar(sidecarPath, { manifest, chunks });
+        await writeSidecarFile(sidecarPath, { manifest, chunks });
 
         counts.embedded += 1;
         counts.chunks += chunks.length;
@@ -234,37 +147,59 @@ try {
             "Sidecar embeddings generated",
         );
     }
-} catch (error) {
-    logger.error({ err: error }, "Embedding generation failed");
-    process.exit(1);
+
+    const totalCostUsd = dryRun
+        ? null
+        : counts.pricedFiles === 0 && counts.unpricedFiles > 0
+          ? null
+          : roundUsd(counts.costUsd);
+
+    logger.info(
+        {
+            path,
+            kind: context.isDirectory ? "directory" : "file",
+            files: sidecarPaths.length,
+            embedded: counts.embedded,
+            skipped: counts.skipped,
+            chunks: counts.chunks,
+            tokens: counts.tokens,
+            cost_usd: totalCostUsd,
+            cost_currency: "USD",
+            cost_basis: COST_BASIS,
+            cost_partial: !dryRun && counts.unpricedFiles > 0,
+            dry_run: dryRun,
+            forced: force,
+        },
+        "Embedding generation done",
+    );
 }
 
-const totalCostUsd = argv.dryRun
-    ? null
-    : counts.pricedFiles === 0 && counts.unpricedFiles > 0
-      ? null
-      : roundUsd(counts.costUsd);
+async function findSidecarPaths({ target, isDirectory }) {
+    if (!isDirectory) {
+        const sidecarPath = `${target}.yaml`;
 
-logger.info(
-    {
-        path: argv.path,
-        kind: isDirectory ? "directory" : "file",
-        files: sidecarPaths.length,
-        embedded: counts.embedded,
-        skipped: counts.skipped,
-        chunks: counts.chunks,
-        tokens: counts.tokens,
-        cost_usd: totalCostUsd,
-        cost_currency: "USD",
-        cost_basis: COST_BASIS,
-        cost_partial: !argv.dryRun && counts.unpricedFiles > 0,
-        dry_run: argv.dryRun,
-        forced: argv.force,
-    },
-    "Embedding generation done",
-);
+        try {
+            await access(sidecarPath);
+        } catch {
+            throw new Error(`Sidecar not found: ${sidecarPath}; run generate-sidecars first`);
+        }
 
-async function embedChunks(chunks) {
+        return [sidecarPath];
+    }
+
+    const sidecarPaths = (await readdir(target, { recursive: true }))
+        .filter((fileName) => fileName.endsWith(".md.yaml"))
+        .sort()
+        .map((fileName) => join(target, fileName));
+
+    if (sidecarPaths.length === 0) {
+        throw new Error("No sidecar files found; run generate-sidecars first");
+    }
+
+    return sidecarPaths;
+}
+
+async function embedChunks(chunks, { api, info }) {
     const embeddings = [];
     let tokens = 0;
     let costUsd = 0;
@@ -273,7 +208,7 @@ async function embedChunks(chunks) {
     let pricePerMillionTokensUsd = null;
 
     for (const batch of splitEmbeddingInputs(chunks.map((chunk) => `${chunk.heading_path}\n\n${chunk.text}`))) {
-        const data = await requestEmbeddings(batch);
+        const data = await requestEmbeddings(api, batch);
 
         if (data.provider !== info.provider || data.model !== info.model || data.dimension !== info.dimension) {
             throw new Error(
@@ -416,7 +351,7 @@ function roundUsd(value) {
     return Math.round(value * 1e9) / 1e9;
 }
 
-function validateSidecar(document, sourcePath) {
+function validateSourceSidecar(document, sourcePath, relativeToContents) {
     if (!document || typeof document !== "object" || Array.isArray(document)) {
         throw new Error(`Sidecar must be a YAML object: ${sourcePath}`);
     }
@@ -438,8 +373,6 @@ function validateSidecar(document, sourcePath) {
     if (manifest.schema_version !== 1) {
         throw new Error(`Sidecar schema_version must be 1: ${sourcePath}`);
     }
-
-    const relativeToContents = relative(CONTENTS_ROOT, sourcePath).split(sep).join("/");
 
     if (manifest.source_file !== relativeToContents) {
         throw new Error(`Sidecar source_file must be ${relativeToContents}: ${sourcePath}`);
@@ -470,13 +403,8 @@ function validateSidecar(document, sourcePath) {
     return { manifest, chunks };
 }
 
-async function fetchEmbeddingInfo() {
-    const response = await fetch(`${apiUrl}/api/v1/admin/embeddings`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
-        signal: AbortSignal.timeout(30_000),
-    });
-    const data = await parseResponse(response);
+async function fetchEmbeddingInfo(api) {
+    const data = await api.get("/api/v1/admin/embeddings", { timeoutMs: 30_000 });
 
     if (
         typeof data.provider !== "string" ||
@@ -490,42 +418,10 @@ async function fetchEmbeddingInfo() {
     return data;
 }
 
-async function requestEmbeddings(texts) {
-    const response = await fetch(`${apiUrl}/api/v1/admin/embeddings`, {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${ADMIN_TOKEN}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ texts, input_type: EMBEDDING_INPUT_TYPE }),
-        signal: AbortSignal.timeout(180_000),
-    });
-
-    return await parseResponse(response);
-}
-
-async function parseResponse(response) {
-    const result = await response.json().catch(() => null);
-
-    if (!response.ok) {
-        throw new Error(result?.detail || `HTTP ${response.status} from ${response.url}`);
-    }
-
-    if (!result?.data) {
-        throw new Error(`Invalid response from ${response.url}`);
-    }
-
-    return result.data;
-}
-
-async function writeSidecar(sidecarPath, document) {
-    const content = yaml.dump(document, { lineWidth: -1, noRefs: true, sortKeys: false });
-    const temporaryPath = `${sidecarPath}.${process.pid}.tmp`;
-
-    try {
-        await writeFile(temporaryPath, content, "utf8");
-        await rename(temporaryPath, sidecarPath);
-    } finally {
-        await unlink(temporaryPath).catch(() => {});
-    }
+async function requestEmbeddings(api, texts) {
+    return await api.post(
+        "/api/v1/admin/embeddings",
+        { texts, input_type: EMBEDDING_INPUT_TYPE },
+        { timeoutMs: 180_000 },
+    );
 }

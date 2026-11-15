@@ -1,0 +1,9 @@
+[tasks.publish-to-npmjs]
+description = "Publish the CLI package to npmjs (destructive: publishes to the registry)"
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+cd "{{ config_root }}"
+pnpm whoami
+pnpm publish --no-git-checks
+"""

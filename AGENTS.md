@@ -25,6 +25,50 @@ This project uses **ESLint** with `eslint-plugin-svelte` for linting and
 
 Configuration: `eslint.config.js`, `prettier.config.js`
 
+## CLI Package
+
+The four corpus commands live in `packages/cli`, published on npm as
+`sklein-bibliography-corpus-rag-manager-cli` with the binary
+`sklein-bibliography-corpus-rag-manager`:
+
+- `generate-sidecars`
+- `generate-embeddings`
+- `import-single-documents`
+- `import-books`
+
+They are no longer scripts under `src/`. The package owns the former
+`src/lib/server/` modules `book-loader.js`, `book-tree.js`,
+`embedding-import.js` and `embeddings-file.js`; the application only keeps
+`logger.js`.
+
+Rules:
+
+- Run a command with `sklein-bibliography-corpus-rag-manager <command> <path>`.
+  The root package depends on the workspace package, so `pnpm install` links the
+  command into `node_modules/.bin`, and mise puts that directory on the `PATH`.
+  In a shell without mise, use `pnpm exec sklein-bibliography-corpus-rag-manager`.
+  There are no mise tasks for these commands.
+- `<path>` is required and resolved against the current directory. It must land
+  inside a directory named `contents`, found by walking up from the path.
+  `--contents-dir` overrides the search. Do not reintroduce a default path.
+- The anchor for `manifest.source_file` and `markdown_source_file` is the
+  `contents/` directory. Changing it invalidates existing sidecars and database
+  rows.
+- `import-single-documents` must keep refusing paths under `books/`.
+- Do not add application code to the CLI package, and do not import
+  `$lib/server/...` from it: the package is published without the application.
+- There is no build step; `files` publishes `src/` as-is.
+- Tests live in `packages/cli/test/` and run with `pnpm test` inside
+  `packages/cli`. The root `pnpm test` runs only the application tests.
+- Lint and format come from the root configuration; `packages/cli` has no
+  ESLint or Prettier config of its own.
+- Publish with `mise run publish-to-npmjs` from `packages/cli`, after bumping
+  `version` in `packages/cli/package.json`. The task lives in
+  `packages/cli/mise.toml`.
+
+Architecture decision: see
+[`docs/decisions/2026-11_002-cli-package.md`](docs/decisions/2026-11_002-cli-package.md).
+
 ## Database
 
 This project uses **PostgreSQL** as its database, accessed directly with raw SQL — **no ORM**.

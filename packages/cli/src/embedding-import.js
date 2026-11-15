@@ -1,7 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import * as yaml from "js-yaml";
-import { readEmbeddingsFile } from "#lib/server/embeddings-file.js";
+import { readEmbeddingsFile } from "./embeddings-file.js";
 
 // A sidecar alone is not enough: generate-embeddings may not have run yet.
 // Treat a sidecar without its binary as missing embeddings, so the document is

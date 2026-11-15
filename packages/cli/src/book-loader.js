@@ -1,6 +1,7 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import { basename, join, sep } from "node:path";
 import * as yaml from "js-yaml";
+import { parseMarkdown } from "./markdown.js";
 
 // A book directory is a directory with a toc.yaml. A parent directory such as
 // contents/books is accepted too: discoverBooks looks one level below it.
@@ -62,19 +63,6 @@ export async function loadBook(bookDir) {
     }
 
     return { config, toc, filesByPath, bookDirName: basename(bookDir) };
-}
-
-export function parseMarkdown(text) {
-    const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
-
-    if (!match) {
-        return { frontmatter: {}, body: text };
-    }
-
-    const parsed = yaml.load(match[1]);
-    const frontmatter = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
-
-    return { frontmatter, body: text.slice(match[0].length) };
 }
 
 export async function pathExists(path) {

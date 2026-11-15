@@ -48,31 +48,52 @@ Default user (see [`./sqls/seeds/00002_users.sql`](./sqls/seeds/00002_users.sql)
 To send a test email, run `mise run send-test-mail`. Mailpit captures all the
 emails it sends: run `pitchfork proxy status` to get its URL.
 
+### Command-line client
+
+The commands below come from the `sklein-bibliography-corpus-rag-manager-cli`
+package, in [`packages/cli`](./packages/cli). The repository depends on it through
+the pnpm workspace, so `pnpm install` puts the
+`sklein-bibliography-corpus-rag-manager` command on the `PATH` when mise is
+active, and that command runs the same code that is published to npm. In a shell
+where mise is not active, run it with
+`pnpm exec sklein-bibliography-corpus-rag-manager …`.
+
+The path argument is required: pass `contents/single-document-texts`,
+`contents/books`, a subdirectory of either, or a single Markdown file. The CLI
+finds the `contents/` directory by walking up from that path; `--contents-dir`
+overrides the search.
+
+The webapp URL and the admin token come from `--url` and `--token`, then from
+`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_URL` and
+`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_TOKEN`. See
+[`packages/cli/README.md`](./packages/cli/README.md) for installation and
+reference.
+
 ### Importing corpus contents
 
-`mise run import-single-documents` loads standalone Markdown files into
-`hierarchical_content_nodes` and, when a `.md.yaml` sidecar and its
-`.md.embeddings.bin` exist, imports the chunks into `content_chunks`. The task
-accepts a directory or a single Markdown file:
+`sklein-bibliography-corpus-rag-manager import-single-documents` loads
+standalone Markdown files into `hierarchical_content_nodes` and, when a
+`.md.yaml` sidecar and its `.md.embeddings.bin` exist, imports the chunks into
+`content_chunks`. The command accepts a directory or a single Markdown file:
 
 ```bash
-$ mise run import-single-documents
-$ mise run import-single-documents contents/single-document-texts/mr-phi
-$ mise run import-single-documents contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
-$ mise run import-single-documents contents/single-document-texts/mr-phi --dry-run
+$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts
+$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
+$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts/mr-phi --dry-run
 ```
 
-`mise run import-books` imports the books under `contents/books/`. It reads
-each book's `config.yaml` (slug, bibliography, excluded files) and `toc.yaml`,
-builds the work/part/chapter tree, and sends it to the same sync endpoint. When
-a section has a `.md.yaml` sidecar and its `.md.embeddings.bin`, the task also
-imports its chunks:
+`sklein-bibliography-corpus-rag-manager import-books` imports the books under
+`contents/books/`. It reads each book's `config.yaml` (slug, bibliography,
+excluded files) and `toc.yaml`, builds the work/part/chapter tree, and sends it
+to the same sync endpoint. When a section has a `.md.yaml` sidecar and its
+`.md.embeddings.bin`, the command also imports its chunks:
 
 ```bash
-$ mise run import-books
-$ mise run import-books contents/books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier --dry-run
-$ mise run import-books --skip-embeddings
-$ mise run import-books --require-embeddings
+$ sklein-bibliography-corpus-rag-manager import-books contents/books
+$ sklein-bibliography-corpus-rag-manager import-books contents/books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier --dry-run
+$ sklein-bibliography-corpus-rag-manager import-books contents/books --skip-embeddings
+$ sklein-bibliography-corpus-rag-manager import-books contents/books --require-embeddings
 ```
 
 The webapp must be running with the migrations applied. The CLI sends each
@@ -95,17 +116,17 @@ unavailable.
 
 ### Generating sidecars
 
-`mise run generate-sidecars` writes one `.md.yaml` sidecar next to each Markdown
-document under `contents/single-document-texts` or `contents/books`. The task
-accepts a directory or a single Markdown file:
+`sklein-bibliography-corpus-rag-manager generate-sidecars` writes one `.md.yaml`
+sidecar next to each Markdown document under `contents/single-document-texts` or
+`contents/books`. The command accepts a directory or a single Markdown file:
 
 ```bash
-$ mise run generate-sidecars
-$ mise run generate-sidecars contents/single-document-texts/mr-phi
-$ mise run generate-sidecars contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
-$ mise run generate-sidecars contents/books
-$ mise run generate-sidecars contents/books/principales-of-political-economy-by-john-stuart-mill --dry-run
-$ mise run generate-sidecars --force
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/books
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/books/principales-of-political-economy-by-john-stuart-mill --dry-run
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts --force
 ```
 
 The command does not vectorize anything. It splits each document into
@@ -134,9 +155,9 @@ the node import would not create a node for it.
 
 ### Generating embeddings
 
-`mise run generate-embeddings` reads the `.md.yaml` sidecars, asks the webapp
-for vectors, and writes one `.md.embeddings.bin` file next to each sidecar. The
-command does not write to PostgreSQL.
+`sklein-bibliography-corpus-rag-manager generate-embeddings` reads the `.md.yaml`
+sidecars, asks the webapp for vectors, and writes one `.md.embeddings.bin` file
+next to each sidecar. The command does not write to PostgreSQL.
 
 The webapp must be running with a Voyage API key:
 
@@ -147,13 +168,13 @@ $ export SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY="pa-..."
 Generate the sidecars first, then the embeddings:
 
 ```bash
-$ mise run generate-sidecars
-$ mise run generate-embeddings
-$ mise run generate-embeddings contents/single-document-texts/mr-phi
-$ mise run generate-sidecars contents/books
-$ mise run generate-embeddings contents/books
-$ mise run generate-embeddings --dry-run
-$ mise run generate-embeddings --force
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts
+$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts
+$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/books
+$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/books
+$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts --dry-run
+$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts --force
 ```
 
 The CLI calls `GET /api/v1/admin/embeddings` to read the document model and
@@ -198,9 +219,10 @@ skipped because their embeddings are current do not add to that total.
 By default, the command skips a document when the manifest and the binary header
 match the source hash, the provider, the model, the dimension and the embedding
 strategy. `--force` regenerates everything. Existing binary files without a
-`cost` block stay valid; run `mise run generate-embeddings --force` once to add
-the metadata to the whole corpus. `--dry-run` reports what would be embedded
-without generating vectors.
+`cost` block stay valid; run
+`sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts --force`
+once to add the metadata to the whole corpus. `--dry-run` reports what would be
+embedded without generating vectors.
 
 The embedding input is `heading_path + "\n\n" + text`. `text` stays the exact
 paragraph used for display and BM25.

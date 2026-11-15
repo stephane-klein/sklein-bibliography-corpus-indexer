@@ -120,6 +120,9 @@ importers:
       prettier-plugin-svelte:
         specifier: ~4.1.1
         version: 4.1.1(prettier@3.9.10)(svelte@5.57.3)
+      sklein-bibliography-corpus-rag-manager-cli:
+        specifier: workspace:*
+        version: link:packages/cli
       svelte:
         specifier: ~5.57.3
         version: 5.57.3
@@ -129,6 +132,18 @@ importers:
       vite:
         specifier: ~8.3.5
         version: 8.3.5(jiti@2.7.0)
+
+  packages/cli:
+    dependencies:
+      gpt-tokenizer:
+        specifier: ~4.1.1
+        version: 4.1.1
+      js-yaml:
+        specifier: ~5.5.0
+        version: 5.5.0
+      yargs:
+        specifier: ~18.2.0
+        version: 18.2.0
 
 packages:
 

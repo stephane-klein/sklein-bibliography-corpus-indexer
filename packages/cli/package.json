@@ -1,0 +1,37 @@
+{
+  "name": "sklein-bibliography-corpus-rag-manager-cli",
+  "version": "0.1.0",
+  "description": "Command-line client for the Sklein Bibliography Corpus RAG Manager",
+  "keywords": [
+    "bibliography",
+    "corpus",
+    "rag",
+    "embeddings",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "Stéphane Klein <contact@stephane-klein.info>",
+  "files": [
+    "src"
+  ],
+  "bin": {
+    "sklein-bibliography-corpus-rag-manager": "src/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephane-klein/sklein-bibliography-corpus-rag-manager.git",
+    "directory": "packages/cli"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "gpt-tokenizer": "~4.1.1",
+    "js-yaml": "~5.5.0",
+    "yargs": "~18.2.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
