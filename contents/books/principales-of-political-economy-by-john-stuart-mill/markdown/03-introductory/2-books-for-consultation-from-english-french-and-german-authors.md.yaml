@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/03-introductory/2-books-for-consultation-from-english-french-and-german-authors.md
-  source_file_hash: sha256:58f264db3a044e001255649508d85c7634968ee664d435a56ceba6e8c8d286fe
+  source_content_hash: sha256:67e3f22b1cf859cedb31016df3f7c1fed3170ee3f7dbd9b06629afa560144ee1
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

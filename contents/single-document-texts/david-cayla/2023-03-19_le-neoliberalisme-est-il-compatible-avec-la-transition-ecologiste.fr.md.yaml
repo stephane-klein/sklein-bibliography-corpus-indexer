@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-03-19_le-neoliberalisme-est-il-compatible-avec-la-transition-ecologiste.fr.md
-  source_file_hash: sha256:10ce6141e73e81f603f80cf542ec28672b6c7fb298d5cc162c26ffd77b00110e
+  source_content_hash: sha256:1541e3f43f7939fd49cfc9d98f8db5ab19d74ef3767469e8c9c2b48c861d33f5
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

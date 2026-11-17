@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
-  source_file_hash: sha256:69fd823317d966715e97b29b069ddaf7f367a0543bf46277b15e5e42b88225eb
+  source_content_hash: sha256:864cbfffc7a8e5efe7c392dffbf866cdc0cd0081f6184f71a2d337a6f811b767
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

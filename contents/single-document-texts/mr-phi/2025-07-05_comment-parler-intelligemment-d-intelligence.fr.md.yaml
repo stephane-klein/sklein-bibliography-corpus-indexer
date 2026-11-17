@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2025-07-05_comment-parler-intelligemment-d-intelligence.fr.md
-  source_file_hash: sha256:95ce563d33593926a5be9d8c204aa950fc882bb9012e2920e55613583757d9e1
+  source_content_hash: sha256:21be31792243a8f7edf0af2c11f61bfb12cea74fa46dd6fc52ff7ca2c5fdbef6
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

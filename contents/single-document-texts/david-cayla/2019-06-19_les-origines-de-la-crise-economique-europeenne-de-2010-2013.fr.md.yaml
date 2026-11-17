@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2019-06-19_les-origines-de-la-crise-economique-europeenne-de-2010-2013.fr.md
-  source_file_hash: sha256:fb42ae7be1f4f7ea1237a8fb53dc30931f7e1ad778e7b7d7dfe449461a6260ce
+  source_content_hash: sha256:729e5907a3174bd9e78404e8ae7ab575f40475de3300b5e83524d5d44f435125
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

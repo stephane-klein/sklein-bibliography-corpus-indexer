@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-10-25_le-paradoxe-de-bertrand-axiome-3-extraits.fr.md
-  source_file_hash: sha256:958239cc2de1b6a4efee82386c28875be8f7d1514e2d70436488239dfc5047bd
+  source_content_hash: sha256:fe8c482b2a1ed194893302f409f750e0b58fa755874aa00aae8dbb5b60f49c05
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

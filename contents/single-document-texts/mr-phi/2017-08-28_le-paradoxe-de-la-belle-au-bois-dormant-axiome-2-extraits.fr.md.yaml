@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-08-28_le-paradoxe-de-la-belle-au-bois-dormant-axiome-2-extraits.fr.md
-  source_file_hash: sha256:e6d67905d40cd474213f0766fe70ef4553b3f5ca59eeeccb05cf6b8a00f806f6
+  source_content_hash: sha256:3e6a49430fa944951df8863d0f92a2dbaf89a24ccb28a4dce240c67666ee1907
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/06-chapter-vi-of-causes-affecting-the-efficiency-of-production.md
-  source_file_hash: sha256:702afa50f19782a927174cb1012058de7da678828dfbd1910761ef70c86b4bbb
+  source_content_hash: sha256:a38f72dc9e28c80f836e12803c3345de7c3cfb9e2fed64f3a0c1939f9ff0bb17
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

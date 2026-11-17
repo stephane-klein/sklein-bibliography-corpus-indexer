@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/5-book-ii-of-the-nature-accumulation-and-employment-of-stock/4-chap-iii-of-the-accumulation-of-capital-or-of-productive-and-unproductive-labour.md
-  source_file_hash: sha256:2f918c20c61f710399b83c66d5ec0fd418716f3476626969cb1b96285f8c6077
+  source_content_hash: sha256:9f062b6310564c453aa226b70f7f779e4231ea8821a799dba8be57c57506bb1a
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

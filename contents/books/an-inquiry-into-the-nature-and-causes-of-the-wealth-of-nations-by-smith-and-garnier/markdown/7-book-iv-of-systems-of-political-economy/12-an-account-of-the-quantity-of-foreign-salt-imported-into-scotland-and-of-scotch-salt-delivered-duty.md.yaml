@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/12-an-account-of-the-quantity-of-foreign-salt-imported-into-scotland-and-of-scotch-salt-delivered-duty.md
-  source_file_hash: sha256:49b829fa24b7fb91e3b5967b339ca658899efae45e350b92381a57753506134e
+  source_content_hash: sha256:170153887adc7407aa6fe285360ae4f5701c97123f1d52a44bdecda546f74715
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-03-25_le-paradoxe-du-condamne-a-mort-pour-e-penser-une-seconde-fois-argument-frappant-4.fr.md
-  source_file_hash: sha256:d7e21b91a7f0fc667d7195859065c9e4265867bb39e34c2b58524262d4a5b051
+  source_content_hash: sha256:9c4f6cc08e4d73cf9304520d9009623d1c2412f952e7fb7e577e33cfb9b8905e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

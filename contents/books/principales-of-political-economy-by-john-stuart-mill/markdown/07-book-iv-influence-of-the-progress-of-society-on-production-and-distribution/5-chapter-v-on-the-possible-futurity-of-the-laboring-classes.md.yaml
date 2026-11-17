@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/07-book-iv-influence-of-the-progress-of-society-on-production-and-distribution/5-chapter-v-on-the-possible-futurity-of-the-laboring-classes.md
-  source_file_hash: sha256:572fa02e4f2c29843194cc022513e71f08b3f14496443ee63e145026082cfdb8
+  source_content_hash: sha256:7fddca32916381d52273c8afc34a81c5aa185fce7aaa01166011c78e527a623b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

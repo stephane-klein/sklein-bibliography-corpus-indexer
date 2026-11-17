@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-05-29_top-10-de-la-theorie-des-jeux-democratie-14.fr.md
-  source_file_hash: sha256:7408c0959c26b7e130d1bfacc8e070d5223983ccdc5fd9031fe14d95c9713a84
+  source_content_hash: sha256:50b32c7ac95a8e40892d826056e2bc959f1538caa99d1373fcdee30845794c21
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

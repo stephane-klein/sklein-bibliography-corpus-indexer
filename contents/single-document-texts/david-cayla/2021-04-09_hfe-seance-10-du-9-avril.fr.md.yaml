@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-04-09_hfe-seance-10-du-9-avril.fr.md
-  source_file_hash: sha256:0c20b5ca4d95664bcfa7af6db0130c70f84a9199b1f77650edf983dfc8a38dfc
+  source_content_hash: sha256:3bf113f1e3fe02696488fac2ae143abe4aebe84196f42ca293e1d08eed625466
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

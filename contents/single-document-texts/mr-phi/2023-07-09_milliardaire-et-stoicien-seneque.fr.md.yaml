@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2023-07-09_milliardaire-et-stoicien-seneque.fr.md
-  source_file_hash: sha256:0d5631c0818478aec0ea9c7e9e4c49a02d6056ea88ba7d4ac6aadcacf3abd712
+  source_content_hash: sha256:ce928d36b7e50035f2c50220ca960b444d9370e918f9dd2cf603a78058af4f2d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

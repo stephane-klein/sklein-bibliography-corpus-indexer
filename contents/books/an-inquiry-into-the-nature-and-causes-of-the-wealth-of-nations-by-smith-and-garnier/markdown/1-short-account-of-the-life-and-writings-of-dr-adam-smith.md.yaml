@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/1-short-account-of-the-life-and-writings-of-dr-adam-smith.md
-  source_file_hash: sha256:2a66d03eb3a758ab864e96b6edd1862bb89bc7d074596a5cf00ebc35fc645b2e
+  source_content_hash: sha256:11331381c3bd9f62b0412c9736e22b91fa308b54fee7f90160a69243045dc120
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

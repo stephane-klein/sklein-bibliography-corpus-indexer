@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/6-book-iii-of-the-different-progress-of-opulence-in-different-nations/3-chap-iii-of-the-rise-and-progress-of-cities-and-towns-after-the-fall-of-the-roman-empire.md
-  source_file_hash: sha256:6dae7ee5f311e85ec3d7f5c4ccdc3f7c2ec9922aa70bf4b9d1b5c59ea61292e8
+  source_content_hash: sha256:35f245382cee1ae46633e3abc7d8087bbdc61911907ba64fde2c2f10852bed6b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

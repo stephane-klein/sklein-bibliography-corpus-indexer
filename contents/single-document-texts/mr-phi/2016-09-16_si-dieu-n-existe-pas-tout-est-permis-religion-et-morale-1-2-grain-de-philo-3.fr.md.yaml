@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2016-09-16_si-dieu-n-existe-pas-tout-est-permis-religion-et-morale-1-2-grain-de-philo-3.fr.md
-  source_file_hash: sha256:aa9981ed02b964bd80054be8a0e4c0a48f753eaaff6848eb4cea844d94124545
+  source_content_hash: sha256:56201e9434a9b71bd1eae1c0fb9149f803a3478575650b4f2b0e62447e059353
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

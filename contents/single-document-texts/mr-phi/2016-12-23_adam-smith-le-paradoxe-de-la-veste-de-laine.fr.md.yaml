@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2016-12-23_adam-smith-le-paradoxe-de-la-veste-de-laine.fr.md
-  source_file_hash: sha256:f4d33442d637d1d95c92c195738c9b1aa5e55e366b09b4598e9ca7ca69d0988b
+  source_content_hash: sha256:d19965f7d5f6cd9034dff805f2b4d22d6c87de4e657cb011e618c22fd5a5249e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

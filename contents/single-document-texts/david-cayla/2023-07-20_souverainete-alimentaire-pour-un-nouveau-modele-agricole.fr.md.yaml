@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-07-20_souverainete-alimentaire-pour-un-nouveau-modele-agricole.fr.md
-  source_file_hash: sha256:fdcc2987b5c5699d1a4681cd9c309313bcb5eae92beb8f378f0df7b95b952625
+  source_content_hash: sha256:4f4f00d105c3f850881d34bfdf249263f2bffb25d14acddcbeddb3d506d9c85c
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

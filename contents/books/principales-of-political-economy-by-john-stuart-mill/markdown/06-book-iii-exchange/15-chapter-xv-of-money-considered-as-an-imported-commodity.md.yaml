@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/15-chapter-xv-of-money-considered-as-an-imported-commodity.md
-  source_file_hash: sha256:2810e0dac529dac53a7b585ad16eb71bce3892fc06fb141cabb161815ed5f822
+  source_content_hash: sha256:b45c02b6de8bcedebf7674cb34edac0cde306013c56be2af3522eabebb0fb95a
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

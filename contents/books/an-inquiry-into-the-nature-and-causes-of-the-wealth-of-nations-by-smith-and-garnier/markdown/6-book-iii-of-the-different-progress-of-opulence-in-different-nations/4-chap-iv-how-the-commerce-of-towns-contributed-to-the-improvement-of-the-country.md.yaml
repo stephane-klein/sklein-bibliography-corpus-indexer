@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/6-book-iii-of-the-different-progress-of-opulence-in-different-nations/4-chap-iv-how-the-commerce-of-towns-contributed-to-the-improvement-of-the-country.md
-  source_file_hash: sha256:d1a974814d1d17fe633a0ae8e342349c957d6b29b69002fb0879ef3ead847eb9
+  source_content_hash: sha256:a61eabde4d793c05a5ecbcb2c39f042d0645eca055b000ca9def1fe006bfe5f5
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

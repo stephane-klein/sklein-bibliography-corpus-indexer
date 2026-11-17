@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2020-10-01_est-on-libre-de-se-soigner-quand-on-n-en-a-pas-les-moyens.fr.md
-  source_file_hash: sha256:d7addb2505b172563d172dca9a994da9b8eac57caca91f0a64257a784076b088
+  source_content_hash: sha256:3fb66ba106a75db1e8795f0541edc5c6fe5caf58e7d14a11622969d167b9ab9e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/3-introduction-and-plan-of-the-work.md
-  source_file_hash: sha256:13d5ed6d78df838c51b79d243055411316167b698dc8994a3c903e02e1ed375b
+  source_content_hash: sha256:64fe07cca2e6fab2654b8415f84bab9b2015dc8bf3bd6ea66bfa495716ad2be6
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

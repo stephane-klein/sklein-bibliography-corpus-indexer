@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2019-11-19_l-eugenisme-liberal-grain-de-philo-32.fr.md
-  source_file_hash: sha256:9655f55607e7157766c65385ce6c3b841c2fc05e62fd2107847ce42c3a096eb1
+  source_content_hash: sha256:e53b34117aa712d8d15361239b37429e8018b63f78d087e1429f44139ee591a9
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

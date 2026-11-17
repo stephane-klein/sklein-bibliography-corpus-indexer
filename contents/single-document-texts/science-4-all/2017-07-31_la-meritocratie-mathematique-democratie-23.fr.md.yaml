@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-07-31_la-meritocratie-mathematique-democratie-23.fr.md
-  source_file_hash: sha256:5e6146d0d20b1618f8498d95eaedf85a8a3f07a10b4047ff7d1aaacb6931d93a
+  source_content_hash: sha256:61252e6c7c5507084b0dd7330e329aeeef862118f5f10bd7303e8ae061542be8
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-08-04_nietzsche-la-morale-des-winners-genealogie-de-la-morale-1-2.fr.md
-  source_file_hash: sha256:559e602738da20339eaced31e64bf3c343fc3219fd9deea0e16d11ddc008c6fc
+  source_content_hash: sha256:0f8da7d707915a443f36b1ca12c0f2ced53f8cc6220d2ddc5555deaa913ca266
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

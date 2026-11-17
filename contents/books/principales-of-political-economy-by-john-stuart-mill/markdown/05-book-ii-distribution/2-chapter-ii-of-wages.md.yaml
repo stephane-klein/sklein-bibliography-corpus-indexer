@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/05-book-ii-distribution/2-chapter-ii-of-wages.md
-  source_file_hash: sha256:31fb5b47f16325ddbae163e2697cbf2be4ee2fc23f2bbc7973b69674c85b1813
+  source_content_hash: sha256:d2cc560011e274a689d97265a115d1cda3846805cd25386535bb5416dc93895b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

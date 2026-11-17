@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/05-book-ii-distribution/5-chapter-v-of-profits.md
-  source_file_hash: sha256:d9e2c548708ad1a6a89865f4ee83fd5ba087858d4a51d8d8f57622c031c08955
+  source_content_hash: sha256:f0c17d0475a171a5496e521be1a3c291cf71434fd9f414a23096e789ce31fd8f
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

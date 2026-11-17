@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/01-introduction.md
-  source_file_hash: sha256:3c8a849009acef529544d7a8a15b67f652d271f8c051fafd65eb2a16a80bba26
+  source_content_hash: sha256:b6ed5b7faa5dd4df1b5af82c2a1ccdc1f46d1e9fb8307ea5268edff9cc581d72
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

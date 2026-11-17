@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/5-book-ii-of-the-nature-accumulation-and-employment-of-stock/6-chap-v-of-the-different-employments-of-capitals.md
-  source_file_hash: sha256:1ca782ace516b2d97483e785ea0f1ef5ccc23386333cd87283e6711b3356d404
+  source_content_hash: sha256:d3497041b6047951d80b82e69d56075a0dd9d59907ddedfe0b9a4365c95f05cb
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

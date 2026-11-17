@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2016-08-04_philosophie-onanisme-intellectuel-2-2-un-residu-de-questions-insolubles-grain-de-philo-1.fr.md
-  source_file_hash: sha256:5889cea11ad46d4ba96eb4598b23065f9e2efaa86ed9ede55b70f48cea8bd9bc
+  source_content_hash: sha256:b759b4ccf9f0fd4a4427c83613df0f6f3c3210c7cb7b8ab659a30816b32fed02
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

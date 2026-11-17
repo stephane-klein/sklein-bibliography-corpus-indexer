@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/4-book-i-of-the-causes-of-improvement-in-the-productive-powers-of-labour-and-of-the-order-according/03-chap-iii-that-the-division-of-labour-is-limited-by-the-extent-of-the-market.md
-  source_file_hash: sha256:c714ab6f1a3a8cee140aad01cfb94544b101a55d8c205d8adec1ea7aca10e809
+  source_content_hash: sha256:e1577c059039e216c2c07dce1995b8a953790e5a7db956c9cc0c2e258256d235
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

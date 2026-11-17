@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/05-chap-iv-of-drawbacks.md
-  source_file_hash: sha256:73e62a3b379a9e4d80fea320b34e27fe9f79ca0567b248748797c4123c9de0b5
+  source_content_hash: sha256:7e041a61546e345fd257781a2a990cce7ca59a07c2c65426812180fad6a616b9
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

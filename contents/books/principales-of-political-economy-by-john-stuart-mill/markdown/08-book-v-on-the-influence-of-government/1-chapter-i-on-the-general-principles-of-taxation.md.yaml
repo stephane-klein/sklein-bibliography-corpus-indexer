@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/08-book-v-on-the-influence-of-government/1-chapter-i-on-the-general-principles-of-taxation.md
-  source_file_hash: sha256:1dcfb9f91738e1272e817b0697cc0f4fff1e64a9f24b5bba3a82da54a3cb5844
+  source_content_hash: sha256:f019be2a1a542c3374c85912ae99513e2f4b54b49a3b749faa870d66375a2056
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

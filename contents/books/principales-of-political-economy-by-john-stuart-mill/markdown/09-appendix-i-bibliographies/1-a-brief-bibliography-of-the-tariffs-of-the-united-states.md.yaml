@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/09-appendix-i-bibliographies/1-a-brief-bibliography-of-the-tariffs-of-the-united-states.md
-  source_file_hash: sha256:38621e5fce77de1092d5bf787faee816a017943d06ca39606b17e5f08e7f6f26
+  source_content_hash: sha256:6e390cca5a4563dde1b37c051dfd3738400148008fb9fcb793603c01a1f44a63
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

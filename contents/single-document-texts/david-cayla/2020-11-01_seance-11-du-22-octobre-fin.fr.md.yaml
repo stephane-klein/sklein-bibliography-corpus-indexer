@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-11-01_seance-11-du-22-octobre-fin.fr.md
-  source_file_hash: sha256:ce80d65eabe569f2a138753a4c7d599f7d4e74490a781ff98cb12bd47a8a1fde
+  source_content_hash: sha256:a65e3d6fdc61189bfab2aa678d4c077cd3f64577936311c1d3d26dbc0e9af371
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

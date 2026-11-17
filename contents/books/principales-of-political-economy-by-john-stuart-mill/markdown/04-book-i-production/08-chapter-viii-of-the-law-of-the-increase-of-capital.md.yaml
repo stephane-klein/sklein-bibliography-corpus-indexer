@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/08-chapter-viii-of-the-law-of-the-increase-of-capital.md
-  source_file_hash: sha256:2050e43ec6d63ea1303033f90cc8088adb531b53dfae9313cb20d18b1ba9921b
+  source_content_hash: sha256:e331f8d973aaa2060fa6196f8a97ee00d995938b83d23bf6642c6071a1f98935
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

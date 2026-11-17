@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-02-12_histoire-des-faits-economique-seance-3-du-12-fevrier.fr.md
-  source_file_hash: sha256:313e18c9d53441c0b84383d55dd5c38b33eb40dcd03552084d7991ba707c7411
+  source_content_hash: sha256:fff975ccb09e6940d57eb358f6e5b16b2af8f49691d8a78d1633ddfd57d43a96
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

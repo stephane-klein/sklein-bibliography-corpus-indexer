@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/13-chapter-xiii-of-international-trade.md
-  source_file_hash: sha256:2c382e3aecb20343ac33c7c918a28b378053a7b438e08974a9e09128a21b2bda
+  source_content_hash: sha256:16166ade1a5f13ee793682bbab236ef0dfaff5d72544c50e0d03d1de1d884d3a
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

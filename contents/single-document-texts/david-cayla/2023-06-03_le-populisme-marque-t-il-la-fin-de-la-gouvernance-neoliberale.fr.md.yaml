@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-06-03_le-populisme-marque-t-il-la-fin-de-la-gouvernance-neoliberale.fr.md
-  source_file_hash: sha256:a263d1dd708b5c1d1cb9ff3a070fc6cb5a6b5d178ec75cf53b9ba7df454ad7b3
+  source_content_hash: sha256:22245af876921f5e1e226ff9291d49bb499716107f04334138b791209d668bbd
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

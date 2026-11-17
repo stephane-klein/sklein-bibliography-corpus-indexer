@@ -12,17 +12,19 @@ contents/
 └── books/                   # one directory per book, with toc.yaml and markdown/
 ```
 
-Four subcommands work on that tree:
+Five subcommands work on that tree:
 
 | Command                   | What it does                                                                            | Needs the webapp |
 | ------------------------- | --------------------------------------------------------------------------------------- | ---------------- |
 | `generate-sidecars`       | Splits each Markdown file into chunks and writes a `.md.yaml` sidecar next to it        | no               |
 | `generate-embeddings`     | Asks the webapp for vectors and writes a `.md.embeddings.bin` file next to each sidecar | yes              |
+| `migrate-corpus`          | Rewrites sidecars and headers to schema 2, without re-chunking or re-embedding          | no               |
 | `import-single-documents` | Imports standalone documents and their chunk embeddings                                 | yes              |
 | `import-books`            | Imports books, their hierarchy and their chunk embeddings                               | yes              |
 
 A typical run is `generate-sidecars`, `generate-embeddings`, then one of the two
-import commands.
+import commands. When you upgrade from version 0.1.x, run `migrate-corpus` once
+before the others.
 
 ## Requirements
 
@@ -80,6 +82,7 @@ Each command applies its own rule:
 | ------------------------- | ------------------------------------------------------------------------------------------------ |
 | `generate-sidecars`       | `single-document-texts/`, `books/`, or `contents/` for both                                      |
 | `generate-embeddings`     | same                                                                                             |
+| `migrate-corpus`          | same                                                                                             |
 | `import-books`            | `books/`, or `contents/` which means `books/`                                                    |
 | `import-single-documents` | anything inside `contents/` except `books/`, or `contents/` which means `single-document-texts/` |
 
@@ -125,7 +128,18 @@ $ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/books --fo
 
 `--dry-run` reports what would be written. `--force` regenerates every sidecar.
 Without `--force`, a sidecar is skipped when its manifest still matches the
-source hash, the schema version, the tokenizer, the threshold and the splitter.
+chunking content hash, the schema version, the tokenizer, the threshold and the
+splitter.
+
+The manifest stores `source_content_hash`, the sha256 of `rootTitle + "\n" + body`.
+It does not hash the file bytes, so editing the frontmatter does not re-chunk the
+document. A renamed folder only refreshes `source_file`: the chunks and the
+embedding fields are kept, and `generate-embeddings` has nothing to do.
+
+A sidecar written with `schema_version: 1` is refused, because regenerating it
+would drop its embedding fields and force a paid re-embedding. Run
+`migrate-corpus` first, or pass `--force` when you really want to re-chunk and
+re-embed it.
 
 ### `generate-embeddings <path>`
 
@@ -145,8 +159,34 @@ Voyage or OpenAI API key stays on the server. The final log line reports the
 number of tokens and the total list-price cost.
 
 Without `--force`, a document is skipped when its manifest and binary header
-match the source hash, the provider, the model, the dimension and the embedding
-strategy.
+match the chunks hash, the provider, the model, the dimension and the embedding
+strategy. The chunks hash is the sha256 of the embedding inputs, so a log with
+`skipped` means no vector was requested from the webapp.
+
+### `migrate-corpus <path>`
+
+Rewrites the `.md.yaml` manifests and the `.md.embeddings.bin` headers from
+schema 1 to schema 2. The chunks and the vectors are copied as they are: the
+command never calls the webapp and never spends an embedding token.
+
+```sh
+$ sklein-bibliography-corpus-rag-manager migrate-corpus ./contents --dry-run
+$ sklein-bibliography-corpus-rag-manager migrate-corpus ./contents
+```
+
+The manifest replaces `source_file_hash` with `source_content_hash` and bumps
+`schema_version` to 2. The binary header replaces `source_file_hash` with
+`source_content_chunks_hash` and bumps `format_version` to 2. The vectors are
+copied byte for byte, so the migration cannot change a query result.
+
+A schema 1 sidecar is migrated only when its `source_file_hash` still matches
+the Markdown file. Otherwise the sidecar was already stale before the migration,
+and the command reports it and exits with `1`: run `generate-sidecars --force`
+on that file, then `generate-embeddings`.
+
+Running the command twice is safe: the second run reports `already` and writes
+nothing. This command is unrelated to the `pnpm migrate` of the webapp, which
+migrates the PostgreSQL schema.
 
 ### `import-single-documents <path>`
 

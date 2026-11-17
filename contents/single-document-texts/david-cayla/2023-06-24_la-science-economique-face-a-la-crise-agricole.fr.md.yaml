@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-06-24_la-science-economique-face-a-la-crise-agricole.fr.md
-  source_file_hash: sha256:4ef291bba562df0d29027ac81a3e24e9cfc972a123222df1be4d3eb698a47bdb
+  source_content_hash: sha256:fead124292f5789bedc6aaca649053b6b5c885826450ff36eb00d2cffa809c0b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

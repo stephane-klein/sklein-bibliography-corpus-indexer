@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-10-09_wikipedia-et-l-epistocratie-democratie-31-ft-adrien-coffinet.fr.md
-  source_file_hash: sha256:7cad05e160d9e7812e5332e65d8c84f2685b40eb8a0dd19d23afe3ede038b41a
+  source_content_hash: sha256:5cc4fe0d97ce3ad250aeefb99f556a611229cf726e8c9397f6b0815137b0e73e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

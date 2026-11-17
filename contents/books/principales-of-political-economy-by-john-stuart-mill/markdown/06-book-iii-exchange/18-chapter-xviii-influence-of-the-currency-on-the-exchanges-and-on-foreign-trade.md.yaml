@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/18-chapter-xviii-influence-of-the-currency-on-the-exchanges-and-on-foreign-trade.md
-  source_file_hash: sha256:b22bb9ae1690b676a75a251e40ee1b299b5352d90a467efe1144f310b36e0917
+  source_content_hash: sha256:3477e893320768fe384103891c14c6203dd57da58e4d4399cff1351fbeb47752
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

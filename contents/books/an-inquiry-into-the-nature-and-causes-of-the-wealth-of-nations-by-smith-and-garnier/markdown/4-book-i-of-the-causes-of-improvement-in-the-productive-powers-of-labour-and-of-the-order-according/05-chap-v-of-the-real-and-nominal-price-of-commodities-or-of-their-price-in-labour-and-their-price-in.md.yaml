@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/4-book-i-of-the-causes-of-improvement-in-the-productive-powers-of-labour-and-of-the-order-according/05-chap-v-of-the-real-and-nominal-price-of-commodities-or-of-their-price-in-labour-and-their-price-in.md
-  source_file_hash: sha256:3c42c53ca1416258603c6a623269bee81aaf688128836bc089f7cefc4d3c2b06
+  source_content_hash: sha256:1e4d8b3cfca343b09794a6be2cc62d9c5f8907ae9af636d4693be30bc03e115d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

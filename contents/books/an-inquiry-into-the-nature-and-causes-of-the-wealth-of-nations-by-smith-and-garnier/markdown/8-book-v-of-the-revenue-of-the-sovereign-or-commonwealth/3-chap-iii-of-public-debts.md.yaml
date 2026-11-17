@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/8-book-v-of-the-revenue-of-the-sovereign-or-commonwealth/3-chap-iii-of-public-debts.md
-  source_file_hash: sha256:2058f1ed603ea5503c7b9927f6f8bfd64c94b009e0ee0323b24ced6633ef7072
+  source_content_hash: sha256:c1e588aa14081979c6a1b85adce96e79520588045dd36605d243d5456b6987b3
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

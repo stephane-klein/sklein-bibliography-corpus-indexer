@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/4-book-i-of-the-causes-of-improvement-in-the-productive-powers-of-labour-and-of-the-order-according/10-chap-x-of-wages-and-profit-in-the-different-employments-of-labour-and-stock.md
-  source_file_hash: sha256:f9e581f15dcf0f84761eb369bc215d0e735ba6aaa96a815597ea7cbdcad01f61
+  source_content_hash: sha256:de5a0451ddb766a4302061826f7691291d885cfd99e0bf8bbe8321adfcb6d95a
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

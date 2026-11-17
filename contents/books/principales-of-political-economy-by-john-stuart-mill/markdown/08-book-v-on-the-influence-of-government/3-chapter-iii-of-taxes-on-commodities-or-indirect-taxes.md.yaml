@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/08-book-v-on-the-influence-of-government/3-chapter-iii-of-taxes-on-commodities-or-indirect-taxes.md
-  source_file_hash: sha256:acee7783223c7bb4cc412b81d5f299d30f77e3deaaa5ffde71025b0e5ad9a50c
+  source_content_hash: sha256:89b8da1b82a0a11e41590fc6a6908f6a6782740fea2fa1526e3e42a31ea7ee82
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

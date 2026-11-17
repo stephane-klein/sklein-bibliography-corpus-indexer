@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/4-book-i-of-the-causes-of-improvement-in-the-productive-powers-of-labour-and-of-the-order-according/01-chap-i-of-the-division-of-labour.md
-  source_file_hash: sha256:e26265d55a29b50812bd40c8cab217df88520b969806668fa47731192dcd89e1
+  source_content_hash: sha256:6a57da03a671d2786c7b2e729a90b1062ea778e3d1f2789c58eb00cbd574571e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

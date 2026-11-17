@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/10-chapter-x-consequences-of-the-foregoing-laws.md
-  source_file_hash: sha256:574587a833846be9b95055ce0bfcfab09ff1058fa308ee07bd70838c5a3100ad
+  source_content_hash: sha256:3f5a8df5cd6b1954073d9830583f4a9ba2cf6238dfdba93d5911712c63e32d90
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

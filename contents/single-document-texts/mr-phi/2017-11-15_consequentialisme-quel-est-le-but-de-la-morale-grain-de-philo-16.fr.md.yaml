@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-11-15_consequentialisme-quel-est-le-but-de-la-morale-grain-de-philo-16.fr.md
-  source_file_hash: sha256:03f262b28b7f57c970ae1d3251a45cd9f9e61d3f725d67a4a1faaa51b34fd1a0
+  source_content_hash: sha256:e90caa573721f2ad1a6dbebd544a5b9eeaf855d2acdbdfb920d0b5affbecf51d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

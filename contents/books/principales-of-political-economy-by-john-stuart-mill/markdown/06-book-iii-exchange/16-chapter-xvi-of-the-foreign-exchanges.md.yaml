@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/16-chapter-xvi-of-the-foreign-exchanges.md
-  source_file_hash: sha256:c5269f62bd4801dcacbb288a3f093f4ee6373ee0fca0a69c0ee91b8fbb4af792
+  source_content_hash: sha256:8336f30a2437f3d5a9bb9c79920ee2846b78166a1fdd62b039aab8eae4148ece
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

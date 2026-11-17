@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-02-26_hfe-seance-5-du-26-fevrier.fr.md
-  source_file_hash: sha256:3846c238df44d891440fb3fc27f73151ee3a62bb062b990cd264039f3c617c4a
+  source_content_hash: sha256:9d8da7d2f0e6e32a84091a87be5e1df55b716fa198773025525c0b55b65621e8
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

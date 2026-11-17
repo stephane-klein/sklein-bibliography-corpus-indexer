@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/5-book-ii-of-the-nature-accumulation-and-employment-of-stock/1-introduction.md
-  source_file_hash: sha256:b43acde812e18a3c9565e651a29eba21e9e450fe5cc822998c2c30b5e4b4c240
+  source_content_hash: sha256:221bc3f5d363d19341569c356d306bbe60fee028451a073cbdedbb2a13496620
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

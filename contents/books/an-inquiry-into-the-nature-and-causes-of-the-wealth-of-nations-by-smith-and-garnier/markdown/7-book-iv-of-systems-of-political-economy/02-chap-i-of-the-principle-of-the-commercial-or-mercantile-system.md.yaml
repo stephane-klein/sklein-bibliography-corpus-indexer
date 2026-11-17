@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/02-chap-i-of-the-principle-of-the-commercial-or-mercantile-system.md
-  source_file_hash: sha256:5140b6128cb43a13a3a26bca63ebe402b102c24832fdca3bfaa58eeb2080b934
+  source_content_hash: sha256:3b585d96bce48e6b40fc9f13b2237ccabf4e7a478185a87cf73dd6477e4bdd24
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-10-02_7-arguments-contre-la-democratie-democratie-30.fr.md
-  source_file_hash: sha256:e5e71e9d1d0db942f175c0bdc4c48a8215960fba9ef2d115259fe9065b6a5e4a
+  source_content_hash: sha256:9b50577f61845c839fc95e315367721c7e573b695f506a18021adc909469655c
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

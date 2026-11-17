@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-07-02_le-principe-de-condorcet-2-2-macron-a-t-il-ete-mal-elu-grain-de-philo-9.fr.md
-  source_file_hash: sha256:11ff5ea41d93704d433a60fdc413809d31d25d1ef5769067a2538bc337c24bb7
+  source_content_hash: sha256:a26f4b85b7192ddd38bda35121167e13bcc5174a351a4a0b3c4245c5c214d1f4
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

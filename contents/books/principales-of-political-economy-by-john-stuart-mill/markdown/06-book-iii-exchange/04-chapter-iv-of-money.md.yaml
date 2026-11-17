@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/04-chapter-iv-of-money.md
-  source_file_hash: sha256:7d9c17492d225288ebaecdf264f1888f8e6c29c421a9c6be32a127dd3a821694
+  source_content_hash: sha256:ce47b2c9a54c58b10d0240069e3dbfd0a28f756c7f4b47abad0272d646735d3b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

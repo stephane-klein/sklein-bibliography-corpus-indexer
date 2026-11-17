@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-02-05_histoire-des-faits-economiques-seance-2-du-5-fevrier.fr.md
-  source_file_hash: sha256:972c95b62a4d402cb5247647b845d57f2be277516d2f3708d6d08dc0fc2b0231
+  source_content_hash: sha256:7d9f49f49ecbf071fd1776facb637706bce7661f034ad99839ec9c3df73846de
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

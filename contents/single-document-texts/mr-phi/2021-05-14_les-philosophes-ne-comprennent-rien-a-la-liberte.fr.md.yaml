@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2021-05-14_les-philosophes-ne-comprennent-rien-a-la-liberte.fr.md
-  source_file_hash: sha256:f08d38282e8ed01241d49fb51c5c81affd6eeb26b637de1cc82038d98f9d7938
+  source_content_hash: sha256:c2e52e862e4738060a6d9a65d302d6e9bab95a4b5a498bbac15b9a271bab25fe
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

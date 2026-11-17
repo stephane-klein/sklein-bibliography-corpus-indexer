@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-12-03_seance-20-jeudi-3-decembre.fr.md
-  source_file_hash: sha256:7d660befc9615a6196daa27b3541cfce0b4bc1abfbd77dae662db823975552da
+  source_content_hash: sha256:dc4771b0d99971750384031f86c4f3155b54aafccef45a28bc690d9d44859a25
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

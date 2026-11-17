@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-08-05_inflation-pouvoir-d-achat-surprofits-quelles-reponses-politiques.fr.md
-  source_file_hash: sha256:00c7702faf2bde3a58088357634f180bb4f13ad5251196431e7614c5d3d18f2c
+  source_content_hash: sha256:aed9cf7bec36b637d571eff4ba7eea7805828d48fbb41d053f182e9f1c645d77
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

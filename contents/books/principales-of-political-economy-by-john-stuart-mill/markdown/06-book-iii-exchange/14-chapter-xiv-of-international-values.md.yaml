@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/14-chapter-xiv-of-international-values.md
-  source_file_hash: sha256:f55c910a08fa932fa94aaf08a7b1880e4e975fc8f3c27bce3a4dd5762d4ddcc7
+  source_content_hash: sha256:b206640c7b9e38391f9356a9aff08dd32385a726e9f61fa3d813ae9def69ea23
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

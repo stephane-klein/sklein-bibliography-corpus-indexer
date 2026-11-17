@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/07-book-iv-influence-of-the-progress-of-society-on-production-and-distribution/4-chapter-iv-consequences-of-the-tendency-of-profits-to-a-minimum-and-the-stationary-state.md
-  source_file_hash: sha256:177ce5dea5b2aa6c050475af14c132a4f8afb15c73c95daa8679772ef9027262
+  source_content_hash: sha256:73b8d66f161cf2ffcedd3df8c6e0d4621091b645be53663a350ff7020c44c245
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

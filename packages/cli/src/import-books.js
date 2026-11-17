@@ -8,6 +8,7 @@ import { collectionRoot, resolveTarget } from "./context.js";
 import { buildChunkSyncPayload, hasEmbeddingSidecar, readEmbeddingSidecar } from "./embedding-import.js";
 import { logger } from "./logger.js";
 import { normalizeAuthors, normalizeOriginalPublishedDate } from "./markdown.js";
+import { contentHashOf } from "./sidecar.js";
 
 const MAX_UPSERT_ITEMS = 500;
 
@@ -185,7 +186,11 @@ async function importBookEmbeddings({ api, nodes, bookDir, bookDirName, dryRun, 
         }
 
         const sourceFileHash = `sha256:${createHash("sha256").update(node.file.raw).digest("hex")}`;
-        const { manifest, chunks, embeddings } = await readEmbeddingSidecar(absolutePath, sourceFile, sourceFileHash);
+        const { manifest, chunks, embeddings } = await readEmbeddingSidecar({
+            sourcePath: absolutePath,
+            relativeToContents: sourceFile,
+            expectedContentHash: contentHashOf(node.metadata.breadcrumb.join(" > "), node.file.body),
+        });
 
         if (dryRun) {
             counts.imported += 1;
@@ -197,7 +202,7 @@ async function importBookEmbeddings({ api, nodes, bookDir, bookDirName, dryRun, 
         const result = await sendSyncRequest(
             api,
             "/api/v1/admin/hierarchical-content-chunks/sync",
-            buildChunkSyncPayload({ manifest, chunks, embeddings, dryRun: false }),
+            buildChunkSyncPayload({ manifest, chunks, embeddings, sourceFileHash, dryRun: false }),
         );
 
         if (result.unchanged) {

@@ -1,7 +1,8 @@
 import { readFile, rename, unlink, writeFile } from "node:fs/promises";
 
-const FORMAT = "float32le";
-const FORMAT_VERSION = 1;
+export const FORMAT = "float32le";
+export const FORMAT_VERSION = 2;
+
 const FLOAT_BYTES = 4;
 
 export async function readEmbeddingsFile(filePath) {
@@ -9,7 +10,10 @@ export async function readEmbeddingsFile(filePath) {
 }
 
 export async function writeEmbeddingsFile(filePath, { header, embeddings }) {
-    const content = encodeEmbeddingsFile({ header, embeddings });
+    await writeEmbeddingsBuffer(filePath, encodeEmbeddingsFile({ header, embeddings }));
+}
+
+export async function writeEmbeddingsBuffer(filePath, content) {
     const temporaryPath = `${filePath}.${process.pid}.tmp`;
 
     try {
@@ -43,16 +47,23 @@ export function encodeEmbeddingsFile({ header, embeddings }) {
     return buffer;
 }
 
-export function decodeEmbeddingsFile(buffer) {
+export function splitEmbeddingsFile(buffer) {
     const headerEnd = buffer.indexOf(0x0a);
 
     if (headerEnd === -1) {
         throw new Error("Embeddings file has no header line");
     }
 
-    const header = validateHeader(JSON.parse(buffer.subarray(0, headerEnd).toString("utf8")));
+    return {
+        header: JSON.parse(buffer.subarray(0, headerEnd).toString("utf8")),
+        payload: buffer.subarray(headerEnd + 1),
+    };
+}
+
+export function decodeEmbeddingsFile(buffer) {
+    const { header: rawHeader, payload } = splitEmbeddingsFile(buffer);
+    const header = validateHeader(rawHeader);
     const expectedBytes = header.chunk_count * header.dimension * FLOAT_BYTES;
-    const payload = buffer.subarray(headerEnd + 1);
 
     if (payload.byteLength !== expectedBytes) {
         throw new Error(`Embeddings payload must be ${expectedBytes} bytes, got ${payload.byteLength}`);
@@ -75,7 +86,7 @@ export function decodeEmbeddingsFile(buffer) {
     };
 }
 
-function validateHeader(header) {
+export function validateHeader(header) {
     if (!header || typeof header !== "object" || Array.isArray(header)) {
         throw new Error("Embeddings header must be an object");
     }
@@ -100,8 +111,11 @@ function validateHeader(header) {
         throw new Error("Embeddings header chunk_count must be a non-negative integer");
     }
 
-    if (typeof header.source_file_hash !== "string" || !/^sha256:[0-9a-f]{64}$/.test(header.source_file_hash)) {
-        throw new Error("Embeddings header source_file_hash must use the sha256:<64 hex> format");
+    if (
+        typeof header.source_content_chunks_hash !== "string" ||
+        !/^sha256:[0-9a-f]{64}$/.test(header.source_content_chunks_hash)
+    ) {
+        throw new Error("Embeddings header source_content_chunks_hash must use the sha256:<64 hex> format");
     }
 
     if (typeof header.input_format !== "string" || !header.input_format.trim()) {

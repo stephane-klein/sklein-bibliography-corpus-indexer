@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/09-appendix-i-bibliographies/3-a-brief-bibliography-of-american-shipping.md
-  source_file_hash: sha256:4ef87859064b4f062b3fde99281a7e3b7c16ec1be0aeefedcb5887a987d78371
+  source_content_hash: sha256:21ddeac1405ee44ccad1a5bdc3c0bb6197b18da72ea4fec9f1a6165be226fa44
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

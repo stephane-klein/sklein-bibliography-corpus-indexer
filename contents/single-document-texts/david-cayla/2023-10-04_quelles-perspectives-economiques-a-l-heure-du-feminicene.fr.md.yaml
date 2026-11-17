@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-10-04_quelles-perspectives-economiques-a-l-heure-du-feminicene.fr.md
-  source_file_hash: sha256:c3832ca4d62fba1628856ecf7b6db707e9253cca758a0757722b36d672d88894
+  source_content_hash: sha256:112e9c435ae54a43404ee58ee448e30e6181ae87f032306db843aea3cdf79979
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

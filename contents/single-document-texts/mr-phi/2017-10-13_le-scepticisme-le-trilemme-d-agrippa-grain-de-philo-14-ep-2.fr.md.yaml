@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-10-13_le-scepticisme-le-trilemme-d-agrippa-grain-de-philo-14-ep-2.fr.md
-  source_file_hash: sha256:f8f361e9e390b89c79bebea1bbb2b5f3657a481149d570a1f6f55285406b92ae
+  source_content_hash: sha256:c7498cc282d097bd47b9bb6e3be0599b491d4d11eacec661242700a23cb7428f
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-03-16_les-marches-financiers-la-titrisation-et-les-credit-subprimes.fr.md
-  source_file_hash: sha256:0dba74cd0f5ea09334d3a707fbdd6c71e5579a50a59c785fa9caea05474763f0
+  source_content_hash: sha256:2f2656206b3e4ee199152061a9877af1627905dd5764987850a41bb99f0a3060
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/09-chapter-ix-of-the-law-of-the-increase-of-production-from-land.md
-  source_file_hash: sha256:ea7344737df99cac12cbe8740884a9a1a5334e19df06e930f11835d3868172a0
+  source_content_hash: sha256:22b85e387acec137d3226f612b0b3a387d203e6c0d71d9d1c99550643b3a9015
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

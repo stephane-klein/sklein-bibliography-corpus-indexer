@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-11-26_seance-18-du-jeudi-26-novembre.fr.md
-  source_file_hash: sha256:b2286a02efc30300dbf713323fbf46e230516e7231b8b4b38ed963df757591d3
+  source_content_hash: sha256:1092bdeef832260c91805ff8ef0aa460fd78c14fac99156c6bec0aebe358804b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

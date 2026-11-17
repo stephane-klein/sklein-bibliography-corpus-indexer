@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2020-09-06_un-peuple-qui-sacrifie-un-peu-de-liberte-pour-un-peu-de-securite.fr.md
-  source_file_hash: sha256:0ad9d5096964989aa4087ee076e18d069cbd145f3c2ffef1d5cd8ab90a9e404e
+  source_content_hash: sha256:bc4241b3d7eed6370a4fd75f8df6666882afcccf63f837e66dc221efdc873083
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

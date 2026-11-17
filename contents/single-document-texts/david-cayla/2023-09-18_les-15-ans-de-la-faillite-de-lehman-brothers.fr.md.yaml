@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-09-18_les-15-ans-de-la-faillite-de-lehman-brothers.fr.md
-  source_file_hash: sha256:3d652c1954ecf368304914e670ed67e3809c5ae9ca1d5f2d37b69cb7c26376a7
+  source_content_hash: sha256:499f3befc27fe50036df934d8b9be78a2d91eb2f53781e2d634a2acd1b6374da
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2016-10-16_le-droit-a-l-avortement-l-argument-du-violoniste-j-j-thomson-argument-frappant-2.fr.md
-  source_file_hash: sha256:750372aa58eb7700acd8b8f3ff96f3d589cd00239366b8dc7f06b1d603e0a3d4
+  source_content_hash: sha256:80725b8c4ff9d9b7029c263cb008deee787db1fccf81dd2efb4c9fb24bc48ac8
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

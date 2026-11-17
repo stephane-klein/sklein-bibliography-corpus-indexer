@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-12-17_seance-11-debut-enregistree-le-17-decembre.fr.md
-  source_file_hash: sha256:09187e69a9e43685c2cf0cec4816b232f8f0c3ec0918e0d1d587117a1adcb6de
+  source_content_hash: sha256:1709dcbc9db8060d947c3a9c8d7a162df4790e07b7574f0eaeb9dceb3ea9c2f7
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

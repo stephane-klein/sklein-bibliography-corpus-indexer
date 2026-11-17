@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-10-06_comment-demontrer-n-importe-quoi-grain-de-philo-14-ep-1.fr.md
-  source_file_hash: sha256:432c4cc4ddaace139b99f2907befc2ad2f14d8267e6aadbfd72c4ff38397e1bf
+  source_content_hash: sha256:3da73e5ece47242a1deeb47c6cd8d19338ef2fa071b0114d27c395abb7fe2090
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

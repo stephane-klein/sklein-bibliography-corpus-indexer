@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2020-01-31_la-philosophie-morale-dans-the-good-place-sans-spoiler.fr.md
-  source_file_hash: sha256:bcef9db69ce2a6653f0bfc8d0ffaa47cb138a357bd034cea0eca336f634a499f
+  source_content_hash: sha256:da0d54327e507ef9760fca4efc030667a844e7105212e694f7180b11ec1dc8e3
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

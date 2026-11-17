@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-04-06_le-paradoxe-du-condamne-a-mort-ep-2-argument-frappant-4.fr.md
-  source_file_hash: sha256:de702037e8aca40386a057197eac8b0ff9295fbd169aac3c663297ec60c0e93d
+  source_content_hash: sha256:7e3426cf8e59643044b46706998f478ad86c93e4324853abc3d0832364f8ccfa
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

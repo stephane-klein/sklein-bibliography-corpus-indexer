@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/04-chap-iii-of-the-extraordinary-restraints-upon-the-importation-of-goods-of-almost-all-kinds-from.md
-  source_file_hash: sha256:027c83b8cb8edb4b006ecb3fa063373ba8f26ac3b658ca8647a9e0add8f7c73d
+  source_content_hash: sha256:d9b1fd8fc09efb5f07af8a56233ce90e2693eb7530e222ea7b46b47344df8c8b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

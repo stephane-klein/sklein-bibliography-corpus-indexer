@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/05-book-ii-distribution/6-chapter-vi-of-rent.md
-  source_file_hash: sha256:24823bb1e0297755f5495211d09e4a0e5057856f341121cc030b566fb4815dbd
+  source_content_hash: sha256:439d57a76213a2cacd74d4504c6a3c7c1d17e55c702f1ec671f45a6df6054203
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

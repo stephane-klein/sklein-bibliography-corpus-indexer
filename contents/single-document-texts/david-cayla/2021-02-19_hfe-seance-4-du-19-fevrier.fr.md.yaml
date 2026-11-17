@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-02-19_hfe-seance-4-du-19-fevrier.fr.md
-  source_file_hash: sha256:5075c52d97c0474dbe6e5a655f1d662daa9d2f95e338d6911c6ea5f2c9d99873
+  source_content_hash: sha256:2914c8c359ea22247140fb8d21a1fe108253febd68a6e78850c4ab79a821bb42
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

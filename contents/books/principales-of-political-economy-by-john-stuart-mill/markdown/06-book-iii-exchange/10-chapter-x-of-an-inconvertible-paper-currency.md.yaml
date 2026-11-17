@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/10-chapter-x-of-an-inconvertible-paper-currency.md
-  source_file_hash: sha256:d06597f1ff23712448e81cf0ce0803b063432320d451d1051b5b3300a9d19a2e
+  source_content_hash: sha256:7831f2706e07766d7c4332f2464fb10698b85f241e5fc0b1c4383a3a11b8912b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

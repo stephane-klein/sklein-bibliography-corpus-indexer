@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/05-book-ii-distribution/1-chapter-i-of-property.md
-  source_file_hash: sha256:212a2f2c1d9c8c3b2ce73e0123955b05ee96865cf5d64678e807a77f20e804e8
+  source_content_hash: sha256:a356d7c3a9f1e36b75a0af9ef6028a69de68872da313b0763407837d9aa8ed3d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

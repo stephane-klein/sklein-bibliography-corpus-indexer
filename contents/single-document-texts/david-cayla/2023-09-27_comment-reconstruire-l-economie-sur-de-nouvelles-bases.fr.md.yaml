@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-09-27_comment-reconstruire-l-economie-sur-de-nouvelles-bases.fr.md
-  source_file_hash: sha256:94026f0ab0211dae8a3b54dfd6e9e85d62bd6119c1701a892d4445612726cbe2
+  source_content_hash: sha256:68d81f73d4b9d9839e33199f4db031d653a73366e1b330d2dd29476b7ec62d7e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

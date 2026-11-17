@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2018-07-12_qui-doit-gagner-la-coupe-du-monde-football-utilitarisme.fr.md
-  source_file_hash: sha256:bad8d57572c98b0cd6a042087280d342890f4a88613633934432d7a7bf2ccfd7
+  source_content_hash: sha256:7628b92e7789cea94cbd0fe8c105d3257d6473cdc42d4b9394c67ce54412149c
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

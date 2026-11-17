@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/03-introductory/1-a-sketch-of-the-history-of-political-economy.md
-  source_file_hash: sha256:cc1856a5a00662e56e60bdc69753f198150ae36e6a5fe421bbfe9882935198cf
+  source_content_hash: sha256:f6bc347ef484282322b95c0f8ef37a5d5126cf41c6fceb3a68f83d3d63b492fa
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

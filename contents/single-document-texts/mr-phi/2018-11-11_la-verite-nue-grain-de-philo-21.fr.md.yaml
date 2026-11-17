@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2018-11-11_la-verite-nue-grain-de-philo-21.fr.md
-  source_file_hash: sha256:9e04a1a9989443fb16eb6121b80ff1b234917ea0360e83e9c53c776412413f3e
+  source_content_hash: sha256:f177b16e9c195a32ab9bff58a803ef55b47070320f6ad357061f7b0186a8ac45
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

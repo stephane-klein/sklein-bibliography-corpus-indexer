@@ -9,6 +9,7 @@ const COLLECTION_ROOTS = {
 const POLICY = {
     "generate-sidecars": ["single-document", "book", "root"],
     "generate-embeddings": ["single-document", "book", "root"],
+    "migrate-corpus": ["single-document", "book", "root"],
     "import-books": ["book", "root"],
     "import-single-documents": ["single-document", "other", "root"],
 };

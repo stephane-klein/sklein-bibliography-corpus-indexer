@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-03-12_hfe-seance-6-du-12-mars.fr.md
-  source_file_hash: sha256:f140fd18c50e4ddf46544f9861f8151ccdd935a711e3739bab7755d8fb1a8a52
+  source_content_hash: sha256:d8d8005e3dcf652b255d3211521b768b637bae774cd956d8309f4b78b5192976
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

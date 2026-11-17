@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/4-book-i-of-the-causes-of-improvement-in-the-productive-powers-of-labour-and-of-the-order-according/11-chap-xi-of-the-rent-of-land.md
-  source_file_hash: sha256:8b2e61846e946a151211fa509cfb8e3ec88ec8f0887e39b45a4312e51a7d476e
+  source_content_hash: sha256:bf9121f4b859fa44adac75b7b2e27f3b8a9284c8f2e008f5c7e3fc71925d1193
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

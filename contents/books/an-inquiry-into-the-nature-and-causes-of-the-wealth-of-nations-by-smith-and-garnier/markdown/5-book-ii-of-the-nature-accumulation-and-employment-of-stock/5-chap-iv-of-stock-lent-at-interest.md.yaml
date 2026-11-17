@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/5-book-ii-of-the-nature-accumulation-and-employment-of-stock/5-chap-iv-of-stock-lent-at-interest.md
-  source_file_hash: sha256:a9dce3ec0350a36f3bcd5b78c0b3bde132b396dff6e886310c41c2837bda998e
+  source_content_hash: sha256:424bfa29466a902096e36b858baad38481f687607eab2313f2435149996e84e7
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

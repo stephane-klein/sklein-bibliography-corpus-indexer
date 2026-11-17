@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-09-22_encore-plus-utilitariste-argument-frappant-6-ep-2.fr.md
-  source_file_hash: sha256:a8eb1f929b6c610768db1dfa1ec13e9a185f44391251479bc24fb24ea22b7c3e
+  source_content_hash: sha256:5146e5624ce4380cae8c3f5ed6e805f0b2bab6c36dba1666b301d6660633a5ad
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

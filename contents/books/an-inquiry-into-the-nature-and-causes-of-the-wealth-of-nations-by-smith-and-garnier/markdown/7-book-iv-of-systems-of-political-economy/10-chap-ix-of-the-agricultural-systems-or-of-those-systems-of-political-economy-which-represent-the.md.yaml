@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/10-chap-ix-of-the-agricultural-systems-or-of-those-systems-of-political-economy-which-represent-the.md
-  source_file_hash: sha256:97180b5f8fcc40e993007e87d5a6221222610528c8bcf51af9c50446737b4d9c
+  source_content_hash: sha256:24a04c73d8875a5840c0c9343c2e96ce5fc22d210afaa599a4d266216462ede1
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

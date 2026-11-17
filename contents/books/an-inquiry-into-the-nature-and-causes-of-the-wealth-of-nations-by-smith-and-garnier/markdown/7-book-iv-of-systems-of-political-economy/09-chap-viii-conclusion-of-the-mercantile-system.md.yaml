@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/09-chap-viii-conclusion-of-the-mercantile-system.md
-  source_file_hash: sha256:0116d2b3ad5d68f5b71602c2782863cbd64de97e4a0324fe96358ba09bce8385
+  source_content_hash: sha256:2e8202e04ad08d8dfcd5d0cfb1d2b613550425cad6d72874c9f9a40e3c29bf9d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/06-chapter-vi-of-the-value-of-money-as-dependent-on-cost-of-production.md
-  source_file_hash: sha256:83a030b2587ba1743b6a6cac0c5547bb1b93a63b959f6a752bc900d98388269f
+  source_content_hash: sha256:a3f6ed94239130daf5de0b39c979f3304ecbf2431bad80b64fc6f24633a76531
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/08-book-v-on-the-influence-of-government/5-chapter-v-of-a-national-debt.md
-  source_file_hash: sha256:f0ee63575adabbb8c07b5c1ea9f5e3c1823b65a15b4200dec9f30c9825abbdb5
+  source_content_hash: sha256:e5ec344984ce87d24a59db690313d912f70354a0d31b385a85df983073bde440
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

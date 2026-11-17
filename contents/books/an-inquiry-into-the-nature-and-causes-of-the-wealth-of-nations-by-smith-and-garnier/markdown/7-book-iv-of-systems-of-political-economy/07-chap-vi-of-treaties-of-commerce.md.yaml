@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/07-chap-vi-of-treaties-of-commerce.md
-  source_file_hash: sha256:96c2f7821ada035ed016f3b06ee247c0b78d83c1a7184ad78befdb4ed2c8c22c
+  source_content_hash: sha256:c0c37a1e7772da454ecad0f2bef8bcbe54867bfa15814121a55171edb8dfe6db
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

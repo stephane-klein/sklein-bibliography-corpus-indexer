@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2016-12-07_la-loi-de-bayes-2-2-argument-frappant-3.fr.md
-  source_file_hash: sha256:c582ce6eed230d0e06e90b03fab6d3da56bdfc7111e7e49d13be7f0a6ad6fb6f
+  source_content_hash: sha256:f7c710150a5b74534668603c8ab70bb0d6e4b0abd02ea8c80970eb73f329d6d2
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

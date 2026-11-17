@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-07-17_mais-au-juste-est-ce-juste-democratie-21.fr.md
-  source_file_hash: sha256:3b54e96a59eff9c09ca08f8e336ccb8dfeb30a477ef086840c9db1bdb9c460bb
+  source_content_hash: sha256:247ea82f1d6fcbad6bd4a77718af5289eee2bbf90b15321b86ba10a4557693e5
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

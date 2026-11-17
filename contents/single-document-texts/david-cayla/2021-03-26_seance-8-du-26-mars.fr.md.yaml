@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-03-26_seance-8-du-26-mars.fr.md
-  source_file_hash: sha256:8a931a1b2811551a077f204a2d8c150d21f3c5e55382f3474844229c880484e1
+  source_content_hash: sha256:294c4c4f2838d2b95be9073f1709040a320cc3f05d75d1eb62df316592c3095f
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

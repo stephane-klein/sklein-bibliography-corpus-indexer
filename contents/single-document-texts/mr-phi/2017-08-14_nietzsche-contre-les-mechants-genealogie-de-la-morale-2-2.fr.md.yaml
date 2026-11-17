@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-08-14_nietzsche-contre-les-mechants-genealogie-de-la-morale-2-2.fr.md
-  source_file_hash: sha256:91911b28c78e0a37bbba33dc11adf213b08beb0abcf8b51e316696e33b369e70
+  source_content_hash: sha256:c8f53016528dceb3df8c94809e75ebbfd1b76f9521c17cedbb1c482e2e09f2a1
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

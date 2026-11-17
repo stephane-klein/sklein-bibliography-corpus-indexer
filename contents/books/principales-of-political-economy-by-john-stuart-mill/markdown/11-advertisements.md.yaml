@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/11-advertisements.md
-  source_file_hash: sha256:1924c548ed8c42c8d7d226c3120df36f9938042197d01dd1ff8e8ad38df14ad2
+  source_content_hash: sha256:2c7c3c5bb2524bb97a9fc24059144f732c455232d6b387e691546196a99b1b4d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

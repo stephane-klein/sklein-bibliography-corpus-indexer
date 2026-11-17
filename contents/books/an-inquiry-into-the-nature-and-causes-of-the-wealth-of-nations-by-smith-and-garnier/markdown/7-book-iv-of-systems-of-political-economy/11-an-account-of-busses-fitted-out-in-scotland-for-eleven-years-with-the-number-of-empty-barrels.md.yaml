@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/11-an-account-of-busses-fitted-out-in-scotland-for-eleven-years-with-the-number-of-empty-barrels.md
-  source_file_hash: sha256:959a86aec9eece754ce254ae30cd0efa0a56efb219e76114d6606c171665670f
+  source_content_hash: sha256:2463c8de4ff5d585eeed369d6862eeb8faff1c4507fd2902b654d73f60690873
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2018-01-18_la-machine-a-experience-de-nozick.fr.md
-  source_file_hash: sha256:df74c174ba1ae1c01b3f854aed69e0ad54cbb3cc3d022c777a907e829c9cc566
+  source_content_hash: sha256:a12b317c335fc53743c58ca4999a10288b58f391611df2d227e1355695c2ec26
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

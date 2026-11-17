@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-10-23_on-recapitule-tout-democratie-33.fr.md
-  source_file_hash: sha256:e6df21a3796623e013467854e89cdc40c65b9f53d29f38d5c57193150c699678
+  source_content_hash: sha256:a61bb780508999e5174369dcdb304fbff664df1ea48281b0d360c4e5ac13fe51
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

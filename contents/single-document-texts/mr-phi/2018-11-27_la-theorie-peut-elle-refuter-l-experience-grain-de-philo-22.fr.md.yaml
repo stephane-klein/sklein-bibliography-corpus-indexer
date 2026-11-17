@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2018-11-27_la-theorie-peut-elle-refuter-l-experience-grain-de-philo-22.fr.md
-  source_file_hash: sha256:450f5eeaca28cd78e3608aa695558d6501c8945d2ec96cc71ba7358eb02d7248
+  source_content_hash: sha256:3896bc28514fa95d0eb49630d812049a797a5c7b8c76c81467571928cc5c0ac8
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

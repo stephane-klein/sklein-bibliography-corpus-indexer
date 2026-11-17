@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-07-24_partager-un-gateau-c-est-pas-du-gateau-democratie-22.fr.md
-  source_file_hash: sha256:d1cce871fc0b55686b60db7c077684f6434406c8170bb3e63ffe83c13c03fad3
+  source_content_hash: sha256:b155222f1664679375bd30c8e7b3b4013574b91da7cda44b075b2912c910ddd5
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

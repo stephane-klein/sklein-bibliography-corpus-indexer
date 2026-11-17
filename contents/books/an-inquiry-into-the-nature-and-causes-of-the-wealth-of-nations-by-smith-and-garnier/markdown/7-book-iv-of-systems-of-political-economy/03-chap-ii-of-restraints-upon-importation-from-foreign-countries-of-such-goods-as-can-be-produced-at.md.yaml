@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/03-chap-ii-of-restraints-upon-importation-from-foreign-countries-of-such-goods-as-can-be-produced-at.md
-  source_file_hash: sha256:ce3112612d6b8e5fe3161f91ef6f3dbe6a04ee081bdea865e1a1b40819574cf6
+  source_content_hash: sha256:d1a7724b1b9da0c4fdf024a52293b3420281e5842df2b61b935864c50e8589d1
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

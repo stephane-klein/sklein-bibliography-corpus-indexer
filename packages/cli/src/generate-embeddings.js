@@ -1,18 +1,21 @@
-import { createHash } from "node:crypto";
 import { access, readdir, readFile } from "node:fs/promises";
 import { basename, dirname, join, relative, sep } from "node:path";
 import * as yaml from "js-yaml";
 import { createApiClient, resolveApiOptions } from "./api-client.js";
 import { resolveTarget } from "./context.js";
-import { readEmbeddingsFile, writeEmbeddingsFile } from "./embeddings-file.js";
+import { embeddingTextOf, hashEmbeddingInputs } from "./embedding-inputs.js";
+import {
+    FORMAT as EMBEDDING_FORMAT,
+    FORMAT_VERSION as EMBEDDING_FORMAT_VERSION,
+    readEmbeddingsFile,
+    writeEmbeddingsFile,
+} from "./embeddings-file.js";
 import { logger } from "./logger.js";
-import { writeSidecarFile } from "./sidecar.js";
+import { SIDECAR_SCHEMA_VERSION, writeSidecarFile } from "./sidecar.js";
 
 const EMBEDDING_INPUT_FORMAT = "heading_path_text_v1";
 const EMBEDDING_INPUT_TYPE = "document";
 const EMBEDDING_STRATEGY = "standard";
-const EMBEDDING_FORMAT = "float32le";
-const EMBEDDING_FORMAT_VERSION = 1;
 const COST_BASIS = "list_price";
 const MAX_TEXTS_PER_REQUEST = 128;
 const MAX_CHARS_PER_REQUEST = 200_000;
@@ -59,15 +62,9 @@ export async function runGenerateEmbeddings({ path, contentsDir, url, token, dry
 
         const document = yaml.load(await readFile(sidecarPath, "utf8"));
         const { manifest, chunks } = validateSourceSidecar(document, sourcePath, relativeToContents);
-        const sourceHash = `sha256:${createHash("sha256")
-            .update(await readFile(sourcePath))
-            .digest("hex")}`;
+        const chunksHash = hashEmbeddingInputs(chunks);
 
-        if (manifest.source_file_hash !== sourceHash) {
-            throw new Error(`Sidecar is stale for ${relativeToContents}; run generate-sidecars first`);
-        }
-
-        if (!force && (await isCurrent(manifest, chunks, info, sourcePath))) {
+        if (!force && (await isCurrent(manifest, chunks, chunksHash, info, sourcePath))) {
             counts.skipped += 1;
             logger.info({ file: relativeToContents, chunks: chunks.length }, "Sidecar embeddings unchanged");
             continue;
@@ -93,7 +90,7 @@ export async function runGenerateEmbeddings({ path, contentsDir, url, token, dry
             model: info.model,
             dimension: info.dimension,
             chunk_count: chunks.length,
-            source_file_hash: manifest.source_file_hash,
+            source_content_chunks_hash: chunksHash,
             input_format: EMBEDDING_INPUT_FORMAT,
             input_type: EMBEDDING_INPUT_TYPE,
             strategy: EMBEDDING_STRATEGY,
@@ -207,7 +204,7 @@ async function embedChunks(chunks, { api, info }) {
     let costBasis = COST_BASIS;
     let pricePerMillionTokensUsd = null;
 
-    for (const batch of splitEmbeddingInputs(chunks.map((chunk) => `${chunk.heading_path}\n\n${chunk.text}`))) {
+    for (const batch of splitEmbeddingInputs(chunks.map((chunk) => embeddingTextOf(chunk)))) {
         const data = await requestEmbeddings(api, batch);
 
         if (data.provider !== info.provider || data.model !== info.model || data.dimension !== info.dimension) {
@@ -281,7 +278,7 @@ function splitEmbeddingInputs(texts) {
     return batches;
 }
 
-async function isCurrent(manifest, chunks, info, sourcePath) {
+async function isCurrent(manifest, chunks, chunksHash, info, sourcePath) {
     if (manifest.embedding_provider !== info.provider) {
         return false;
     }
@@ -316,7 +313,7 @@ async function isCurrent(manifest, chunks, info, sourcePath) {
             header.model === info.model &&
             header.dimension === info.dimension &&
             header.chunk_count === chunks.length &&
-            header.source_file_hash === manifest.source_file_hash &&
+            header.source_content_chunks_hash === chunksHash &&
             header.input_format === EMBEDDING_INPUT_FORMAT &&
             header.input_type === EMBEDDING_INPUT_TYPE &&
             header.strategy === EMBEDDING_STRATEGY &&
@@ -335,7 +332,7 @@ async function verifyWrittenEmbeddings(binaryPath, header, chunkCount) {
         writtenHeader.model !== header.model ||
         writtenHeader.dimension !== header.dimension ||
         writtenHeader.chunk_count !== header.chunk_count ||
-        writtenHeader.source_file_hash !== header.source_file_hash ||
+        writtenHeader.source_content_chunks_hash !== header.source_content_chunks_hash ||
         writtenHeader.input_format !== header.input_format ||
         writtenHeader.input_type !== header.input_type ||
         writtenHeader.strategy !== header.strategy ||
@@ -370,12 +367,16 @@ function validateSourceSidecar(document, sourcePath, relativeToContents) {
         throw new Error(`Sidecar manifest type must be "manifest": ${sourcePath}`);
     }
 
-    if (manifest.schema_version !== 1) {
-        throw new Error(`Sidecar schema_version must be 1: ${sourcePath}`);
+    if (manifest.schema_version !== SIDECAR_SCHEMA_VERSION) {
+        throw new Error(
+            `Sidecar schema_version must be ${SIDECAR_SCHEMA_VERSION}: ${sourcePath}; run migrate-corpus first`,
+        );
     }
 
     if (manifest.source_file !== relativeToContents) {
-        throw new Error(`Sidecar source_file must be ${relativeToContents}: ${sourcePath}`);
+        throw new Error(
+            `Sidecar source_file must be ${relativeToContents}: ${sourcePath}; run generate-sidecars to refresh the path`,
+        );
     }
 
     if (manifest.chunk_count !== chunks.length) {

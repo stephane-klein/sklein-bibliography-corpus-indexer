@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2021-02-07_tous-les-modeles-sont-faux-mais-certains-sont-utiles-reupload-de-la-verite-nue.fr.md
-  source_file_hash: sha256:5aa22e85c37be6fef4553fdd9ec4c29b51fecab3b35b6283aa6bace06893f73b
+  source_content_hash: sha256:5d33178563004b618e7e79d4550810a7dbb3147de93943a036f476225a5a9e2b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

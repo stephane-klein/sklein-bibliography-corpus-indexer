@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-11-04_seance-12-du-4-novembre.fr.md
-  source_file_hash: sha256:e759123175d4a8f0c568016c78d52677a57544e330b2b6ac8986279dc02e195d
+  source_content_hash: sha256:da2b0e3232573602f6b230bc854df597b2e5d46c503ef217edbca4d7d1186a65
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/6-book-iii-of-the-different-progress-of-opulence-in-different-nations/1-chap-i-of-the-natural-progress-of-opulence.md
-  source_file_hash: sha256:9d49c8225c6088156bdf87673ef0f26f7b3ea1a9dbb5a3f63f458d4432e63988
+  source_content_hash: sha256:b08d54cfd59808761211d4a2b80cdcc02f4c7927bbaa3bfd6085e5935c2ccb0b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

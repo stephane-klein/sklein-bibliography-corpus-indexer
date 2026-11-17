@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/08-chapter-viii-of-credit-as-a-substitute-for-money.md
-  source_file_hash: sha256:caba0ad8dbc00fdff1077801037c3a06c14f70624f32969b8c92291da9d526a8
+  source_content_hash: sha256:98f2c47a4daa3ee3525be8b3bea4ac1bebf9f139166fac78a001320c0b9051e7
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

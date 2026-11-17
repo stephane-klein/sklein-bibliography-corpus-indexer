@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2022-07-01_peut-on-democratiquement-priver-les-femmes-de-la-liberte-d-avorter.fr.md
-  source_file_hash: sha256:f691618136f9224b0888c94ac78ce82cb55f348969109992a4212b49c313bd88
+  source_content_hash: sha256:0eeaeffd68d72e8d59d7b32819e626caeee4b768e38aa7e79bab21365615010e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2019-10-17_tu-dois-l-imperatif-categorique-selon-kant-grain-de-philo-31.fr.md
-  source_file_hash: sha256:c77f1253cdf5a3f9d5a3e1dd80e8e5636847c17852b1261f0c8172b18fc2f90a
+  source_content_hash: sha256:0cdc4935a4b875bd11b998d770d595fc5aab4a63019aeae1620d6e97fe4703bf
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

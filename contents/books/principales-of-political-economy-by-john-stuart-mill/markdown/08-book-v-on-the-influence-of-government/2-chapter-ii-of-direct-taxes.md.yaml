@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/08-book-v-on-the-influence-of-government/2-chapter-ii-of-direct-taxes.md
-  source_file_hash: sha256:d94691428c9cbcb9a41199e9bc2f0426f73ac608bb5c56ecb77c22f14b52433a
+  source_content_hash: sha256:866a4a72be226e9430504f2344ba516fdb22ff179ad94c524e166ede425ac7fd
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-07-17_echecs-et-declin-du-neoliberalisme.fr.md
-  source_file_hash: sha256:d6e26ee7d916ee92c5b19704fddd2540b110ab88d59a2f05130ffadc1d47b648
+  source_content_hash: sha256:411b5a707a326594d83ec7658782d906e9358939e2b44f35f77949063b3cb171
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

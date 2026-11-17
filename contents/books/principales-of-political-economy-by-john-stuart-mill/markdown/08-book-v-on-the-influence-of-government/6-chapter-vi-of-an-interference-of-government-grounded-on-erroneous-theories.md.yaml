@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/08-book-v-on-the-influence-of-government/6-chapter-vi-of-an-interference-of-government-grounded-on-erroneous-theories.md
-  source_file_hash: sha256:02f6132855cdca8d6240705ff358d0abee4e969a968c31309911f9dbaaa1a729
+  source_content_hash: sha256:89e31798c80fbdc130f6d1e78bc5b9bc6f7e9d06d5dfa130c63e33187849f4ef
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

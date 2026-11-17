@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2020-07-10_peut-on-se-tromper-en-disant-j-ai-mal-non-et-ca-pose-un-probleme-etrange.fr.md
-  source_file_hash: sha256:96eb8cb52b3dbed7a596b4c75c6b09e44149b855137e973f0a85dbbc61ba4a30
+  source_content_hash: sha256:2d64c067bc1eb02803be0f02b6abc951d0b5f948161da1b1a5c035e832ad6dc4
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-07-08_la-pensee-economique-face-aux-defis-contemporains.fr.md
-  source_file_hash: sha256:3cddf80dd3f7aef4567903de1c271d21a524053a2778ec064e4b3983f84d12bd
+  source_content_hash: sha256:e1172b620539d94b879f4e580fd1c89217ba372563bf625a3df94bde0d0d53e2
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

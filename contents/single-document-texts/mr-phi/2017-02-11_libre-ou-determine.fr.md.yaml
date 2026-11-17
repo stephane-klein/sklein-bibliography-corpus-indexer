@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-02-11_libre-ou-determine.fr.md
-  source_file_hash: sha256:f1c37b5a4e9677ae509c45fa7d482e69f928da1558aa1dd9ceb71edad17b8a02
+  source_content_hash: sha256:46d88ed0368ac49d7ac715b7baf8f83e638a10b2ed9bfce0a1d9afb46155fab9
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

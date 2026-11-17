@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-03-19_les-entreprises-face-a-la-financiarisation-de-l-economie.fr.md
-  source_file_hash: sha256:971969a0860cef5f4168dd24bb5a48e632f4d9f15ba4d7b6af7e64f25b4c8224
+  source_content_hash: sha256:bc3b8bba980ee7e415fc3074dcc034afdd85144920b5a18e2b4aa153be4a574a
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

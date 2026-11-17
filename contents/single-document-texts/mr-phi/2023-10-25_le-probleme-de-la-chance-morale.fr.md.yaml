@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2023-10-25_le-probleme-de-la-chance-morale.fr.md
-  source_file_hash: sha256:ec4527d3104c14b000681c416e4742a05b543b3043d2c72c166ee30d7147373f
+  source_content_hash: sha256:f58d1e2d5614c44716256d071169774ad815ff99923458204ec5d55845a8c0df
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

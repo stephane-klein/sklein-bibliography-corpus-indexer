@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2021-08-01_ce-principe-sur-lequel-tout-le-monde-s-entend.fr.md
-  source_file_hash: sha256:3f4d587c837ad5765734fd532ebd0d9346b2500f1666d43312a099a04463dbb3
+  source_content_hash: sha256:491416253de0b54b41437c920a5d4a976f58308234172952edae13c2bdd8c0f2
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

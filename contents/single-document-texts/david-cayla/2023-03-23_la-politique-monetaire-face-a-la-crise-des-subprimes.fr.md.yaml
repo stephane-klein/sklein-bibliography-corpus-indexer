@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-03-23_la-politique-monetaire-face-a-la-crise-des-subprimes.fr.md
-  source_file_hash: sha256:1cae1975720045a4ab210733828f04f2853405219e93a72a033299cf665a7583
+  source_content_hash: sha256:28ce7fce7c9fcb7fcaa640a5f66b030c74c0702ebc9ec15162363a642a4e7fa8
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

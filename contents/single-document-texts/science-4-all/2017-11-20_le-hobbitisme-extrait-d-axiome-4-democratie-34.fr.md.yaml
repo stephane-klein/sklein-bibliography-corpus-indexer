@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-11-20_le-hobbitisme-extrait-d-axiome-4-democratie-34.fr.md
-  source_file_hash: sha256:e8c25e2fea378e1629a1e099c91d263b1425178a04b740e6b7c2944acef007cb
+  source_content_hash: sha256:baa8af7834647158db6fdf6d1305000941342b47141a5c726eb01854c3ded3dc
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

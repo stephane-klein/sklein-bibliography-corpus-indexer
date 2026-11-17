@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-04-13_presentation-de-declin-et-chute-du-neoliberalisme.fr.md
-  source_file_hash: sha256:1f51fd074d5ebfafbf344b0f1b8eac8d4f876f841023739a914680494de8e591
+  source_content_hash: sha256:a3c85642d92ce167636b4f4a84409cae4c619464f3fb9b54c4744a293473215e
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

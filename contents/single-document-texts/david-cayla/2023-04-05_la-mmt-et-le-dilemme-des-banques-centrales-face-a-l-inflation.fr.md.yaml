@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-04-05_la-mmt-et-le-dilemme-des-banques-centrales-face-a-l-inflation.fr.md
-  source_file_hash: sha256:e5fc54c90502a669a1359a5fba8a28c19fb66d8aa55c6692f3d7b0dde8754945
+  source_content_hash: sha256:da763fa149f289d2db42f051b615923933a97854bf01eb21b6c0711a519724f1
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

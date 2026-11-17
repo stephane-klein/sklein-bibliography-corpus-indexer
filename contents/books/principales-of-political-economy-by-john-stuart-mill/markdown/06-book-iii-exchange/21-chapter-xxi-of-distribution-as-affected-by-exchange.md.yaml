@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/21-chapter-xxi-of-distribution-as-affected-by-exchange.md
-  source_file_hash: sha256:c314c654d1c1a32b44ecb03007479d5a2a90ec8a954ee06f03626d7a0112c596
+  source_content_hash: sha256:9ec6e1fe4ee8774f1e644759f927b167b480b27837573cbe627df3cb97bdaf96
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/7-book-iv-of-systems-of-political-economy/06-chap-v-of-bounties.md
-  source_file_hash: sha256:dbc122502fcfcec2c52652637ff17d354f4a2a1ee2419074c55d7b2006964c2f
+  source_content_hash: sha256:f6e6ba7d41446d35fc7cf407d25c1ddef52adcd85e8f300a44396759c44765a3
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

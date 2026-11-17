@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-04-17_le-principe-fondamental-de-la-politique-democratie-8.fr.md
-  source_file_hash: sha256:5193d42d1b6e32714eb1bd93798cbbf58900fc669472ea8a7e86c610a96e1c00
+  source_content_hash: sha256:e3f84b8e9f7a136a9ed63fd3a1c8814b179986b52c4db9f4e157919c4561e3dd
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

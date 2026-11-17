@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2018-07-27_il-vaut-mieux-etre-socrate-insatisfait-qu-un-imbecile-satisfait-john-stuart-mill-dixit-2.fr.md
-  source_file_hash: sha256:4c19e3ea72c94ff9d4d31df32a60112db90a89ee75abf8f41df3eaa3614c55db
+  source_content_hash: sha256:ab7535e03e73bbbfce62787a001b2df6fe69193c8bf16079ba85aae0ca205995
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2019-04-06_une-affirmation-extraordinaire-requiert-plus-que-des-preuves-extraordinaires-hume-dixit-3.fr.md
-  source_file_hash: sha256:4015ef2787d71027ad8adf2f09df8bccd6ba6ea815ca2d57094033b9335c5609
+  source_content_hash: sha256:eefcbaf7ca07e72a703848a86a70e31bbb3c29c7949699f84d145e9559b7bb22
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -13,6 +13,7 @@ import {
     parseMarkdown,
     titleOf,
 } from "./markdown.js";
+import { contentHashOf } from "./sidecar.js";
 
 export async function runImportSingleDocuments({
     path,
@@ -83,10 +84,14 @@ export async function runImportSingleDocuments({
             const relativeToSlugBase = relative(slugBase, absolutePath).split(sep).join("/");
             const relativeToContents = relative(context.contentsDir, absolutePath).split(sep).join("/");
             const slug = relativeToSlugBase.replace(/\.(?:fr\.)?md$/, "");
+            // generate-sidecars uses the file name as the title fallback. The
+            // content hash must be built from the same title, or the sidecar is
+            // reported as stale on a file without a level-one heading.
+            const title = titleOf(frontmatter, body, basename(fileName, ".md"));
 
             return {
                 slug,
-                title: titleOf(frontmatter, body, slug),
+                title,
                 content: body,
                 sourceUrl: normalizeSourceUrl(frontmatter.source_url),
                 authors: normalizeAuthors(frontmatter.authors),
@@ -94,6 +99,7 @@ export async function runImportSingleDocuments({
                 language: normalizeLanguage(frontmatter.language, fileName),
                 markdownSourceFile: relativeToContents,
                 markdownSourceFileHash: `sha256:${createHash("sha256").update(raw).digest("hex")}`,
+                contentHash: contentHashOf(title, body),
                 // Rough estimate: four characters per token, frontmatter excluded.
                 markdownSourceFileEstimateTokenCount: Math.ceil(body.length / 4),
                 metadata: frontmatter,
@@ -210,15 +216,21 @@ async function syncEmbeddings({ api, document, contentsDir, dryRun, requireEmbed
         return { status: "missing", inserted: 0, chunks: 0 };
     }
 
-    const { manifest, chunks, embeddings } = await readEmbeddingSidecar(
+    const { manifest, chunks, embeddings } = await readEmbeddingSidecar({
         sourcePath,
-        document.markdownSourceFile,
-        document.markdownSourceFileHash,
-    );
+        relativeToContents: document.markdownSourceFile,
+        expectedContentHash: document.contentHash,
+    });
     const result = await sendSyncRequest(
         api,
         "/api/v1/admin/hierarchical-content-chunks/sync",
-        buildChunkSyncPayload({ manifest, chunks, embeddings, dryRun }),
+        buildChunkSyncPayload({
+            manifest,
+            chunks,
+            embeddings,
+            sourceFileHash: document.markdownSourceFileHash,
+            dryRun,
+        }),
     );
 
     return { status: result.unchanged ? "unchanged" : "imported", ...result };

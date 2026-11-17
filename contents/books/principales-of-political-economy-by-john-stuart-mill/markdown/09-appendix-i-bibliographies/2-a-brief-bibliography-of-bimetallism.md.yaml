@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/09-appendix-i-bibliographies/2-a-brief-bibliography-of-bimetallism.md
-  source_file_hash: sha256:3864be1f13e2c7584eaa726158179c5b07591e23d17f10bec054b2ed2206a417
+  source_content_hash: sha256:64c4498d0612e5ed3388eeaa4200a6907b575a3f236830b394173d1b615c16a1
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

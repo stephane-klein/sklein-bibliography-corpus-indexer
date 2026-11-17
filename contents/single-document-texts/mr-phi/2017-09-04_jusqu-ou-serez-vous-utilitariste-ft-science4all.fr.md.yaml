@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-09-04_jusqu-ou-serez-vous-utilitariste-ft-science4all.fr.md
-  source_file_hash: sha256:4c9c2d50e840cff2aa29a51854a4ddc562985a45a4af88204fe55e9b9b97c8d5
+  source_content_hash: sha256:cd1cca0aecf77f0632fbd38492432f599d13f27d0035c78dfdcb180994ddfb24
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

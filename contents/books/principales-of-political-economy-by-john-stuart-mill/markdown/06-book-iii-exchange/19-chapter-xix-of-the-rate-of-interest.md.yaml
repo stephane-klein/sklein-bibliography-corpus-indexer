@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/19-chapter-xix-of-the-rate-of-interest.md
-  source_file_hash: sha256:d474f04d1d26442c45f8ba59e8562c14abd8271156acb036910344aba60c7e6b
+  source_content_hash: sha256:02090837703a0826437d6778ff0971ab1a2df7742e96e4c138ad8438fe23de27
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

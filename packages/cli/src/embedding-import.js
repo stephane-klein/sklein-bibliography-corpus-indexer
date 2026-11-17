@@ -1,7 +1,9 @@
 import { access, readFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import * as yaml from "js-yaml";
+import { hashEmbeddingInputs } from "./embedding-inputs.js";
 import { readEmbeddingsFile } from "./embeddings-file.js";
+import { SIDECAR_SCHEMA_VERSION } from "./sidecar.js";
 
 // A sidecar alone is not enough: generate-embeddings may not have run yet.
 // Treat a sidecar without its binary as missing embeddings, so the document is
@@ -23,11 +25,11 @@ export async function hasEmbeddingSidecar(sourcePath) {
     }
 }
 
-export async function readEmbeddingSidecar(sourcePath, relativeToContents, sourceFileHash) {
+export async function readEmbeddingSidecar({ sourcePath, relativeToContents, expectedContentHash }) {
     const document = yaml.load(await readFile(`${sourcePath}.yaml`, "utf8"));
     const { manifest, chunks } = validateSidecar(document, relativeToContents);
 
-    if (manifest.source_file_hash !== sourceFileHash) {
+    if (manifest.source_content_hash !== expectedContentHash) {
         throw new Error(`Sidecar is stale for ${relativeToContents}; run generate-sidecars first`);
     }
 
@@ -42,10 +44,10 @@ export async function readEmbeddingSidecar(sourcePath, relativeToContents, sourc
     return { manifest, chunks, embeddings };
 }
 
-export function buildChunkSyncPayload({ manifest, chunks, embeddings, dryRun }) {
+export function buildChunkSyncPayload({ manifest, chunks, embeddings, sourceFileHash, dryRun }) {
     return {
         source_file: manifest.source_file,
-        source_file_hash: manifest.source_file_hash,
+        source_file_hash: sourceFileHash,
         embedding_provider: manifest.embedding_provider,
         embedding_model: manifest.embedding_model,
         embedding_dimension: manifest.dimension,
@@ -85,8 +87,10 @@ function validateSidecar(document, relativeToContents) {
         throw new Error(`Sidecar manifest type must be "manifest": ${relativeToContents}.yaml`);
     }
 
-    if (manifest.schema_version !== 1) {
-        throw new Error(`Sidecar schema_version must be 1: ${relativeToContents}.yaml`);
+    if (manifest.schema_version !== SIDECAR_SCHEMA_VERSION) {
+        throw new Error(
+            `Sidecar schema_version must be ${SIDECAR_SCHEMA_VERSION}: ${relativeToContents}.yaml; run migrate-corpus first`,
+        );
     }
 
     if (manifest.source_file !== relativeToContents) {
@@ -158,8 +162,8 @@ function validateEmbeddingsFile(header, embeddings, manifest, chunks, relativeTo
         throw new Error(`Embeddings chunk_count mismatch for ${relativeToContents}`);
     }
 
-    if (header.source_file_hash !== manifest.source_file_hash) {
-        throw new Error(`Embeddings source_file_hash mismatch for ${relativeToContents}`);
+    if (header.source_content_chunks_hash !== hashEmbeddingInputs(chunks)) {
+        throw new Error(`Embeddings source_content_chunks_hash mismatch for ${relativeToContents}`);
     }
 
     if (header.input_format !== manifest.embedding_input_format) {

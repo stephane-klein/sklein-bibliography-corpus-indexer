@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-09-02_interview-pour-punch-mars-2020.fr.md
-  source_file_hash: sha256:bc92d0cb10ac4c8d8730439650aa7159f9d3d9c56b58b64917c74608aa7aa0fd
+  source_content_hash: sha256:b71d4df4093ce901b4be7b9f5a0ca39e9b090311c6b05f1670b7434b914fa34f
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

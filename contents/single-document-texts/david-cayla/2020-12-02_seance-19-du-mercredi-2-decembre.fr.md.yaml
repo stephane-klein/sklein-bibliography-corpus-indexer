@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-12-02_seance-19-du-mercredi-2-decembre.fr.md
-  source_file_hash: sha256:848e93b87e90ee89ddb8d2cb33d0f4fb1edf30dfa66ad98816ff494dd15c2fd6
+  source_content_hash: sha256:affa4ad5cfdb20c7edb719a0e6c5337f68b6372b71073959cca24a3103f7ff74
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

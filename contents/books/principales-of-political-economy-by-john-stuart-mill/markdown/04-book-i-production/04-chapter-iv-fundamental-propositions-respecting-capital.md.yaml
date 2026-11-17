@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/04-chapter-iv-fundamental-propositions-respecting-capital.md
-  source_file_hash: sha256:4868e80052cb810cc5567764c8d2785a610ec85e284d53e854a9fdd8181b98ff
+  source_content_hash: sha256:b2ec72e9b7708f0e0cdbf378e52aff4a4d31335ce5980314a096bbcfb7f018a7
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

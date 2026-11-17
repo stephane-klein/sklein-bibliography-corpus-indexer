@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-09-04_la-morale-des-gens-heureux-l-utilitarisme-democratie-28-ft-monsieur-phi.fr.md
-  source_file_hash: sha256:f77bc61614896343044e86f2f1c1f2bbf4178e0f0143550aa208a18f136228e8
+  source_content_hash: sha256:23af6976dad8de93db21a16c19969e446d9a8bd737b1929cc834358563dee26d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

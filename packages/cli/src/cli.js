@@ -7,6 +7,7 @@ import { runGenerateSidecars } from "./generate-sidecars.js";
 import { runImportBooks } from "./import-books.js";
 import { runImportSingleDocuments } from "./import-single-documents.js";
 import { configureLogger } from "./logger.js";
+import { runMigrateCorpus } from "./migrate-corpus.js";
 
 const { version } = createRequire(import.meta.url)("../package.json");
 const PROGRAM = "sklein-bibliography-corpus-rag-manager";
@@ -114,6 +115,23 @@ const cli = yargs(hideBin(process.argv))
                 token: argv.token,
                 dryRun: argv.dryRun,
                 force: argv.force,
+            }),
+        ),
+    )
+    .command(
+        "migrate-corpus <path>",
+        "Rewrite sidecar manifests and embeddings headers to schema 2, without re-chunking or re-embedding",
+        (yargs) =>
+            yargs.option("dry-run", {
+                describe: "Report what would be migrated without writing",
+                type: "boolean",
+                default: false,
+            }),
+        handle((argv) =>
+            runMigrateCorpus({
+                path: argv.path,
+                contentsDir: argv.contentsDir,
+                dryRun: argv.dryRun,
             }),
         ),
     )

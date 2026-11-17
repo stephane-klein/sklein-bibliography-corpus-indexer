@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-12-11_l-axiomatique-les-elements-d-euclide-grain-de-philo-14-ep-4.fr.md
-  source_file_hash: sha256:c2af7f43c58d920aca62db5fd2f74e99a72241709b6c6cdb718c82f43d62d281
+  source_content_hash: sha256:eb63c72a8295132169832352f1e9301cd94590141b3d63d6ace17f6d35293adc
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

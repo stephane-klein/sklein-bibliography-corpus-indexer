@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/2-short-view-of-the-doctrine-of-smith-compared-with-that-of-the-french-economists/1-method-of-facilitating-the-study-of-dr-smith-s-work.md
-  source_file_hash: sha256:7145cd8dab9aca142ed5e0651f3a0e923285298324ce46f6ed4284d142a0914d
+  source_content_hash: sha256:db647ab17fa20af1c97f52488854daf6110414e108009c5e46157b9b4fe34d55
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/05-chapter-v-on-circulating-and-fixed-capital.md
-  source_file_hash: sha256:4eacc1fb3e40a071ff628cb5934a52b01eb1d058322938dbafecc133d764f5cd
+  source_content_hash: sha256:9c4d59f61b5dfb5cb88787346d0afddb6118d03e4fb519919338ea9de7f4b890
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

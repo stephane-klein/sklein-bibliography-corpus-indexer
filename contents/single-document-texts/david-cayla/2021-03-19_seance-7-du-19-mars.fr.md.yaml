@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-03-19_seance-7-du-19-mars.fr.md
-  source_file_hash: sha256:cf7f36b7f084092a90b2482e6c5af9a0b6d60d90101609f504026d87bec2a6f7
+  source_content_hash: sha256:4051f299a01b6aa8ac4316a39e30b22da83497b82df1662374c4f65e1d4bdc99
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

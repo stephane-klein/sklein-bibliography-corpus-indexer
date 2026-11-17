@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/08-book-v-on-the-influence-of-government/4-chapter-iv-comparison-between-direct-and-indirect-taxation.md
-  source_file_hash: sha256:d1c8ea7ce0fe5ce5da84ef50ec2d3bdab4b11d4e251706aa062078f1cae5cfa2
+  source_content_hash: sha256:04da3ba8fe79d17db5beb1e95cb71b6f8af7b29922cc5e293cbe273ee29382ca
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

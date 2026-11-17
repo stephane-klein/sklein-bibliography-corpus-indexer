@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2016-09-09_sommes-nous-des-simulations-l-argument-de-la-simulation-de-nick-bostrom-argument-frappant-1.fr.md
-  source_file_hash: sha256:3d5b87bbf815e1f94dca280e1e3b0e722c55ea8a4ee2745ea2c92c3ba9b45560
+  source_content_hash: sha256:567f41e07c8c4421111bcc0aca1a92469483500cfb10606585008fe9a1adc05c
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

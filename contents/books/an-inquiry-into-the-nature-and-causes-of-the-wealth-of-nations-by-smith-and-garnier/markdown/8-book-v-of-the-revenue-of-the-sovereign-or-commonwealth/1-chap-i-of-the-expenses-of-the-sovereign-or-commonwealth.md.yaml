@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/8-book-v-of-the-revenue-of-the-sovereign-or-commonwealth/1-chap-i-of-the-expenses-of-the-sovereign-or-commonwealth.md
-  source_file_hash: sha256:bbc72ae0a7d76b85889eedf99b1c9d28e738b636ececefb300ee8a53a65b7a0c
+  source_content_hash: sha256:20bff46ebd9a07f1a23159f49f87c25b6747f3b7567be509512c79240544e2b7
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

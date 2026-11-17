@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-05-22_l-equilibre-de-nash-democratie-13.fr.md
-  source_file_hash: sha256:66dc689b1a41394237c341c54ab4095d63f025a8d41988eefe10bd604b451970
+  source_content_hash: sha256:ebe9832baab0ef40da9cc8008a2d07ca4503361d5a8dd6bdf4f349a78c01a93b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

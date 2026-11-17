@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2021-10-17_un-point-aveugle-moral.fr.md
-  source_file_hash: sha256:00d39d09448ee619c31e4b7d26b79a3a098371f65e0fca564d946c33cf4136cc
+  source_content_hash: sha256:c2c5e5dca4503c2611d765f8f750a4119f90fd6540339443c4be5929e1a2d0a4
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

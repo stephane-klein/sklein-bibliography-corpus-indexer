@@ -27,12 +27,13 @@ Configuration: `eslint.config.js`, `prettier.config.js`
 
 ## CLI Package
 
-The four corpus commands live in `packages/cli`, published on npm as
+The corpus commands live in `packages/cli`, published on npm as
 `sklein-bibliography-corpus-rag-manager-cli` with the binary
 `sklein-bibliography-corpus-rag-manager`:
 
 - `generate-sidecars`
 - `generate-embeddings`
+- `migrate-corpus`
 - `import-single-documents`
 - `import-books`
 

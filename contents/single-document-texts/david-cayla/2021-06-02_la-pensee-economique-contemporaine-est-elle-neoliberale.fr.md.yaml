@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-06-02_la-pensee-economique-contemporaine-est-elle-neoliberale.fr.md
-  source_file_hash: sha256:2e225bd159e6278e044d2e35f14734d9caa62e2ed43cad1317d1c2523a90937c
+  source_content_hash: sha256:7f8f6afde900e95c624b5b90e64112e9862ab48ea765d07ffb0b2d472052de69
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

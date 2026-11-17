@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2022-01-27_une-action-peut-elle-etre-pire-parce-qu-elle-est-benefique-shorts.fr.md
-  source_file_hash: sha256:382d1d7b260ca37e895210edd9917edf777032ef9fb51b4d60b71462648369da
+  source_content_hash: sha256:a858d2a702a2794c6d5fe5a2ce45ecec02529700687984478e44b242d73a64dd
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

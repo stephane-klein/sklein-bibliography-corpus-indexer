@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-08-07_une-justice-sans-libre-arbitre-democratie-24.fr.md
-  source_file_hash: sha256:58f94070a35ac18a49c981466b654789e37e06cdf7d3082d7738eaa89f412f39
+  source_content_hash: sha256:aa03b9a88dc99580e69e98e428240059749e70bcdbffb4732e4dbec4cf00ea37
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

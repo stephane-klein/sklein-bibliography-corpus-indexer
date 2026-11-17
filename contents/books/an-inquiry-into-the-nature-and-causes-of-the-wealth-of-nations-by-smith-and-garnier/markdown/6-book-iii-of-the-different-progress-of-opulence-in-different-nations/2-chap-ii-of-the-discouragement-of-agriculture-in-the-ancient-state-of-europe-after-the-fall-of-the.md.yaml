@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/6-book-iii-of-the-different-progress-of-opulence-in-different-nations/2-chap-ii-of-the-discouragement-of-agriculture-in-the-ancient-state-of-europe-after-the-fall-of-the.md
-  source_file_hash: sha256:529532ab4d9165c48fd6ec9bc80dfb66a0cec35632ff145b258a8858fcba33f4
+  source_content_hash: sha256:a4e83d8d7a0da76ff3c6283530e75faacc225ec3e424d2d7830cef9a8366144d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

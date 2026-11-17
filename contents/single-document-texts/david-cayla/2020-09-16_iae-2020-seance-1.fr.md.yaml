@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-09-16_iae-2020-seance-1.fr.md
-  source_file_hash: sha256:adec4fb1721ce2c069bbf6440056d25ba455b9ca87fa0e02d31d80e1b982dd05
+  source_content_hash: sha256:782e6aaa58f97e10fbe599bbe5b858006d39578c8422b59d2d825ca93f557774
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

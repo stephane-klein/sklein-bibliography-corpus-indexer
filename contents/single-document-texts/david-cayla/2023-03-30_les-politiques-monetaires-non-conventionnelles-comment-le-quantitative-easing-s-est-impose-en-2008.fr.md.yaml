@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-03-30_les-politiques-monetaires-non-conventionnelles-comment-le-quantitative-easing-s-est-impose-en-2008.fr.md
-  source_file_hash: sha256:54432103312c2f45aae4bed1f6b0eff8b5c29c63efaada7917196ab32510b90e
+  source_content_hash: sha256:8148f86a36fbf95c84ea644451d239c2eff72683bcd62cf672c076cff5d4522d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

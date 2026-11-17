@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-02-26_identite-personnelle-1-2-teleportation-trous-de-memoire-responsabilite-grain-de-philo-7.fr.md
-  source_file_hash: sha256:6930c0161540e297f9b880573fe32ee0aadd96ae9fd5c685d29c74aaf86dcc33
+  source_content_hash: sha256:4e21cc3ba41f36d0d49871f7b31583733137b15e2d60456ba95cba0e38529772
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

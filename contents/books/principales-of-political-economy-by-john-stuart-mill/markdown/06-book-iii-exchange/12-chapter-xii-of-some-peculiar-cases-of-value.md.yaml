@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/12-chapter-xii-of-some-peculiar-cases-of-value.md
-  source_file_hash: sha256:fbc3297de17dd05bfea935cdd31215efdbc6e73e31c444cddf8ce00488037575
+  source_content_hash: sha256:4b8f41eef8e7922cda1d4bb8b84d68862f7dd830eb5d7d821c9425109cdb4392
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

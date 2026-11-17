@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/17-chapter-xvii-of-the-distribution-of-the-precious-metals-through-the-commercial-world.md
-  source_file_hash: sha256:5371f93213d8406550e5a73587aa334c55c99635306d6d1d4f343af2405ad590
+  source_content_hash: sha256:392a3f104e058147810ad41c3491223a4d17a7021053f3b788c45b24039717df
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

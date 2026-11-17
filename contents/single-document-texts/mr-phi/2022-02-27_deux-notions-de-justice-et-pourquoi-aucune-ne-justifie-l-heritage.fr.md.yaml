@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2022-02-27_deux-notions-de-justice-et-pourquoi-aucune-ne-justifie-l-heritage.fr.md
-  source_file_hash: sha256:924ffe8a6f1a571926ecfc409a4486f5712023dc90b4448bfe650af4e5c459ca
+  source_content_hash: sha256:cc906afe07e6fb1cf6c918b5006bde62caf2af02b0e95ad70d250f7157e70373
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

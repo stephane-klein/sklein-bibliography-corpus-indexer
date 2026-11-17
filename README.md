@@ -2,7 +2,7 @@
 
 `sklein-bibliography-corpus-rag-manager` is a system for managing my bibliography corpus, with full-text and semantic search over it.
 
-It has two parts: a web application, which lets me explore the corpus, and a CLI, which splits the Markdown files into *chunks*, triggers the embedding computation, then imports the result into the database.
+It has two parts: a web application, which lets me explore the corpus, and a CLI, which splits the Markdown files into _chunks_, triggers the embedding computation, then imports the result into the database.
 
 The corpus data lives in a PostgreSQL database. The web application exposes an [MCP](https://modelcontextprotocol.io/) server that lets an AI agent query this document base with [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) and vector searches fused by [Reciprocal Rank Fusion](https://www.paradedb.com/learn/search-concepts/reciprocal-rank-fusion) (RRF). That server provides the retrieval component of a [RAG](https://en.wikipedia.org/wiki/Retrieval-augmented_generation), the generation being handled by the client AI agent ([OpenCode](https://opencode.ai/) or [Claude](https://claude/), for example) connected to this MCP server.
 

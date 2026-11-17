@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-01-29_hfe-seance-1-du-29-janvier.fr.md
-  source_file_hash: sha256:4403fdb644c40c6c16ac2f22ae9855127bc18c34b7dc388d6acb5d362e4ecc9d
+  source_content_hash: sha256:518568aac6fd1bf118220b7d7d39125c57295d1bd9723fadd912e2344724c29d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

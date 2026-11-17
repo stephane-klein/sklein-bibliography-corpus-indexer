@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2018-09-01_cet-argument-probabiliste-va-changer-votre-point-de-vue-sur-l-ethique-animale.fr.md
-  source_file_hash: sha256:dae15bca753f1a8a52a4d0ab89f41bdea8f0ffb7c51d3d5a4563cd79b30e2438
+  source_content_hash: sha256:3aa3954f615f2f12eb85e58a092b7b07f9ca4a9a7a475f132798f9097bf51101
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

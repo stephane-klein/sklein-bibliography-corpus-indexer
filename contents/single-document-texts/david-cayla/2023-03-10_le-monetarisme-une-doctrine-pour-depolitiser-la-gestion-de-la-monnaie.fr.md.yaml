@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-03-10_le-monetarisme-une-doctrine-pour-depolitiser-la-gestion-de-la-monnaie.fr.md
-  source_file_hash: sha256:c5b30830ef4890ca96507e377cac1a30debf0940f0a571f0656696345dcda5a4
+  source_content_hash: sha256:c15c814185442f2db3554d7116c0c049353a34d1ed17ab39bc2195a55f9542ae
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

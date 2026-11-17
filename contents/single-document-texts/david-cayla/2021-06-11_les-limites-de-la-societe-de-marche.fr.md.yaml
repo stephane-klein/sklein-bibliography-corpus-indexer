@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2021-06-11_les-limites-de-la-societe-de-marche.fr.md
-  source_file_hash: sha256:5bff1d3a9e433b701acf4580a0f6599a6505ca19260f264cc19c159cab1aedec
+  source_content_hash: sha256:26dc35713991095f688f1f26b262b7e2d02b937a5e7c1d21e512e9657c5fc7c3
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

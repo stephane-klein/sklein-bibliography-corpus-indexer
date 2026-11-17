@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2016-07-14_le-sol-accelere-t-il-vraiment-vers-le-haut-debattonsmieux.fr.md
-  source_file_hash: sha256:46ca653352a233f5b03ae76193aa804292bf2481e65839762e804531dfb83025
+  source_content_hash: sha256:8e1c364055a9b12c67006e6cb122ed4aeca99ab20451520802e6aae03ba7c54b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

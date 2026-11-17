@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2020-12-09_seance-21-du-mercredi-9-decembre-2020.fr.md
-  source_file_hash: sha256:83c46f2d475f4eaf68e351903b5014e4210746d70509c027ccdbf3099273184d
+  source_content_hash: sha256:a41221d2a6525cc27a66c7fd0dafde101a19a0461f6087a1aea396d6ba856855
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

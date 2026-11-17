@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/05-book-ii-distribution/4-chapter-iv-of-the-differences-of-wages-in-different-employments.md
-  source_file_hash: sha256:6e31b9dddc092b67757d9841ed670faf56cc6671b36876d445ace3aac1defbb4
+  source_content_hash: sha256:80759a73e1ee9449121ec47824fd7327f651b6b6778ff566b5d7b2dbc63d8251
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

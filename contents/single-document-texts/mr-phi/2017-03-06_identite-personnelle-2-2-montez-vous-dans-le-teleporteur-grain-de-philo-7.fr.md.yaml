@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-03-06_identite-personnelle-2-2-montez-vous-dans-le-teleporteur-grain-de-philo-7.fr.md
-  source_file_hash: sha256:b0e57edc55475b8ace05ca215abc40f217f5c576097c27c462be0a3058dd996a
+  source_content_hash: sha256:588ab133395b11eb2225d8e05ebb8766a1de18eba2b1a565dd3903e36a0909d4
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

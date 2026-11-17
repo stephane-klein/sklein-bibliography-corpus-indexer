@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/david-cayla/2023-05-13_l-integration-economique-europeenne-est-elle-un-facteur-de-desintegration-sociale.fr.md
-  source_file_hash: sha256:2b642c20ab54ccffffb5acd9dd19a4e4ca9e63bd506fd45522bfbfb78fb0c3ae
+  source_content_hash: sha256:b33d7b1808a0104bc89903281ae03d225065124ac32ae1a28a8990a8e09349a9
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

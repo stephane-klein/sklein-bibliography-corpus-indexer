@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/02-chapter-ii-of-unproductive-labor.md
-  source_file_hash: sha256:f5127af184703d028092719e3592618300e375de9caf29f4b4130fc638d18c6d
+  source_content_hash: sha256:4e7164841b8fbd413c5aef01974b56c2e051cea0ff4570a74c8427e6fb3caea8
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2021-09-19_deux-formes-de-liberte-d-expression.fr.md
-  source_file_hash: sha256:5b8fa5a6ffaa2f34c7baf75dbc06bb82c438a23a322d9f168ef8c55f82cf8ced
+  source_content_hash: sha256:db73ea7c477e8848f09402c20245767985f87952093050649140ddcf305ec5df
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

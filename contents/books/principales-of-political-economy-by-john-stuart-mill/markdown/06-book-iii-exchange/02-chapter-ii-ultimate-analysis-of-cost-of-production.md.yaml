@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/02-chapter-ii-ultimate-analysis-of-cost-of-production.md
-  source_file_hash: sha256:01d40ce4cef374f2b36fd81e056f0b9c08eadf416affd5c6a124d5b5ebb5f6b0
+  source_content_hash: sha256:ac0158fa7f0ec6ec272a0d4db7e203789fb14b4014a43fd93e99de566da12227
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

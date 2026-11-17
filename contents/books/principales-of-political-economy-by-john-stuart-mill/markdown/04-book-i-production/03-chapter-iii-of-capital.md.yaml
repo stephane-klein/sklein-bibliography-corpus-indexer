@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/03-chapter-iii-of-capital.md
-  source_file_hash: sha256:ccf639f0ed35c89ecd9b1e288d27de139ce462723aced5be69a878c75d161afe
+  source_content_hash: sha256:a1194c6abd29d6f845cfd1f57bac6436ba2c129700701accc6b0a28050e52805
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

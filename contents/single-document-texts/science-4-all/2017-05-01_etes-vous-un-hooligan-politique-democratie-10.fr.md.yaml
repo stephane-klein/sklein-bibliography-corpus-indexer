@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-05-01_etes-vous-un-hooligan-politique-democratie-10.fr.md
-  source_file_hash: sha256:58a0b78caca90b490f77baed0ec52a37889dd9d72dee0b08b196344d3671bd2e
+  source_content_hash: sha256:8cc1684976a7dc64676af02356b72984158e6ceadebcf40ea14c60009f3f93f6
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

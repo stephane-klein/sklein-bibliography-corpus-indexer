@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/05-book-ii-distribution/3-chapter-iii-of-remedies-for-low-wages.md
-  source_file_hash: sha256:06f7bf8070e904808a87669c0b04d12ad1d9b3bcf6c042d8de4c7795a6231212
+  source_content_hash: sha256:5d943a0b48873406fd1538cae9ac6184c43f726068a7e5fcb693f03d8142e708
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/07-chapter-vii-of-a-double-standard-and-subsidiary-coins.md
-  source_file_hash: sha256:32e1bb1ab636bbad20f46b86445821ffcec70694a71257940beb884b55fb046a
+  source_content_hash: sha256:f0059e9a00b28dc580fa421c0772b5d84c1f1b96b77b8998e3ac5ad460703f9b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

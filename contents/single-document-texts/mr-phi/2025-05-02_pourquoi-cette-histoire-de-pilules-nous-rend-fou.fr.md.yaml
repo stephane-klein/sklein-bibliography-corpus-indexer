@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2025-05-02_pourquoi-cette-histoire-de-pilules-nous-rend-fou.fr.md
-  source_file_hash: sha256:cd6046a2e1ae1d2cc394690213e325dca24068d117511b97c9093fc9943275bb
+  source_content_hash: sha256:c67eaf421403409345e5fbad035cf141eb05a4d75d43d88767171fe3bf0d61f7
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

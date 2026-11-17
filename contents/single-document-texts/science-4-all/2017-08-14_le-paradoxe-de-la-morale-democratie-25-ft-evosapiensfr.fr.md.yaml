@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-08-14_le-paradoxe-de-la-morale-democratie-25-ft-evosapiensfr.fr.md
-  source_file_hash: sha256:3f252c4ebe361aa328a40a3c8f2ce6fd9f4b74d2e63b77daa7644a0ffcee18a1
+  source_content_hash: sha256:c93c1627412af2802b85c1f47f5853bc0522cf273d7b090a11421328d3ffa840
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

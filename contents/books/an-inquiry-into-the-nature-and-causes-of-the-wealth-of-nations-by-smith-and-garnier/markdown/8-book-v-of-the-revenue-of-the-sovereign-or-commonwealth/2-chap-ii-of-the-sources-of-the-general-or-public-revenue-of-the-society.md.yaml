@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier/markdown/8-book-v-of-the-revenue-of-the-sovereign-or-commonwealth/2-chap-ii-of-the-sources-of-the-general-or-public-revenue-of-the-society.md
-  source_file_hash: sha256:2051657df4dbf09161dc65c33386480b9a0c9f15637f7aab9f06c3ce0b6d2108
+  source_content_hash: sha256:42422bceedb0e4359b5f8caa1d6e15c1547179023380378894b3552b20c9f62b
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-08-20_a-chacun-sa-morale-relativisme-vs-realisme-grain-de-philo-12.fr.md
-  source_file_hash: sha256:9f54d3dd83245050f75aa1e897dca7e320bc0cc980e8e8aa71d9566c01533179
+  source_content_hash: sha256:4b2742b5be154c7d40655d4b098570abca2ca11adb19ae06974f62e518d1729d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

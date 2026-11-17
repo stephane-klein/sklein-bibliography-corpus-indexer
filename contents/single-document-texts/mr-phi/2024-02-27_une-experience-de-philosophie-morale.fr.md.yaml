@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2024-02-27_une-experience-de-philosophie-morale.fr.md
-  source_file_hash: sha256:bc7a9255f36707ed7baac74ca63bf5f5e381f4030104cd98a66c55d2eacd2794
+  source_content_hash: sha256:149092e98e7e3d8d7a0d949226879acb0c9ad1ea4e3d547d853d1693e5085e6f
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

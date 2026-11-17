@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/03-chapter-iii-of-rent-in-its-relation-to-value.md
-  source_file_hash: sha256:0b81dca9e4025c4cfb54936ab5fd4c51bd42ca881438a66f0aff088ea2fe6948
+  source_content_hash: sha256:4edfb622693072c1b3ca30822d929f77188dd5b4dac7abffd95429521db7b80f
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

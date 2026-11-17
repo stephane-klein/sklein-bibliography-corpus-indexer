@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/01-chapter-i-of-value.md
-  source_file_hash: sha256:fb4a5d9dd2c20696ea964d61e1909210385056b321351c1043ac75a4dc97f04d
+  source_content_hash: sha256:664606a6448adb294c6eaf8898e8734160c833cd8e94ad441f1bd6b700c69fd2
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-10-16_l-etendue-de-mon-ignorance-democratie-32.fr.md
-  source_file_hash: sha256:8a2af13d60effd09c44ef99aa17d68c41fabe8801c362303aea425cc6cdc6b10
+  source_content_hash: sha256:0f2934e70adcefd3074800b9aef1a9fddce4c12c62466f64cc779ab2cd713a47
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

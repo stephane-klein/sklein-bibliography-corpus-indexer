@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2017-10-01_retour-sur-l-utilitarisme-axiome-3-extraits.fr.md
-  source_file_hash: sha256:38a6c28c621cc0718616a19d8c50f9ceee1ade01f9ae6c7f28be34b594a94718
+  source_content_hash: sha256:b4809d97a8026f73da6745fcd07ebbc7bab909a68e15d03fc6a95d261934a822
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

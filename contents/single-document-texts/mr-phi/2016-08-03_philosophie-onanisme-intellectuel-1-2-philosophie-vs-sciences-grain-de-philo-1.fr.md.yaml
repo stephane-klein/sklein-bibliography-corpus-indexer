@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/mr-phi/2016-08-03_philosophie-onanisme-intellectuel-1-2-philosophie-vs-sciences-grain-de-philo-1.fr.md
-  source_file_hash: sha256:c65db9245deece63a1238fd5c4cc1900e18cb66039d4a638047ef3dbe3aa283b
+  source_content_hash: sha256:2b4dc267a7a256b130a13bf726f396ca53c70895217cc5634082b0c01f27eb6a
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

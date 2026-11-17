@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/09-chapter-ix-influence-of-credit-on-prices.md
-  source_file_hash: sha256:dc66e51e7370a92e6a64a829e803a1c447660a14f6de13eef48f86a5a484ccd8
+  source_content_hash: sha256:4dca094d6043ebf46da279bc4d2636dcd9292dc1711d5568f9cb82dec5f81480
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

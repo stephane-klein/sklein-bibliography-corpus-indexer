@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/07-chapter-vii-of-the-law-of-the-increase-of-labor.md
-  source_file_hash: sha256:91b4db269ea9370c633adccc7471751dd4a94bd91472a2cabf1019a394b5438f
+  source_content_hash: sha256:f7f287adabc4ee1b8be6ef830b29419f4559de0dff3565abf9e602d446fcb0d4
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: single-document-texts/science-4-all/2017-06-12_le-prix-de-l-anarchie-democratie-16.fr.md
-  source_file_hash: sha256:2db16e03d985cbed97d843173db0ec33e7cb15e177191f0e06e0949af757501e
+  source_content_hash: sha256:1b09d8e104d9a0f2ca5d53e799a8d73c9a23ee240a930a0f4dd41617e452ca11
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

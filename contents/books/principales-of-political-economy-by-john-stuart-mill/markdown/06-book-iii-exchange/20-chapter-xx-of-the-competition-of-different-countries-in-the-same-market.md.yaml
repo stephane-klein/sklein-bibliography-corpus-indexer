@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/20-chapter-xx-of-the-competition-of-different-countries-in-the-same-market.md
-  source_file_hash: sha256:1aee624851a1427d9a7eb254486d16a6d91d611a2575349f00e01614a91b71a9
+  source_content_hash: sha256:d5df426524ca2b7be951d22876efa40bdfa70831b697bd398864b40c019ee2ee
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

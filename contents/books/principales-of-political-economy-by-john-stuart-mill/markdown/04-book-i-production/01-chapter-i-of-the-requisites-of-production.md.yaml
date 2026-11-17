@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/04-book-i-production/01-chapter-i-of-the-requisites-of-production.md
-  source_file_hash: sha256:57ddb724bb8410eb4856cf16956ad9c5d6f633d5166049214d92b457140ebf83
+  source_content_hash: sha256:a2d3b3fd7c284117d8bfe1c21df0a0cc676edaf820d90c24d8ce756206ef4ad3
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

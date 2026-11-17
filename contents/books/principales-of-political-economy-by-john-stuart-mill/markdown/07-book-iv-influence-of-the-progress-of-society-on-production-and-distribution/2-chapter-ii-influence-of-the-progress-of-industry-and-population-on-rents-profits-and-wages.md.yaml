@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/07-book-iv-influence-of-the-progress-of-society-on-production-and-distribution/2-chapter-ii-influence-of-the-progress-of-industry-and-population-on-rents-profits-and-wages.md
-  source_file_hash: sha256:1e785088a0e075b61cec47d2584fa2b9ccac6360815e48c553d86b3c18c1ebe2
+  source_content_hash: sha256:e79fb8785c1d0b24839cd017b4a64d5d93fa287e7d2ee11b9774cacb9ab86f21
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

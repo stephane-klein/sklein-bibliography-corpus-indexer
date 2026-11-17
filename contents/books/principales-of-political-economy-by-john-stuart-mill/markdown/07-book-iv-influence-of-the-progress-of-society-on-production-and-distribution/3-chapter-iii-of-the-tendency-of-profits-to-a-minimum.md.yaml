@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/07-book-iv-influence-of-the-progress-of-society-on-production-and-distribution/3-chapter-iii-of-the-tendency-of-profits-to-a-minimum.md
-  source_file_hash: sha256:ddf8c14a015a85fb2517cae859d3667e7c93edf15321e9393c85a52f20a8715b
+  source_content_hash: sha256:9be56a4da2dc121d7763ff260542ca75e4e1c06e56143109e23e35b08cf3f70d
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences

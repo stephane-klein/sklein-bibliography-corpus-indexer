@@ -1,8 +1,8 @@
 manifest:
   type: manifest
-  schema_version: 1
+  schema_version: 2
   source_file: books/principales-of-political-economy-by-john-stuart-mill/markdown/06-book-iii-exchange/05-chapter-v-of-the-value-of-money-as-dependent-on-demand-and-supply.md
-  source_file_hash: sha256:8dd393420f89c43565f9b5f53a9766ead5947b47aa83deb993056d8358f41a3a
+  source_content_hash: sha256:f9c673f39268073e2582d5089998632f3c0c07fbfd5d29e875162f4229e523df
   tokenizer: cl100k_base
   max_chunk_tokens: 1000
   splitter: sentences
