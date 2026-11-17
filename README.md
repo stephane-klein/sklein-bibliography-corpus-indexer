@@ -6,7 +6,7 @@ It has two parts: a web application, which lets me explore the corpus, and a CLI
 
 The corpus data lives in a PostgreSQL database. The web application exposes an [MCP](https://modelcontextprotocol.io/) server that lets an AI agent query this document base with [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) and vector searches fused by [Reciprocal Rank Fusion](https://www.paradedb.com/learn/search-concepts/reciprocal-rank-fusion) (RRF). That server provides the retrieval component of a [RAG](https://en.wikipedia.org/wiki/Retrieval-augmented_generation), the generation being handled by the client AI agent ([OpenCode](https://opencode.ai/) or [Claude](https://claude/), for example) connected to this MCP server.
 
-The CLI ships separately as `sklein-bibliography-corpus-rag-manager-cli`, and its source code lives in [`packages/cli`](./packages/cli). The [`./contents/`](./contents/) directory holds a sample corpus in the expected format: books and standalone documents.
+The CLI ships separately as `@stephane-klein/sklein-bibliography-corpus-rag-manager-cli`, and its source code lives in [`packages/cli`](./packages/cli). The [`./contents/`](./contents/) directory holds a sample corpus in the expected format: books and standalone documents.
 
 > [!WARNING]
 > **Status**: the project is under active development, and I use it primarily for myself. The application still has bugs and rough edges in its interface, and it changes fast.
@@ -59,7 +59,7 @@ emails it sends: run `pitchfork proxy status` to get its URL.
 
 ### Command-line client
 
-The commands below come from the `sklein-bibliography-corpus-rag-manager-cli`
+The commands below come from the `@stephane-klein/sklein-bibliography-corpus-rag-manager-cli`
 package, in [`packages/cli`](./packages/cli). The repository depends on it through
 the pnpm workspace, so `pnpm install` puts the
 `sklein-bibliography-corpus-rag-manager` command on the `PATH` when mise is

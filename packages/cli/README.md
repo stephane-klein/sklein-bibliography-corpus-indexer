@@ -32,25 +32,25 @@ before the others.
 
 ## Install
 
-The package is published on npmjs as `sklein-bibliography-corpus-rag-manager-cli`.
+The package is published on npmjs as `@stephane-klein/sklein-bibliography-corpus-rag-manager-cli`.
 Install it globally to get the `sklein-bibliography-corpus-rag-manager` command
 on your `PATH`:
 
 ```sh
-$ npm install -g sklein-bibliography-corpus-rag-manager-cli
+$ npm install -g @stephane-klein/sklein-bibliography-corpus-rag-manager-cli
 ```
 
 With pnpm:
 
 ```sh
-$ pnpm add -g sklein-bibliography-corpus-rag-manager-cli
+$ pnpm add -g @stephane-klein/sklein-bibliography-corpus-rag-manager-cli
 ```
 
 Or run it without installing it:
 
 ```sh
-$ npx sklein-bibliography-corpus-rag-manager-cli generate-sidecars ./contents/books
-$ pnpx sklein-bibliography-corpus-rag-manager-cli generate-sidecars ./contents/books
+$ npx @stephane-klein/sklein-bibliography-corpus-rag-manager-cli generate-sidecars ./contents/books
+$ pnpx @stephane-klein/sklein-bibliography-corpus-rag-manager-cli generate-sidecars ./contents/books
 ```
 
 Run `sklein-bibliography-corpus-rag-manager --help` to list the commands.
