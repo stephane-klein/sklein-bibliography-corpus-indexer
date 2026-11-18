@@ -245,6 +245,23 @@ The command exits with `0` on success and `1` on failure.
 $ sklein-bibliography-corpus-rag-manager completion >> ~/.zshrc
 ```
 
+## Install the development version globally on your workstation
+
+To run the CLI from other projects while working on its source, link the checkout
+into `~/.local/bin` instead of installing the published package:
+
+```sh
+$ cd packages/cli
+$ mise run install-cli-to-local-bin
+```
+
+Run `pnpm install` at the workspace root first, because the linked script resolves
+its dependencies from `packages/cli/node_modules`.
+
+The task symlinks `src/cli.js`, so the command runs the working tree and every edit
+is active on the next call. It creates no global package state. Remove the link
+with `mise run uninstall-cli-from-local-bin`.
+
 ## Publishing
 
 The package is published by hand, by the maintainer. Bump `version` in
