@@ -127,8 +127,8 @@ export async function runImportBooks({
 }
 
 async function importBook({ api, bookDir, dryRun, prune, skipEmbeddings, requireEmbeddings }) {
-    const { config, toc, filesByPath, bookDirName } = await loadBook(bookDir);
-    const nodes = buildBookTree({ toc, config, filesByPath });
+    const { config, files, bookDirName } = await loadBook(bookDir);
+    const nodes = buildBookTree({ config, files });
 
     if (nodes.length > MAX_UPSERT_ITEMS) {
         throw new Error(

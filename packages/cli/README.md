@@ -9,7 +9,7 @@ The corpus lives in a `contents/` directory with two collections:
 ```
 contents/
 ├── single-document-texts/   # standalone Markdown documents
-└── books/                   # one directory per book, with toc.yaml and markdown/
+└── books/                   # one directory per book, with config.yaml and markdown/
 ```
 
 Five subcommands work on that tree:
@@ -119,7 +119,8 @@ Writes one `.md.yaml` sidecar next to each Markdown file. The sidecar holds a
 `manifest` and a `chunks` list; each chunk has a heading path, a token count and
 the exact paragraph text. The splitter counts tokens with the `cl100k_base`
 tokenizer and keeps chunks under 1000 tokens. For a book section, the heading
-path starts with the breadcrumb from `toc.yaml`.
+path starts with the breadcrumb built from `config.yaml.title` and the Markdown
+`ancestors` frontmatter.
 
 ```sh
 $ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/single-document-texts --dry-run
@@ -210,9 +211,16 @@ missing.
 
 ### `import-books <path>`
 
-Reads each book's `config.yaml` (slug, bibliography, excluded files) and
-`toc.yaml`, builds the work/part/chapter tree, and sends it to the same sync
+Reads each book's `config.yaml` (title, slug, bibliography, excluded files) and
+the Markdown files under `markdown/`, builds the work/part/chapter tree from
+their `path` and `ancestors` frontmatter, and sends it to the same sync
 endpoint. Sections with a sidecar and its binary also get their chunks.
+
+`toc.yaml` is input for `epub-to-markdown` only. `import-books` never reads it:
+the Markdown file paths give the hierarchy, and the `ancestors` frontmatter
+gives the title of each parent directory. A file whose path is also a directory
+(`00-index.md`) provides the content of that directory node. Every Markdown
+file that is not listed in `config.exclude` becomes a node.
 
 ```sh
 $ sklein-bibliography-corpus-rag-manager import-books ./contents/books

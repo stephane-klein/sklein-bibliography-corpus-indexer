@@ -1,12 +1,17 @@
-// Builds the document tree of one book from its toc.yaml and the Markdown
-// files found under markdown/. The function is pure: the caller reads the
-// files and passes them in, which keeps the tree rules testable.
-//
-// A toc entry becomes a node when it has a Markdown file, or when at least
-// one of its descendants has one. Entries below the split depth and excluded
-// files therefore stay inside their parent file and create no node.
+import { basename } from "node:path";
+import { markdownTitleOf } from "./markdown.js";
 
-export function buildBookTree({ toc, config, filesByPath }) {
+// Builds the document tree of one book from its config.yaml and the Markdown
+// files found under markdown/. The function is pure: the caller reads the files
+// and passes them in, which keeps the tree rules testable.
+//
+// The path frontmatter names the node: "book-i/chapter-i" is a child of the
+// "book-i" directory. The ancestors frontmatter gives the title of each
+// parent directory, because a path segment is a slug. A directory that has
+// children and its own page stores that page in 00-index.md, whose path is the
+// directory path itself.
+
+export function buildBookTree({ config, files }) {
     const rootSlug = config?.slug;
 
     if (
@@ -18,95 +23,198 @@ export function buildBookTree({ toc, config, filesByPath }) {
         throw new Error("config.yaml must define a single-segment slug");
     }
 
-    if (typeof toc?.title !== "string" || toc.title.length === 0) {
-        throw new Error("toc.yaml must define a title");
+    const rootTitle = typeof config?.title === "string" ? config.title.trim() : "";
+
+    if (rootTitle.length === 0) {
+        throw new Error("config.yaml must define a title");
     }
 
-    const excluded = new Set(config.exclude ?? []);
+    const excluded = new Set(Array.isArray(config.exclude) ? config.exclude : []);
     const bibliography = config.bibliography ?? {};
 
-    function fileFor(tocNode) {
-        const file = filesByPath.get(tocNode.path);
+    const entries = files
+        .filter((file) => !isExcluded(file, excluded))
+        .map((file) => {
+            const path = pathOf(file);
+            validatePath(path, file);
 
-        if (!file) {
-            return null;
+            return {
+                file,
+                path,
+                segments: path.split("/"),
+                title: markdownTitleOf(file.frontmatter, file.body, basename(file.relativePath, ".md")),
+            };
+        })
+        .sort((left, right) => compareStrings(left.path, right.path));
+
+    const seenPaths = new Map();
+
+    for (const entry of entries) {
+        const previous = seenPaths.get(entry.path);
+
+        if (previous) {
+            throw new Error(
+                `duplicate path "${entry.path}" in ${previous.relativePath} and ${entry.file.relativePath}`,
+            );
         }
 
-        if (excluded.has(`${tocNode.path}.md`) || excluded.has(file.relativePath)) {
-            return null;
-        }
-
-        return file;
+        seenPaths.set(entry.path, entry.file);
     }
 
-    function filterNode(tocNode) {
-        if (typeof tocNode.path !== "string" || tocNode.path.length === 0) {
-            throw new Error(`toc.yaml entry without path: ${tocNode.title}`);
+    const directoryTitles = titlesOfDirectories(entries);
+    const nodesByPath = new Map([["", { path: "", title: rootTitle, file: null, children: [] }]]);
+
+    for (const entry of entries) {
+        const descendantTitle = directoryTitles.get(entry.path);
+
+        if (descendantTitle !== undefined && descendantTitle !== entry.title) {
+            throw new Error(
+                `conflicting titles for "${entry.path}": "${descendantTitle}" in its descendants and "${entry.title}" in ${entry.file.relativePath}`,
+            );
         }
 
-        const file = fileFor(tocNode);
-        const children = (tocNode.children ?? []).map((child) => filterNode(child)).filter((child) => child !== null);
-
-        if (!file && children.length === 0) {
-            return null;
-        }
-
-        return { tocNode, file, children };
+        nodesByPath.set(entry.path, {
+            path: entry.path,
+            title: entry.title,
+            file: entry.file,
+            children: [],
+        });
     }
 
-    const rootChildren = (toc.toc ?? []).map((node) => filterNode(node)).filter((node) => node !== null);
-    const root = {
-        slug: rootSlug,
-        parent_slug: null,
-        depth: 0,
-        position: 0,
-        title: toc.title,
-        content: "",
-        file: null,
-        metadata: {
-            bibliography,
-            breadcrumb: [toc.title],
-            toc: { title: toc.title },
-        },
-    };
-    const nodes = [root];
+    for (const entry of entries) {
+        for (let index = 1; index < entry.segments.length; index++) {
+            const directoryPath = entry.segments.slice(0, index).join("/");
 
-    function add(node, parent, depth, position, breadcrumb) {
-        const { tocNode, file, children } = node;
-        const nodeBreadcrumb = [...breadcrumb, tocNode.title];
-        const entry = {
-            slug: `${rootSlug}/${tocNode.path}`,
-            parent_slug: parent.slug,
+            if (nodesByPath.has(directoryPath)) {
+                continue;
+            }
+
+            const title = directoryTitles.get(directoryPath);
+
+            if (title === undefined) {
+                throw new Error(
+                    `cannot resolve the title of "${directoryPath}" for ${entry.file.relativePath}; add it to the ancestors frontmatter`,
+                );
+            }
+
+            nodesByPath.set(directoryPath, { path: directoryPath, title, file: null, children: [] });
+        }
+    }
+
+    for (const node of nodesByPath.values()) {
+        if (node.path === "") {
+            continue;
+        }
+
+        const parentPath = node.path.includes("/") ? node.path.slice(0, node.path.lastIndexOf("/")) : "";
+        nodesByPath.get(parentPath).children.push(node);
+    }
+
+    for (const node of nodesByPath.values()) {
+        node.children.sort((left, right) => compareStrings(lastSegment(left.path), lastSegment(right.path)));
+    }
+
+    const nodes = [];
+
+    function add(node, parentSlug, depth, position, breadcrumb) {
+        const slug = node.path === "" ? rootSlug : `${rootSlug}/${node.path}`;
+        const nodeBreadcrumb = [...breadcrumb, node.title];
+
+        nodes.push({
+            slug,
+            parent_slug: parentSlug,
             depth,
             position,
-            title: tocNode.title,
-            content: file?.body ?? "",
-            file,
-            metadata: {
-                ...(file?.frontmatter ?? {}),
-                breadcrumb: nodeBreadcrumb,
-                toc: {
-                    title: tocNode.title,
-                    path: tocNode.path,
-                    href: tocNode.href ?? null,
-                },
-            },
-        };
+            title: node.title,
+            content: node.file?.body ?? "",
+            file: node.file,
+            metadata:
+                node.path === ""
+                    ? { bibliography, breadcrumb: nodeBreadcrumb }
+                    : { ...(node.file?.frontmatter ?? {}), breadcrumb: nodeBreadcrumb },
+        });
 
-        nodes.push(entry);
-        children.forEach((child, index) => add(child, entry, depth + 1, index, nodeBreadcrumb));
+        node.children.forEach((child, index) => add(child, slug, depth + 1, index, nodeBreadcrumb));
     }
 
-    rootChildren.forEach((child, index) => add(child, root, 1, index, [toc.title]));
-
-    const seen = new Set();
-
-    for (const node of nodes) {
-        if (seen.has(node.slug)) {
-            throw new Error(`duplicate node slug: ${node.slug}`);
-        }
-        seen.add(node.slug);
-    }
+    add(nodesByPath.get(""), null, 0, 0, []);
 
     return nodes;
+}
+
+function pathOf(file) {
+    const path = file.frontmatter?.path;
+
+    return typeof path === "string" && path.trim() ? path.trim() : file.relativePath.replace(/\.md$/, "");
+}
+
+function validatePath(path, file) {
+    if (path.startsWith("/") || path.endsWith("/") || path.includes("\\")) {
+        throw new Error(`invalid path in ${file.relativePath}: "${path}"`);
+    }
+
+    for (const segment of path.split("/")) {
+        if (segment === "" || segment === "." || segment === "..") {
+            throw new Error(`invalid path in ${file.relativePath}: "${path}"`);
+        }
+    }
+}
+
+function isExcluded(file, excluded) {
+    return excluded.has(file.relativePath) || excluded.has(`${pathOf(file)}.md`);
+}
+
+function titlesOfDirectories(entries) {
+    const titles = new Map();
+
+    for (const entry of entries) {
+        const ancestors = ancestorsOf(entry.file);
+
+        if (ancestors.length > entry.segments.length - 1) {
+            throw new Error(
+                `${entry.file.relativePath} has ${ancestors.length} ancestors for ${entry.segments.length - 1} parent directories`,
+            );
+        }
+
+        ancestors.forEach((title, index) => {
+            const directoryPath = entry.segments.slice(0, index + 1).join("/");
+            const known = titles.get(directoryPath);
+
+            if (known !== undefined && known !== title) {
+                throw new Error(`conflicting ancestor titles for "${directoryPath}": "${known}" and "${title}"`);
+            }
+
+            titles.set(directoryPath, title);
+        });
+    }
+
+    return titles;
+}
+
+function ancestorsOf(file) {
+    const ancestors = file.frontmatter?.ancestors;
+
+    if (ancestors === undefined) {
+        return [];
+    }
+
+    if (!Array.isArray(ancestors)) {
+        throw new Error(`frontmatter ancestors must be a list in ${file.relativePath}`);
+    }
+
+    return ancestors.map((title) => {
+        if (typeof title !== "string" || title.trim().length === 0) {
+            throw new Error(`invalid ancestor title in ${file.relativePath}`);
+        }
+
+        return title.trim();
+    });
+}
+
+function lastSegment(path) {
+    return path.slice(path.lastIndexOf("/") + 1);
+}
+
+function compareStrings(left, right) {
+    return left < right ? -1 : left > right ? 1 : 0;
 }

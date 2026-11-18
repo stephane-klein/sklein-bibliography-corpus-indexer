@@ -110,10 +110,11 @@ async function createBookFixture(root) {
     const bookDir = join(root, "contents", "books", "test-book");
     const markdownDir = join(bookDir, "markdown");
     await mkdir(markdownDir, { recursive: true });
-    await writeFile(join(bookDir, "config.yaml"), "slug: test-book\n", "utf8");
+    await writeFile(join(bookDir, "config.yaml"), "slug: test-book\ntitle: Test Book\n", "utf8");
+    // A wrong toc.yaml proves that the importer ignores it.
     await writeFile(
         join(bookDir, "toc.yaml"),
-        yaml.dump({ title: "Test Book", toc: [{ title: "Preface", path: "01-preface", children: [] }] }),
+        yaml.dump({ title: "Ignored toc title", toc: [{ title: "Ignored", path: "01-preface", children: [] }] }),
         "utf8",
     );
 

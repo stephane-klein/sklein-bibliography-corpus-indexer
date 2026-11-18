@@ -1,6 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import { basename, dirname, join, relative, sep } from "node:path";
-import { discoverBooks, loadBook, pathExists } from "./book-loader.js";
+import { discoverBooks, isBookDir, loadBook } from "./book-loader.js";
 import { buildBookTree } from "./book-tree.js";
 import { assertDirectory, collectionRoot, isInside } from "./context.js";
 import { logger } from "./logger.js";
@@ -94,14 +94,12 @@ async function bookDocuments({ target, isDirectory, contentsDir }) {
     const documents = [];
 
     for (const bookDir of bookDirs) {
-        const { config, toc, filesByPath, bookDirName } = await loadBook(bookDir);
-        const nodes = buildBookTree({ toc, config, filesByPath });
+        const { config, files, bookDirName } = await loadBook(bookDir);
+        const nodes = buildBookTree({ config, files });
         const fileNodes = nodes.filter((node) => node.file);
         const targetedNodes = fileNodes.filter((node) =>
             isTargeted({ target, isDirectory, absolutePath: join(bookDir, "markdown", node.file.relativePath) }),
         );
-
-        warnAboutOrphanFiles({ bookDirName, config, filesByPath, fileNodes });
 
         if (targetedNodes.length === 0) {
             logger.warn({ book: relative(contentsDir, bookDir) }, "No Markdown files to process in this book");
@@ -143,7 +141,7 @@ async function resolveBookDirs({ target, isDirectory, booksRoot }) {
     }
 
     if (!isDirectory) {
-        throw new Error("File is not inside a book directory with a toc.yaml");
+        throw new Error("File is not inside a book directory with a config.yaml and a markdown/ directory");
     }
 
     return await discoverBooks(target);
@@ -153,7 +151,7 @@ async function findBookDir(target, booksRoot) {
     let current = target;
 
     while (isInside(booksRoot, current)) {
-        if (await pathExists(join(current, "toc.yaml"))) {
+        if (await isBookDir(current)) {
             return current;
         }
 
@@ -167,32 +165,6 @@ async function findBookDir(target, booksRoot) {
     }
 
     return null;
-}
-
-function warnAboutOrphanFiles({ bookDirName, config, filesByPath, fileNodes }) {
-    const knownFiles = new Set(fileNodes.map((node) => node.file.relativePath));
-    const excludedFiles = new Set();
-
-    for (const entry of config.exclude ?? []) {
-        excludedFiles.add(entry.endsWith(".md") ? entry : `${entry}.md`);
-
-        const file = filesByPath.get(entry) ?? filesByPath.get(entry.replace(/\.md$/, ""));
-
-        if (file) {
-            excludedFiles.add(file.relativePath);
-        }
-    }
-
-    for (const file of filesByPath.values()) {
-        if (knownFiles.has(file.relativePath) || excludedFiles.has(file.relativePath)) {
-            continue;
-        }
-
-        logger.warn(
-            { file: `books/${bookDirName}/markdown/${file.relativePath}` },
-            "Markdown file is not part of the book tree",
-        );
-    }
 }
 
 function isTargeted({ target, isDirectory, absolutePath }) {

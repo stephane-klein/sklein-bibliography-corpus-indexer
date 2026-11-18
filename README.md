@@ -93,9 +93,10 @@ $ sklein-bibliography-corpus-rag-manager import-single-documents contents/single
 ```
 
 `sklein-bibliography-corpus-rag-manager import-books` imports the books under
-`contents/books/`. It reads each book's `config.yaml` (slug, bibliography,
-excluded files) and `toc.yaml`, builds the work/part/chapter tree, and sends it
-to the same sync endpoint. When a section has a `.md.yaml` sidecar and its
+`contents/books/`. It reads each book's `config.yaml` (title, slug, bibliography,
+excluded files) and the Markdown files under `markdown/`, builds the
+work/part/chapter tree from their `path` and `ancestors` frontmatter, and sends
+it to the same sync endpoint. When a section has a `.md.yaml` sidecar and its
 `.md.embeddings.bin`, the command also imports its chunks:
 
 ```bash
@@ -142,8 +143,9 @@ The command does not vectorize anything. It splits each document into
 paragraphs, counts tokens with the `cl100k_base` tokenizer, and stores the
 result in `source.md.yaml` next to `source.md`. The file contains a `manifest`
 section and a `chunks` list; each chunk has its heading path and token count.
-For a book section, the heading path starts with the book breadcrumb from
-`toc.yaml`, for example `Book I. Production. > Chapter III. Of Capital. > § 1. ...`.
+For a book section, the heading path starts with the book breadcrumb built from
+`config.yaml.title` and the Markdown `ancestors` frontmatter, for example
+`Book I. Production. > Chapter III. Of Capital. > § 1. ...`.
 
 By default, the command skips a sidecar when its manifest has the same source
 hash, schema version, tokenizer, threshold and splitter, and when the number of
@@ -158,9 +160,8 @@ $ yq '.chunks[] | [.chunk_index, .content_token_count, .heading_path] | @tsv' co
 $ yq -o=json '.' contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md.yaml | jq .
 ```
 
-The command respects each book's `config.exclude` list. A Markdown file that
-does not belong to the `toc.yaml` tree gets a warning and no sidecar, because
-the node import would not create a node for it.
+The command respects each book's `config.exclude` list. A Markdown file listed
+there gets no sidecar, because the node import does not create a node for it.
 
 ### Generating embeddings
 

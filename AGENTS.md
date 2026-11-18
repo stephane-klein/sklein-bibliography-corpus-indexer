@@ -56,6 +56,10 @@ Rules:
   `contents/` directory. Changing it invalidates existing sidecars and database
   rows.
 - `import-single-documents` must keep refusing paths under `books/`.
+- A book directory is a directory with a `config.yaml` and a `markdown/`
+  directory. The root node title comes from `config.yaml.title`. `import-books`
+  builds the tree from the Markdown file paths and the `ancestors` frontmatter;
+  it never reads `toc.yaml`, which is only input for `epub-to-markdown`.
 - Do not add application code to the CLI package, and do not import
   `$lib/server/...` from it: the package is published without the application.
 - There is no build step; `files` publishes `src/` as-is.
