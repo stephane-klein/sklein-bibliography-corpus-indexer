@@ -18,16 +18,24 @@ reload = "source scripts/load_postgres_variables.sh && source scripts/load_authe
 # Load the CLI shell completion when entering the repository.
 [[hooks.enter]]
 shell = "zsh"
-script = [
-  "source <(SHELL=/bin/zsh sklein-bibliography-corpus-rag-manager completion 2>/dev/null) || true",
-]
+script = """
+source <(SHELL=/bin/zsh sklein-bibliography-corpus-rag-manager completion 2>/dev/null) || true
+
+command -v youtube-to-markdown >/dev/null && source <(SHELL=/bin/zsh youtube-to-markdown completion 2>/dev/null) || true
+command -v epub-to-markdown >/dev/null && source <(SHELL=/bin/zsh epub-to-markdown completion 2>/dev/null) || true
+"""
 
 [[hooks.leave]]
 shell = "zsh"
-script = [
-  "compdef -d sklein-bibliography-corpus-rag-manager 2>/dev/null || true",
-  "unfunction _sklein-bibliography-corpus-rag-manager_yargs_completions 2>/dev/null || true",
-]
+script = """
+compdef -d sklein-bibliography-corpus-rag-manager 2>/dev/null || true
+unfunction _sklein-bibliography-corpus-rag-manager_yargs_completions 2>/dev/null || true
+
+compdef -d youtube-to-markdown 2>/dev/null || true
+unfunction _youtube-to-markdown_yargs_completions 2>/dev/null || true
+compdef -d epub-to-markdown 2>/dev/null || true
+unfunction _epub-to-markdown_yargs_completions 2>/dev/null || true
+"""
 
 [tools]
 node = "26.13.0"
@@ -38,6 +46,16 @@ helm = "4.3.1"
 pitchfork = "2.33.0"
 mailpit = "1.33.0"
 lnav = "0.14.1"
+"npm:@stephane-klein/youtube-to-markdown" = {
+    version = "0.10.0",
+    minimum_release_age = "0s",
+    allow_low_downloads = true,
+}
+"npm:@stephane-klein/epub-to-markdown" = {
+    version = "0.3.0",
+    minimum_release_age = "0s",
+    allow_low_downloads = true,
+}
 
 [tasks.build]
 run = "pnpm run build"
