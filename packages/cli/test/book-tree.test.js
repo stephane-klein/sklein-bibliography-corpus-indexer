@@ -19,29 +19,24 @@ const config = {
     bibliography,
 };
 
+const schema = { epub_to_markdown_schema: 1 };
+
 function file(relativePath, frontmatter, body) {
     return {
         relativePath,
         raw: Buffer.from(body),
-        frontmatter,
+        frontmatter: { ...schema, ...frontmatter },
         body,
     };
 }
 
 const files = [
     file("04-part/00-index.md", { path: "04-part", title: "Part" }, "part body"),
-    file(
-        "02-book-i/01-chapter-i.md",
-        { path: "02-book-i/01-chapter-i", title: "Chapter I", ancestors: ["Book I"] },
-        "chapter body",
-    ),
+    file("02-book-i/00-index.md", { path: "02-book-i", title: "Book I" }, "book body"),
+    file("02-book-i/01-chapter-i.md", { path: "02-book-i/01-chapter-i", title: "Chapter I" }, "chapter body"),
     file("01-preface.md", { path: "01-preface", title: "Preface" }, "preface body"),
-    file(
-        "02-book-i/02-contents.md",
-        { path: "02-book-i/02-contents", title: "Contents", ancestors: ["Book I"] },
-        "contents body",
-    ),
-    file("03-empty/01-x.md", { path: "03-empty/01-x", title: "X", ancestors: ["Empty"] }, "x body"),
+    file("02-book-i/02-contents.md", { path: "02-book-i/02-contents", title: "Contents" }, "contents body"),
+    file("03-empty/01-x.md", { path: "03-empty/01-x", title: "X" }, "x body"),
 ];
 
 test("builds the work, the directories and the file nodes", () => {
@@ -59,7 +54,7 @@ test("builds the work, the directories and the file nodes", () => {
     );
 });
 
-test("keeps the work and the directories as structural nodes", () => {
+test("keeps the work as a structural node and gives each directory its page", () => {
     const [root, preface, part] = buildBookTree({ config, files });
 
     assert.equal(root.parent_slug, null);
@@ -83,8 +78,8 @@ test("keeps the work and the directories as structural nodes", () => {
     assert.equal(part.depth, 1);
     assert.equal(part.position, 1);
     assert.equal(part.title, "Book I");
-    assert.equal(part.content, "");
-    assert.equal(part.file, null);
+    assert.equal(part.content, "book body");
+    assert.equal(part.file.relativePath, "02-book-i/00-index.md");
     assert.deepEqual(part.metadata.breadcrumb, ["Test Book", "Book I"]);
 });
 
@@ -138,50 +133,14 @@ test("rejects two files that share a path", () => {
     );
 });
 
-test("rejects conflicting titles for the same directory", () => {
-    const conflictingFiles = [
-        file(
-            "02-book-i/01-chapter-i.md",
-            { path: "02-book-i/01-chapter-i", title: "Chapter I", ancestors: ["Book I"] },
-            "chapter body",
-        ),
-        file(
-            "02-book-i/02-chapter-ii.md",
-            { path: "02-book-i/02-chapter-ii", title: "Chapter II", ancestors: ["Book One"] },
-            "chapter body",
-        ),
-    ];
-
-    assert.throws(
-        () => buildBookTree({ config, files: conflictingFiles }),
-        /conflicting ancestor titles for "02-book-i": "Book I" and "Book One"/,
-    );
-});
-
-test("rejects a directory whose title no ancestor provides", () => {
+test("rejects a directory without 00-index.md", () => {
     const orphanFiles = [
         file("02-book-i/01-chapter-i.md", { path: "02-book-i/01-chapter-i", title: "Chapter I" }, "chapter body"),
     ];
 
     assert.throws(
         () => buildBookTree({ config, files: orphanFiles }),
-        /cannot resolve the title of "02-book-i" for 02-book-i\/01-chapter-i\.md/,
-    );
-});
-
-test("rejects a directory page whose title conflicts with its descendants", () => {
-    const conflictingFiles = [
-        file("04-part/00-index.md", { path: "04-part", title: "Part" }, "part body"),
-        file(
-            "04-part/01-chapter.md",
-            { path: "04-part/01-chapter", title: "Chapter", ancestors: ["Another part"] },
-            "chapter body",
-        ),
-    ];
-
-    assert.throws(
-        () => buildBookTree({ config, files: conflictingFiles }),
-        /conflicting titles for "04-part": "Another part" in its descendants and "Part" in 04-part\/00-index\.md/,
+        /missing 00-index\.md for "02-book-i" in 02-book-i\/01-chapter-i\.md/,
     );
 });
 
@@ -192,19 +151,33 @@ test("requires a title in config.yaml", () => {
     );
 });
 
-test("rejects an ancestors value that is not a list", () => {
-    const invalidFiles = [
-        file(
-            "02-book-i/01-chapter-i.md",
-            { path: "02-book-i/01-chapter-i", title: "Chapter I", ancestors: "Book I" },
-            "chapter body",
-        ),
+test("rejects a legacy schema 0 corpus", () => {
+    const legacyFiles = [
+        file("01-preface.md", { path: "01-preface", title: "Preface", epub_to_markdown_schema: 0 }, "body"),
     ];
 
     assert.throws(
-        () => buildBookTree({ config, files: invalidFiles }),
-        /frontmatter ancestors must be a list in 02-book-i\/01-chapter-i\.md/,
+        () => buildBookTree({ config, files: legacyFiles }),
+        /Markdown schema is 0, expected 1; run "epub-to-markdown migrate"/,
     );
+});
+
+test("rejects a mixed schema corpus", () => {
+    const mixedFiles = [
+        file("01-preface.md", { path: "01-preface", title: "Preface" }, "body"),
+        file("02-book-i/00-index.md", { path: "02-book-i", title: "Book I", epub_to_markdown_schema: 2 }, "body"),
+        file("02-book-i/01-chapter-i.md", { path: "02-book-i/01-chapter-i", title: "Chapter I" }, "body"),
+    ];
+
+    assert.throws(() => buildBookTree({ config, files: mixedFiles }), /mixed Markdown schema versions \(1, 2\)/);
+});
+
+test("rejects a schema newer than the importer", () => {
+    const newerFiles = [
+        file("01-preface.md", { path: "01-preface", title: "Preface", epub_to_markdown_schema: 2 }, "body"),
+    ];
+
+    assert.throws(() => buildBookTree({ config, files: newerFiles }), /this importer supports 1; upgrade the importer/);
 });
 
 test("rejects a path that escapes the markdown directory", () => {

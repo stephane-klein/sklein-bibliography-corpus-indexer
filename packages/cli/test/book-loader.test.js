@@ -40,7 +40,7 @@ test("loads the config and parses every Markdown file without reading toc.yaml",
         await writeFile(join(book, "toc.yaml"), "title: Ignored\ntoc: []\n", "utf8");
         await writeFile(
             join(markdown, "01-a.md"),
-            "---\ntitle: A\npath: 01-preface/01-a\nancestors:\n  - Preface\n---\n\nHello.\n",
+            "---\nepub_to_markdown_schema: 1\ntitle: A\npath: 01-preface/01-a\nhref: book.xhtml#a\n---\n\nHello.\n",
             "utf8",
         );
 
@@ -52,7 +52,7 @@ test("loads the config and parses every Markdown file without reading toc.yaml",
         assert.equal(loaded.files.length, 1);
         assert.equal(loaded.files[0].relativePath, "01-preface/01-a.md");
         assert.equal(loaded.files[0].frontmatter.title, "A");
-        assert.deepEqual(loaded.files[0].frontmatter.ancestors, ["Preface"]);
+        assert.equal(loaded.files[0].frontmatter.epub_to_markdown_schema, 1);
         assert.equal(loaded.files[0].body, "\nHello.\n");
     } finally {
         await rm(root, { recursive: true, force: true });

@@ -119,8 +119,8 @@ Writes one `.md.yaml` sidecar next to each Markdown file. The sidecar holds a
 `manifest` and a `chunks` list; each chunk has a heading path, a token count and
 the exact paragraph text. The splitter counts tokens with the `cl100k_base`
 tokenizer and keeps chunks under 1000 tokens. For a book section, the heading
-path starts with the breadcrumb built from `config.yaml.title` and the Markdown
-`ancestors` frontmatter.
+path starts with the breadcrumb built from `config.yaml.title` and the
+`00-index.md` pages.
 
 ```sh
 $ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/single-document-texts --dry-run
@@ -213,14 +213,14 @@ missing.
 
 Reads each book's `config.yaml` (title, slug, bibliography, excluded files) and
 the Markdown files under `markdown/`, builds the work/part/chapter tree from
-their `path` and `ancestors` frontmatter, and sends it to the same sync
+their `path` and their `00-index.md` pages, and sends it to the same sync
 endpoint. Sections with a sidecar and its binary also get their chunks.
 
 `toc.yaml` is input for `epub-to-markdown` only. `import-books` never reads it:
-the Markdown file paths give the hierarchy, and the `ancestors` frontmatter
-gives the title of each parent directory. A file whose path is also a directory
-(`00-index.md`) provides the content of that directory node. Every Markdown
-file that is not listed in `config.exclude` becomes a node.
+the Markdown file paths give the hierarchy, and every directory stores its title
+and content in `00-index.md`. The importer supports only the latest
+`epub_to_markdown_schema`; run `epub-to-markdown migrate` on an older corpus.
+Every Markdown file that is not listed in `config.exclude` becomes a node.
 
 ```sh
 $ sklein-bibliography-corpus-rag-manager import-books ./contents/books

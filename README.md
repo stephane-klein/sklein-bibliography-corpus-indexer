@@ -95,7 +95,7 @@ $ sklein-bibliography-corpus-rag-manager import-single-documents contents/single
 `sklein-bibliography-corpus-rag-manager import-books` imports the books under
 `contents/books/`. It reads each book's `config.yaml` (title, slug, bibliography,
 excluded files) and the Markdown files under `markdown/`, builds the
-work/part/chapter tree from their `path` and `ancestors` frontmatter, and sends
+work/part/chapter tree from their `path` and their `00-index.md` pages, and sends
 it to the same sync endpoint. When a section has a `.md.yaml` sidecar and its
 `.md.embeddings.bin`, the command also imports its chunks:
 
@@ -144,7 +144,7 @@ paragraphs, counts tokens with the `cl100k_base` tokenizer, and stores the
 result in `source.md.yaml` next to `source.md`. The file contains a `manifest`
 section and a `chunks` list; each chunk has its heading path and token count.
 For a book section, the heading path starts with the book breadcrumb built from
-`config.yaml.title` and the Markdown `ancestors` frontmatter, for example
+`config.yaml.title` and the `00-index.md` pages, for example
 `Book I. Production. > Chapter III. Of Capital. > § 1. ...`.
 
 By default, the command skips a sidecar when its manifest has the same source

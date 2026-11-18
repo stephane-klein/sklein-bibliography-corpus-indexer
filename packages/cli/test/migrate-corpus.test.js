@@ -120,7 +120,7 @@ async function createBookFixture(root) {
 
     return await writeLegacyDocument({
         markdownPath: join(markdownDir, "01-preface.md"),
-        frontmatter: { path: "01-preface", title: "Preface" },
+        frontmatter: { epub_to_markdown_schema: 1, path: "01-preface", title: "Preface" },
         body: BOOK_BODY,
         sourceFile: "books/test-book/markdown/01-preface.md",
         rootTitle: BOOK_ROOT_TITLE,
