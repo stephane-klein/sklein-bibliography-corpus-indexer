@@ -57,6 +57,86 @@ Default user (see [`./sqls/seeds/00002_users.sql`](./sqls/seeds/00002_users.sql)
 To send a test email, run `mise run send-test-mail`. Mailpit captures all the
 emails it sends: run `pitchfork proxy status` to get its URL.
 
+### Web application environment variables
+
+The web application reads these variables at runtime. The defaults apply when a
+variable is unset or empty.
+
+- **Database**
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL` — PostgreSQL connection
+    URL. No default; set it to a valid connection URL. The container image sets
+    `postgres://postgres:postgres@postgres:5432/postgres`, and the dev stack
+    exports the URL of the local container.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_SCHEMA` — schema the
+    application reads and writes. Default `public`.
+- **Admin API**
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN` — bearer token for
+    `/api/v1/admin/*`. No default. The routes return 500 when it is unset or
+    shorter than 32 characters.
+- **Authentication**
+  - `AUTHELIA_ISSUER`, `AUTHELIA_CLIENT_ID`, `AUTHELIA_CLIENT_SECRET` — OIDC
+    settings for Authelia. No default; sign-in stays disabled when one of them is
+    missing.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ORIGIN` — origin used to build the
+    OIDC callback URL. Default `http://localhost:5173`.
+  - `LOGIN_MAX_ATTEMPTS` — failed sign-in attempts allowed per IP address and
+    per email address. Default `5`.
+  - `LOGIN_WINDOW_MS` — window of the sign-in throttle, in milliseconds. Default
+    `900000` (15 minutes).
+- **Mail**
+  - `SMTP_HOST` — SMTP host. Default empty, which disables email sending.
+  - `SMTP_PORT` — SMTP port. Default `587`.
+  - `SMTP_USER` — SMTP user. Default empty, which disables authentication.
+  - `SMTP_PASS` — SMTP password. Default empty.
+  - `SMTP_SECURE` — implicit TLS. Only the value `true` enables it. Default empty
+    (`false`).
+  - `EMAIL_FROM` — sender address. Default `noreply@example.com`.
+  - `TEST_EMAIL_TO` — default recipient of
+    `POST /api/v1/admin/send-test-mail`. No default; the request body must
+    provide `to` when it is unset.
+- **Embeddings**
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_PROVIDER` — embedding
+    provider, `voyage` or `openai`. Default `voyage`.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_MODEL` — document model.
+    Default `voyage-4` for Voyage and `text-embedding-3-small` for OpenAI.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_QUERY_MODEL` — query model.
+    Default `voyage-4-lite` for Voyage and the document model for OpenAI.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_DIMENSION` — vector
+    dimension. Default `1024` for Voyage and `1536` for OpenAI.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_BASE_URL` — provider base
+    URL. No default.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY` — provider API
+    key. No default; the embedding endpoints fail without it.
+- **MCP read-only server**
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD` —
+    password of the reader role. No default; the endpoint returns 503 when it is
+    unset.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_ROLE` — reader
+    role name. Default `sklein_bibliography_mcp_reader`.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_OUTPUT_CHARS` — maximum
+    output size in characters. Default `200000`.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_DEFAULT_MAX_OUTPUT_CHARS` —
+    default output size in characters. Default `50000`.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_QUERY_CHARS` — maximum query
+    size in characters. Default `100000`.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_VECTORIZE_TEXTS` — maximum
+    distinct texts per `vectorize()` query. Default `8`.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_VECTORIZE_TEXT_CHARS` —
+    maximum length of one `vectorize()` text. Default `2000`.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_LARGE_RESULT_ROWS` — row count
+    that triggers the large-result warning. Default `50`.
+- **Runtime**
+  - `NODE_ENV` — `production` switches the logs from `debug` to `info` and marks
+    the session cookie `Secure`. No default; any other value behaves like
+    development.
+  - `PORT` — HTTP port (adapter-node). Default `3000`.
+  - `HOST` — HTTP bind address (adapter-node). Default `0.0.0.0`.
+  - `BODY_SIZE_LIMIT` — maximum request body size (adapter-node). Default
+    `512K`; the container image sets `50M`.
+  - `ADDRESS_HEADER` — header that carries the client IP (adapter-node). No
+    default; set it to `x-forwarded-for` behind a reverse proxy so the login
+    throttle sees the real client IP.
+
 ### Command-line client
 
 The commands below come from the `@stephane-klein/sklein-bibliography-corpus-rag-manager-cli`
