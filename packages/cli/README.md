@@ -12,19 +12,22 @@ contents/
 └── books/                   # one directory per book, with config.yaml and markdown/
 ```
 
-Five subcommands work on that tree:
+Five subcommands work on that tree, and `reindex-bm25` rebuilds the search
+index:
 
 | Command                   | What it does                                                                            | Needs the webapp |
 | ------------------------- | --------------------------------------------------------------------------------------- | ---------------- |
 | `generate-sidecars`       | Splits each Markdown file into chunks and writes a `.md.yaml` sidecar next to it        | no               |
 | `generate-embeddings`     | Asks the webapp for vectors and writes a `.md.embeddings.bin` file next to each sidecar | yes              |
 | `migrate-corpus`          | Rewrites sidecars and headers to schema 2, without re-chunking or re-embedding          | no               |
+| `reindex-bm25`            | Rebuilds the BM25 index used by document search                                         | yes              |
 | `import-single-documents` | Imports standalone documents and their chunk embeddings                                 | yes              |
 | `import-books`            | Imports books, their hierarchy and their chunk embeddings                               | yes              |
 
 A typical run is `generate-sidecars`, `generate-embeddings`, then one of the two
 import commands. When you upgrade from version 0.1.x, run `migrate-corpus` once
-before the others.
+before the others. The import commands rebuild the BM25 index automatically
+after a change; `reindex-bm25` forces that rebuild when it did not run.
 
 ## Requirements
 
@@ -57,10 +60,10 @@ Run `sklein-bibliography-corpus-indexer --help` to list the commands.
 
 ## The path argument
 
-Every subcommand takes a required `<path>`. The path is resolved against the
-current directory, and it must point inside a directory named `contents`. The
-CLI walks up from the path to find that directory, so the same path works from
-any subdirectory of the corpus.
+Every subcommand except `reindex-bm25` takes a required `<path>`. The path is
+resolved against the current directory, and it must point inside a directory
+named `contents`. The CLI walks up from the path to find that directory, so the
+same path works from any subdirectory of the corpus.
 
 ```sh
 # From the corpus root: the path is contents/ itself
@@ -83,6 +86,7 @@ Each command applies its own rule:
 | `generate-sidecars`       | `single-document-texts/`, `books/`, or `contents/` for both                                      |
 | `generate-embeddings`     | same                                                                                             |
 | `migrate-corpus`          | same                                                                                             |
+| `reindex-bm25`            | no path                                                                                          |
 | `import-books`            | `books/`, or `contents/` which means `books/`                                                    |
 | `import-single-documents` | anything inside `contents/` except `books/`, or `contents/` which means `single-document-texts/` |
 
@@ -109,7 +113,8 @@ Prefer the environment variable in scripts. A token passed with `--token` appear
 in the shell history and in the output of `ps`.
 
 `generate-sidecars` accepts `--url` and `--token` and ignores them, because it
-never calls the webapp.
+never calls the webapp. `reindex-bm25` uses only `--url` and `--token`; it takes
+no path and ignores `--contents-dir`.
 
 ## Command reference
 
@@ -188,6 +193,27 @@ on that file, then `generate-embeddings`.
 Running the command twice is safe: the second run reports `already` and writes
 nothing. This command is unrelated to the `pnpm migrate` of the webapp, which
 migrates the PostgreSQL schema.
+
+### `reindex-bm25`
+
+Rebuilds the BM25 index used by the `/documents/` search. The command sends
+`POST /api/v1/admin/hierarchical-content-nodes/reindex` and logs the index state
+returned by the webapp.
+
+```sh
+$ sklein-bibliography-corpus-indexer reindex-bm25
+$ sklein-bibliography-corpus-indexer reindex-bm25 --url https://example.test --token ...
+```
+
+The webapp rebuilds the index with `REINDEX INDEX CONCURRENTLY`, so reads and
+writes continue during the operation. The call may take several minutes on a
+large corpus.
+
+The two import commands call the same endpoint after they insert, update or
+delete rows. Run `reindex-bm25` manually when that call did not happen, for
+example when an import reported `reindexed=false`. The command takes no path:
+the index covers the whole database. If the response still reports a mutable
+segment, the command logs a warning.
 
 ### `import-single-documents <path>`
 

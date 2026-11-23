@@ -34,6 +34,7 @@ The corpus commands live in `packages/cli`, published on npm as
 - `generate-sidecars`
 - `generate-embeddings`
 - `migrate-corpus`
+- `reindex-bm25`
 - `import-single-documents`
 - `import-books`
 
@@ -44,13 +45,14 @@ They are no longer scripts under `src/`. The package owns the former
 
 Rules:
 
-- Run a command with `sklein-bibliography-corpus-indexer <command> <path>`.
+- Run a command with `sklein-bibliography-corpus-indexer <command> [path]`.
   The root package depends on the workspace package, so `pnpm install` links the
   command into `node_modules/.bin`, and mise puts that directory on the `PATH`.
   In a shell without mise, use `pnpm exec sklein-bibliography-corpus-indexer`.
   There are no mise tasks for these commands.
-- `<path>` is required and resolved against the current directory. It must land
-  inside a directory named `contents`, found by walking up from the path.
+- `<path>` is required for every command except `reindex-bm25`, which targets the
+  whole database. The path is resolved against the current directory. It must
+  land inside a directory named `contents`, found by walking up from the path.
   `--contents-dir` overrides the search. Do not reintroduce a default path.
 - The anchor for `manifest.source_file` and `markdown_source_file` is the
   `contents/` directory. Changing it invalidates existing sidecars and database

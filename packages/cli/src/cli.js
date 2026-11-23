@@ -8,6 +8,7 @@ import { runImportBooks } from "./import-books.js";
 import { runImportSingleDocuments } from "./import-single-documents.js";
 import { configureLogger } from "./logger.js";
 import { runMigrateCorpus } from "./migrate-corpus.js";
+import { runReindexBm25 } from "./reindex-bm25.js";
 
 const { version } = createRequire(import.meta.url)("../package.json");
 const PROGRAM = "sklein-bibliography-corpus-indexer";
@@ -50,7 +51,7 @@ const embeddingsOptions = (yargs) =>
 
 const cli = yargs(hideBin(process.argv))
     .scriptName("")
-    .usage(`${PROGRAM} <command> <path> [options]`)
+    .usage(`${PROGRAM} <command> [path] [options]`)
     .option("url", {
         describe: "Base URL of the webapp (default: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_URL)",
         type: "string",
@@ -134,6 +135,12 @@ const cli = yargs(hideBin(process.argv))
                 dryRun: argv.dryRun,
             }),
         ),
+    )
+    .command(
+        "reindex-bm25",
+        "Rebuild the BM25 index used by document search",
+        () => {},
+        handle((argv) => runReindexBm25({ url: argv.url, token: argv.token })),
     )
     .command(
         "import-single-documents <path>",
