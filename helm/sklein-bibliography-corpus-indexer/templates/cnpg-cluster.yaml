@@ -44,4 +44,4 @@ spec:
         ensure: present
         login: true
         createdb: false
-        superuser: {{ .Values.cnpg.appRoleSuperuser }}
+        superuser: true

@@ -52,7 +52,7 @@ password:
 - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD`
 
 `ensureMcpReaderRole()` runs from `src/migrate.js`. It creates the role when the
-application role has `CREATEROLE` (the Helm chart sets `appRoleSuperuser: true`),
+application role has `CREATEROLE` (the Helm chart makes it a superuser),
 grants `USAGE` on the application schema, `SELECT` on
 `hierarchical_content_nodes` and `content_chunks`, and `EXECUTE` on the
 `IMMUTABLE` helpers and the ParadeDB functions. It also sets

@@ -25,14 +25,13 @@ mcp:
   readerPassword: ""
 
 # CloudNativePG cluster configuration — deployed in the same namespace as the app.
+# The application role owns the database and runs the migrations. It is a
+# superuser so migrations can create untrusted extensions such as pg_search.
+# This is acceptable because each application has its own CNPG cluster.
 cnpg:
   clusterName: sklein-bibliography-corpus-indexer
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:18.6-minimal-trixie
-  # The application role owns the database and runs the migrations. It is a
-  # superuser so migrations can create untrusted extensions such as pg_search.
-  # This is acceptable because each application has its own CNPG cluster.
-  appRoleSuperuser: true
   # Extension images mounted into the CNPG operand image by the operator.
   # Keep these versions aligned with the ParadeDB image used in development.
   extensions:
@@ -122,8 +121,9 @@ secrets:
 # Pod DNS policy — use ClusterFirstWithHostNet to resolve sklein.internal from pods
 dnsPolicy: ClusterFirst
 
-# Allow unauthorized TLS connections (e.g. self-signed CA for internal services)
-nodeTLSRejectUnauthorized: false
+# Disable TLS certificate verification (e.g. self-signed CA for internal services).
+# Keep false in production.
+allowInsecureTLS: false
 
 # Enable V8 memory-size optimization (--optimize-for-size --max-semi-space-size=2).
 # These V8 flags cannot be passed via NODE_OPTIONS so a dedicated env var is used.

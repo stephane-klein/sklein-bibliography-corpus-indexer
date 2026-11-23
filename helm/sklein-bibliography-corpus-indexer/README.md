@@ -20,11 +20,16 @@ The container image is published on
 
 ```bash
 $ kubectl create namespace sklein-bibliography-corpus-indexer
+$ export SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN="$(openssl rand -hex 32)"
 $ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-indexer \
     --namespace sklein-bibliography-corpus-indexer \
+    --set adminToken="$SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN" \
     --set ingress.enabled=true \
     --set ingress.host=sklein-bibliography-corpus-indexer.example.com
 ```
+
+For production, put the token in an existing Secret and set
+`secrets.existingSecret` instead of passing it with `--set`.
 
 ## Configuration
 
@@ -90,8 +95,8 @@ When `secrets.existingSecret` is set, the Secret must also expose
 
 The `/mcp/readonly/` endpoint uses a dedicated PostgreSQL role. During
 `migrate`, the application creates the role and grants `SELECT` on
-`hierarchical_content_nodes` and `content_chunks`. Because the chart sets
-`cnpg.appRoleSuperuser: true`, the application role can create it.
+`hierarchical_content_nodes` and `content_chunks`. The chart makes the
+application role a superuser, so it can create the reader role.
 
 Configure it with:
 
@@ -159,8 +164,7 @@ $ curl -s -X PUT -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_
 
 A ready-to-use payload lives in
 [`api-payloads-examples/users-sync.json`](../../api-payloads-examples/users-sync.json)
-at the repository root — see the [root README section](../../README.md) for the
-idempotency details and the single-user `PUT /api/v1/admin/users` variant.
+at the repository root.
 
 ### Managing API tokens in the same payload
 

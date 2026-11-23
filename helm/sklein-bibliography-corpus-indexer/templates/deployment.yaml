@@ -65,6 +65,8 @@ spec:
                 name: {{ .Values.secrets.existingSecret }}
           {{- end }}
           env:
+            - name: PORT
+              value: {{ .Values.port | quote }}
             {{- $origin := .Values.origin }}
             {{- if not $origin }}
               {{- if and .Values.ingress.enabled .Values.ingress.host }}
@@ -149,7 +151,7 @@ spec:
             - name: NODE_OPTIONS
               value: {{ .Values.nodeOptions }}
             {{- end }}
-            {{- if .Values.nodeTLSRejectUnauthorized }}
+            {{- if .Values.allowInsecureTLS }}
             - name: NODE_TLS_REJECT_UNAUTHORIZED
               value: "0"
             {{- end }}
