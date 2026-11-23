@@ -5,8 +5,8 @@ import { logger } from "#lib/server/logger.js";
 import { requireAdminToken } from "../_helpers.js";
 
 const TEST_EMAIL_TO = process.env.TEST_EMAIL_TO;
-const SUBJECT = "Test email from Sklein Bibliography Corpus RAG Manager";
-const TEXT = "This is a test email sent from Sklein Bibliography Corpus RAG Manager.";
+const SUBJECT = "Test email from Sklein Bibliography Corpus Indexer";
+const TEXT = "This is a test email sent from Sklein Bibliography Corpus Indexer.";
 
 export async function POST(event) {
     const authError = requireAdminToken(event);

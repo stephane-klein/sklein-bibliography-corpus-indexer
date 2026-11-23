@@ -6,7 +6,7 @@ cd "$(dirname "$0")/../"
 WORKDIR=$(mktemp -d)
 trap 'rm -rf "$WORKDIR"' EXIT
 
-helm package helm/sklein-bibliography-corpus-rag-manager -d "$WORKDIR"
+helm package helm/sklein-bibliography-corpus-indexer -d "$WORKDIR"
 
 CHART=$(ls "$WORKDIR"/*.tgz)
 if [ -z "$CHART" ]; then

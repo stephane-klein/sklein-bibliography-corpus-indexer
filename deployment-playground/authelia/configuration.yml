@@ -86,8 +86,8 @@ identity_providers:
           Fb3/ZUvyuAQCnTQ7QUW5X0FZ
           -----END PRIVATE KEY-----
     clients:
-      - client_id: sklein-bibliography-corpus-rag-manager
-        client_name: My App
+      - client_id: sklein-bibliography-corpus-indexer
+        client_name: Sklein Bibliography Corpus Indexer
         client_secret: client-secret-playground
         authorization_policy: one_factor
         redirect_uris:

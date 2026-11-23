@@ -5,8 +5,8 @@ import { sqlDuration } from "./metrics.js";
 import { getMetrics } from "./pg-metrics.js";
 import { onShutdown } from "./lifecycle.js";
 
-const POSTGRES_URL = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL;
-export const POSTGRES_SCHEMA = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_SCHEMA || "public";
+const POSTGRES_URL = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL;
+export const POSTGRES_SCHEMA = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_SCHEMA || "public";
 
 const raw = postgres(POSTGRES_URL, {
     idle_timeout: 1,

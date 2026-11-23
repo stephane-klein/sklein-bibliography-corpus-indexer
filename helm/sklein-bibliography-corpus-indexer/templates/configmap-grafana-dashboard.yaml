@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-grafana-dashboard
   labels:
-    {{- include "sklein-bibliography-corpus-rag-manager.labels" . | nindent 4 }}
+    {{- include "sklein-bibliography-corpus-indexer.labels" . | nindent 4 }}
     grafana_dashboard: "1"
 data:
   sveltekit-metrics.json: |-

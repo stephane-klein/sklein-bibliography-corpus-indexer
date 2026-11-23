@@ -1,12 +1,12 @@
-# Sklein Bibliography Corpus RAG Manager
+# Sklein Bibliography Corpus Indexer
 
-`sklein-bibliography-corpus-rag-manager` is a system for managing my bibliography corpus, with full-text and semantic search over it.
+`sklein-bibliography-corpus-indexer` builds and serves an index of a bibliography corpus, with full-text and semantic search over it.
 
 It has two parts: a web application, which lets me explore the corpus, and a CLI, which splits the Markdown files into _chunks_, triggers the embedding computation, then imports the result into the database.
 
 The corpus data lives in a PostgreSQL database. The web application exposes an [MCP](https://modelcontextprotocol.io/) server that lets an AI agent query this document base with [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) and vector searches fused by [Reciprocal Rank Fusion](https://www.paradedb.com/learn/search-concepts/reciprocal-rank-fusion) (RRF). That server provides the retrieval component of a [RAG](https://en.wikipedia.org/wiki/Retrieval-augmented_generation), the generation being handled by the client AI agent ([OpenCode](https://opencode.ai/) or [Claude](https://claude/), for example) connected to this MCP server.
 
-The CLI ships separately as `@stephane-klein/sklein-bibliography-corpus-rag-manager-cli`, and its source code lives in [`packages/cli`](./packages/cli). The [`./contents/`](./contents/) directory holds a sample corpus in the expected format: books and standalone documents.
+The CLI ships separately as `@stephane-klein/sklein-bibliography-corpus-indexer-cli`, and its source code lives in [`packages/cli`](./packages/cli). The [`./contents/`](./contents/) directory holds a sample corpus in the expected format: books and standalone documents.
 
 > [!WARNING]
 > **Status**: the project is under active development, and I use it primarily for myself. The application still has bugs and rough edges in its interface, and it changes fast.
@@ -63,21 +63,21 @@ The web application reads these variables at runtime. The defaults apply when a
 variable is unset or empty.
 
 - **Database**
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL` — PostgreSQL connection
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL` — PostgreSQL connection
     URL. No default; set it to a valid connection URL. The container image sets
     `postgres://postgres:postgres@postgres:5432/postgres`, and the dev stack
     exports the URL of the local container.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_SCHEMA` — schema the
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_SCHEMA` — schema the
     application reads and writes. Default `public`.
 - **Admin API**
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN` — bearer token for
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN` — bearer token for
     `/api/v1/admin/*`. No default. The routes return 500 when it is unset or
     shorter than 32 characters.
 - **Authentication**
   - `AUTHELIA_ISSUER`, `AUTHELIA_CLIENT_ID`, `AUTHELIA_CLIENT_SECRET` — OIDC
     settings for Authelia. No default; sign-in stays disabled when one of them is
     missing.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ORIGIN` — origin used to build the
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ORIGIN` — origin used to build the
     OIDC callback URL. Default `http://localhost:5173`.
   - `LOGIN_MAX_ATTEMPTS` — failed sign-in attempts allowed per IP address and
     per email address. Default `5`.
@@ -95,35 +95,35 @@ variable is unset or empty.
     `POST /api/v1/admin/send-test-mail`. No default; the request body must
     provide `to` when it is unset.
 - **Embeddings**
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_PROVIDER` — embedding
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_PROVIDER` — embedding
     provider, `voyage` or `openai`. Default `voyage`.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_MODEL` — document model.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_MODEL` — document model.
     Default `voyage-4` for Voyage and `text-embedding-3-small` for OpenAI.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_QUERY_MODEL` — query model.
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_QUERY_MODEL` — query model.
     Default `voyage-4-lite` for Voyage and the document model for OpenAI.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_DIMENSION` — vector
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_DIMENSION` — vector
     dimension. Default `1024` for Voyage and `1536` for OpenAI.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_BASE_URL` — provider base
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_BASE_URL` — provider base
     URL. No default.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY` — provider API
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY` — provider API
     key. No default; the embedding endpoints fail without it.
 - **MCP read-only server**
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD` —
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD` —
     password of the reader role. No default; the endpoint returns 503 when it is
     unset.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_ROLE` — reader
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_ROLE` — reader
     role name. Default `sklein_bibliography_mcp_reader`.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_OUTPUT_CHARS` — maximum
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_OUTPUT_CHARS` — maximum
     output size in characters. Default `200000`.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_DEFAULT_MAX_OUTPUT_CHARS` —
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_DEFAULT_MAX_OUTPUT_CHARS` —
     default output size in characters. Default `50000`.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_QUERY_CHARS` — maximum query
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_QUERY_CHARS` — maximum query
     size in characters. Default `100000`.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_VECTORIZE_TEXTS` — maximum
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_VECTORIZE_TEXTS` — maximum
     distinct texts per `vectorize()` query. Default `8`.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_VECTORIZE_TEXT_CHARS` —
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_VECTORIZE_TEXT_CHARS` —
     maximum length of one `vectorize()` text. Default `2000`.
-  - `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_LARGE_RESULT_ROWS` — row count
+  - `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_LARGE_RESULT_ROWS` — row count
     that triggers the large-result warning. Default `50`.
 - **Runtime**
   - `NODE_ENV` — `production` switches the logs from `debug` to `info` and marks
@@ -139,13 +139,13 @@ variable is unset or empty.
 
 ### Command-line client
 
-The commands below come from the `@stephane-klein/sklein-bibliography-corpus-rag-manager-cli`
+The commands below come from the `@stephane-klein/sklein-bibliography-corpus-indexer-cli`
 package, in [`packages/cli`](./packages/cli). The repository depends on it through
 the pnpm workspace, so `pnpm install` puts the
-`sklein-bibliography-corpus-rag-manager` command on the `PATH` when mise is
+`sklein-bibliography-corpus-indexer` command on the `PATH` when mise is
 active, and that command runs the same code that is published to npm. In a shell
 where mise is not active, run it with
-`pnpm exec sklein-bibliography-corpus-rag-manager …`.
+`pnpm exec sklein-bibliography-corpus-indexer …`.
 
 The path argument is required: pass `contents/single-document-texts`,
 `contents/books`, a subdirectory of either, or a single Markdown file. The CLI
@@ -153,26 +153,26 @@ finds the `contents/` directory by walking up from that path; `--contents-dir`
 overrides the search.
 
 The webapp URL and the admin token come from `--url` and `--token`, then from
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_URL` and
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_TOKEN`. See
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_URL` and
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TOKEN`. See
 [`packages/cli/README.md`](./packages/cli/README.md) for installation and
 reference.
 
 ### Importing corpus contents
 
-`sklein-bibliography-corpus-rag-manager import-single-documents` loads
+`sklein-bibliography-corpus-indexer import-single-documents` loads
 standalone Markdown files into `hierarchical_content_nodes` and, when a
 `.md.yaml` sidecar and its `.md.embeddings.bin` exist, imports the chunks into
 `content_chunks`. The command accepts a directory or a single Markdown file:
 
 ```bash
-$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts
-$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts/mr-phi
-$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
-$ sklein-bibliography-corpus-rag-manager import-single-documents contents/single-document-texts/mr-phi --dry-run
+$ sklein-bibliography-corpus-indexer import-single-documents contents/single-document-texts
+$ sklein-bibliography-corpus-indexer import-single-documents contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-indexer import-single-documents contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
+$ sklein-bibliography-corpus-indexer import-single-documents contents/single-document-texts/mr-phi --dry-run
 ```
 
-`sklein-bibliography-corpus-rag-manager import-books` imports the books under
+`sklein-bibliography-corpus-indexer import-books` imports the books under
 `contents/books/`. It reads each book's `config.yaml` (title, slug, bibliography,
 excluded files) and the Markdown files under `markdown/`, builds the
 work/part/chapter tree from their `path` and their `00-index.md` pages, and sends
@@ -180,10 +180,10 @@ it to the same sync endpoint. When a section has a `.md.yaml` sidecar and its
 `.md.embeddings.bin`, the command also imports its chunks:
 
 ```bash
-$ sklein-bibliography-corpus-rag-manager import-books contents/books
-$ sklein-bibliography-corpus-rag-manager import-books contents/books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier --dry-run
-$ sklein-bibliography-corpus-rag-manager import-books contents/books --skip-embeddings
-$ sklein-bibliography-corpus-rag-manager import-books contents/books --require-embeddings
+$ sklein-bibliography-corpus-indexer import-books contents/books
+$ sklein-bibliography-corpus-indexer import-books contents/books/an-inquiry-into-the-nature-and-causes-of-the-wealth-of-nations-by-smith-and-garnier --dry-run
+$ sklein-bibliography-corpus-indexer import-books contents/books --skip-embeddings
+$ sklein-bibliography-corpus-indexer import-books contents/books --require-embeddings
 ```
 
 The webapp must be running with the migrations applied. The CLI sends each
@@ -206,17 +206,17 @@ unavailable.
 
 ### Generating sidecars
 
-`sklein-bibliography-corpus-rag-manager generate-sidecars` writes one `.md.yaml`
+`sklein-bibliography-corpus-indexer generate-sidecars` writes one `.md.yaml`
 sidecar next to each Markdown document under `contents/single-document-texts` or
 `contents/books`. The command accepts a directory or a single Markdown file:
 
 ```bash
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts/mr-phi
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/books
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/books/principales-of-political-economy-by-john-stuart-mill --dry-run
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts --force
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/single-document-texts
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/single-document-texts/mr-phi/2017-05-24_le-principe-de-condorcet-1-2-une-norme-democratique-grain-de-philo-9.fr.md
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/books
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/books/principales-of-political-economy-by-john-stuart-mill --dry-run
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/single-document-texts --force
 ```
 
 The command does not vectorize anything. It splits each document into
@@ -245,26 +245,26 @@ there gets no sidecar, because the node import does not create a node for it.
 
 ### Generating embeddings
 
-`sklein-bibliography-corpus-rag-manager generate-embeddings` reads the `.md.yaml`
+`sklein-bibliography-corpus-indexer generate-embeddings` reads the `.md.yaml`
 sidecars, asks the webapp for vectors, and writes one `.md.embeddings.bin` file
 next to each sidecar. The command does not write to PostgreSQL.
 
 The webapp must be running with a Voyage API key:
 
 ```bash
-$ export SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY="pa-..."
+$ export SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY="pa-..."
 ```
 
 Generate the sidecars first, then the embeddings:
 
 ```bash
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/single-document-texts
-$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts
-$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts/mr-phi
-$ sklein-bibliography-corpus-rag-manager generate-sidecars contents/books
-$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/books
-$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts --dry-run
-$ sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts --force
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/single-document-texts
+$ sklein-bibliography-corpus-indexer generate-embeddings contents/single-document-texts
+$ sklein-bibliography-corpus-indexer generate-embeddings contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-indexer generate-sidecars contents/books
+$ sklein-bibliography-corpus-indexer generate-embeddings contents/books
+$ sklein-bibliography-corpus-indexer generate-embeddings contents/single-document-texts --dry-run
+$ sklein-bibliography-corpus-indexer generate-embeddings contents/single-document-texts --force
 ```
 
 The CLI calls `GET /api/v1/admin/embeddings` to read the document model and
@@ -310,7 +310,7 @@ By default, the command skips a document when the manifest and the binary header
 match the source hash, the provider, the model, the dimension and the embedding
 strategy. `--force` regenerates everything. Existing binary files without a
 `cost` block stay valid; run
-`sklein-bibliography-corpus-rag-manager generate-embeddings contents/single-document-texts --force`
+`sklein-bibliography-corpus-indexer generate-embeddings contents/single-document-texts --force`
 once to add the metadata to the whole corpus. `--dry-run` reports what would be
 embedded without generating vectors.
 
@@ -318,12 +318,12 @@ The embedding input is `heading_path + "\n\n" + text`. `text` stays the exact
 paragraph used for display and BM25.
 
 Override the defaults with
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_PROVIDER`,
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_MODEL`,
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_QUERY_MODEL`,
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_DIMENSION` and optionally
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_BASE_URL`. Set
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_PROVIDER=openai` to use OpenAI
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_PROVIDER`,
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_MODEL`,
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_QUERY_MODEL`,
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_DIMENSION` and optionally
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_BASE_URL`. Set
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_PROVIDER=openai` to use OpenAI
 instead of Voyage.
 
 ### MCP read-only server
@@ -419,25 +419,25 @@ the `query_embedding_cache` table.
 selects `content` from `content_chunks` (or uses `SELECT *`). The warning
 suggests reading only the `chunk_index` values returned by `semanticSearch`.
 The threshold is configurable with
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_LARGE_RESULT_ROWS`.
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_LARGE_RESULT_ROWS`.
 
 The MCP server connects with a dedicated role,
 `sklein_bibliography_mcp_reader` by default. `pnpm migrate` creates the role when
 the application role is allowed to `CREATE ROLE`, then grants `SELECT` on
 `hierarchical_content_nodes` and `content_chunks`. Set
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD` to
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD` to
 enable the endpoint; without it the endpoint returns 503. Override the role name
 with
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_ROLE`.
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_ROLE`.
 
 Optional limits:
 
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_OUTPUT_CHARS` (default 200000)
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_DEFAULT_MAX_OUTPUT_CHARS` (default 50000)
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_QUERY_CHARS` (default 100000)
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_VECTORIZE_TEXTS` (default 8)
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_MAX_VECTORIZE_TEXT_CHARS` (default 2000)
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_LARGE_RESULT_ROWS` (default 50)
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_OUTPUT_CHARS` (default 200000)
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_DEFAULT_MAX_OUTPUT_CHARS` (default 50000)
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_QUERY_CHARS` (default 100000)
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_VECTORIZE_TEXTS` (default 8)
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_MAX_VECTORIZE_TEXT_CHARS` (default 2000)
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_LARGE_RESULT_ROWS` (default 50)
 
 Each tool call is recorded in `mcp_access_log` and shown on `/mcp/log/`. The
 page shows only the calls of the signed-in user. It shows the query as written,

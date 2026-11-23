@@ -19,7 +19,7 @@ reload = "source scripts/load_postgres_variables.sh && source scripts/load_authe
 [[hooks.enter]]
 shell = "zsh"
 script = """
-source <(SHELL=/bin/zsh sklein-bibliography-corpus-rag-manager completion 2>/dev/null) || true
+source <(SHELL=/bin/zsh sklein-bibliography-corpus-indexer completion 2>/dev/null) || true
 
 command -v youtube-to-markdown >/dev/null && source <(SHELL=/bin/zsh youtube-to-markdown completion 2>/dev/null) || true
 command -v epub-to-markdown >/dev/null && source <(SHELL=/bin/zsh epub-to-markdown completion 2>/dev/null) || true
@@ -28,8 +28,8 @@ command -v epub-to-markdown >/dev/null && source <(SHELL=/bin/zsh epub-to-markdo
 [[hooks.leave]]
 shell = "zsh"
 script = """
-compdef -d sklein-bibliography-corpus-rag-manager 2>/dev/null || true
-unfunction _sklein-bibliography-corpus-rag-manager_yargs_completions 2>/dev/null || true
+compdef -d sklein-bibliography-corpus-indexer 2>/dev/null || true
+unfunction _sklein-bibliography-corpus-indexer_yargs_completions 2>/dev/null || true
 
 compdef -d youtube-to-markdown 2>/dev/null || true
 unfunction _youtube-to-markdown_yargs_completions 2>/dev/null || true
@@ -67,7 +67,7 @@ run = "pnpm run preview"
 description = "Build and run the production server with the OIDC callback origin set to http://localhost:3000"
 run = """
 pnpm run build
-SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ORIGIN=http://localhost:3000 node build/index.js
+SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ORIGIN=http://localhost:3000 node build/index.js
 """
 
 [tasks.lint]
@@ -83,7 +83,7 @@ run ="pnpm run check"
 run = "pnpm run lint:pkg"
 
 [tasks.lint-helm]
-run = "helm lint helm/sklein-bibliography-corpus-rag-manager"
+run = "helm lint helm/sklein-bibliography-corpus-indexer"
 
 [tasks.migrate]
 run = "node src/migrate.js"
@@ -102,10 +102,10 @@ podman compose down -v --remove-orphans
 """
 
 [tasks.clean]
-run = "psql \"${SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL}\" < sqls/clean.sql"
+run = "psql \"${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL}\" < sqls/clean.sql"
 
 [tasks.enter-in-pg]
-run = "psql \"${SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL}\""
+run = "psql \"${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL}\""
 
 [tasks.execute-read-sql]
 description = "Execute one read-only SQL statement against the local PostgreSQL container"
@@ -137,7 +137,7 @@ podman build \\
   --build-arg GIT_BRANCH="$GIT_BRANCH" \\
   --build-arg GIT_DATE="$(git show -s --format=%ci)" \\
   --build-arg BUILD_STAMP="$(env TZ=Europe/Paris date '+%Y-%m-%d_%H:%M:%S-%Z')" \\
-  -t ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager:latest .
+  -t ghcr.io/stephane-klein/sklein-bibliography-corpus-indexer:latest .
 """
 
 [tasks.login-ghcr]
@@ -153,7 +153,7 @@ podman login ghcr.io -u stephane-klein --password-stdin <<< "$(gh auth token)"
 description = "Login to GitHub Container Registry using gh CLI"
 
 [tasks.push-image]
-run = "podman push ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager:latest"
+run = "podman push ghcr.io/stephane-klein/sklein-bibliography-corpus-indexer:latest"
 description = "Push the container image to GitHub Container Registry"
 
 [tasks.ci-build-push-image]
@@ -178,7 +178,7 @@ podman build \\
   --build-arg GIT_BRANCH="$GIT_BRANCH" \\
   --build-arg GIT_DATE="$(git show -s --format=%ci)" \\
   --build-arg BUILD_STAMP="$(env TZ=Europe/Paris date '+%Y-%m-%d_%H:%M:%S-%Z')" \\
-  -t ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager:dev .
+  -t ghcr.io/stephane-klein/sklein-bibliography-corpus-indexer:dev .
 """
 
 [tasks.setup-git-hooks]
@@ -210,7 +210,7 @@ run = "scripts/publish-chart.sh"
 description = "Send a test email via POST /api/v1/admin/send-test-mail (uses TEST_EMAIL_TO)"
 run = """
 curl -s -X POST http://localhost:5173/api/v1/admin/send-test-mail \
-  -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN}" \
+  -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{}' | jq
 """
@@ -219,7 +219,7 @@ curl -s -X POST http://localhost:5173/api/v1/admin/send-test-mail \
 description = "Sync users and API tokens via PUT /api/v1/admin/users/sync using api-payloads-examples/users-sync.json"
 run = """
 curl -fsS -X PUT http://localhost:5173/api/v1/admin/users/sync \
-  -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN}" \
+  -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN}" \
   -H "Content-Type: application/json" \
   --data @api-payloads-examples/users-sync.json | jq
 """
@@ -231,10 +231,10 @@ echo "==> GitHub REST API does not support changing package visibility."
 echo "==> Manual steps required:"
 echo ""
 echo "1. Open in your browser:"
-echo "   https://github.com/users/stephane-klein/packages/container/sklein-bibliography-corpus-rag-manager/settings"
+echo "   https://github.com/users/stephane-klein/packages/container/sklein-bibliography-corpus-indexer/settings"
 echo "   -> Danger Zone > Change visibility > Public"
 echo ""
 echo "2. Open in your browser:"
-echo "   https://github.com/users/stephane-klein/packages/container/charts%2Fsklein-bibliography-corpus-rag-manager/settings"
+echo "   https://github.com/users/stephane-klein/packages/container/charts%2Fsklein-bibliography-corpus-indexer/settings"
 echo "   -> Danger Zone > Change visibility > Public"
 """

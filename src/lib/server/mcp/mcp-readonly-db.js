@@ -5,7 +5,7 @@ import { logger } from "#lib/server/logger.js";
 import { POSTGRES_SCHEMA } from "#lib/server/pg.js";
 import { getMcpReaderPassword, getMcpReaderRole } from "./mcp-reader-role.js";
 
-const POSTGRES_URL = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL;
+const POSTGRES_URL = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL;
 
 const READABLE_TABLES = ["hierarchical_content_nodes", "content_chunks"];
 
@@ -42,8 +42,8 @@ export const sqlReadonly = readerUrl
 
 if (!sqlReadonly) {
     logger.warn(
-        "MCP read-only DB client not created — SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL " +
-            "or SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD is not set",
+        "MCP read-only DB client not created — SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL " +
+            "or SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD is not set",
     );
 }
 

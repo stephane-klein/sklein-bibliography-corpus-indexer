@@ -52,10 +52,12 @@ npm or pnpm, or run with `npx`/`pnpx`, and point at their own corpus.
 
 ## Decision
 
-Create `packages/cli`, named `sklein-bibliography-corpus-rag-manager-cli`, with
-the binary `sklein-bibliography-corpus-rag-manager`. The package owns the four
-commands, the four former `src/lib/server/` modules, the chunking code and the
-sidecar read/write code. The application keeps `src/lib/server/logger.js`.
+Create `packages/cli`, named `sklein-bibliography-corpus-rag-manager-cli` (now
+`@stephane-klein/sklein-bibliography-corpus-indexer-cli`), with the binary
+`sklein-bibliography-corpus-rag-manager` (now
+`sklein-bibliography-corpus-indexer`). The package owns the four commands, the
+four former `src/lib/server/` modules, the chunking code and the sidecar
+read/write code. The application keeps `src/lib/server/logger.js`.
 
 The root package depends on the CLI through the workspace, so `pnpm install`
 links the binary into `node_modules/.bin`. The repository runs the same code
@@ -81,9 +83,13 @@ the ones `import-books` writes for the same book.
 | `--token`        | `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_TOKEN`        | none                     |
 | `--contents-dir` | `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_CONTENTS_DIR` | discovered from `<path>` |
 
+These variables now use the `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_*` prefix (the
+names above are the historical record).
+
 An option wins over its variable, which wins over the default. The token is the
 super-admin token, the same value the server reads from
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN`. There is no local length
+`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN` (now
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN`). There is no local length
 check: the server answers `401` when the token is wrong.
 
 ### Output and packaging

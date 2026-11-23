@@ -48,7 +48,7 @@ export async function createMcpReadonlyServer({ context }) {
     const schema = await getReadOnlyTablesSchema();
     const embeddingInfo = readEmbeddingInfo();
     const server = new Server(
-        { name: "sklein-bibliography-corpus-rag-manager-mcp-readonly", version: "1.0.0" },
+        { name: "sklein-bibliography-corpus-indexer-mcp-readonly", version: "1.0.0" },
         { capabilities: { tools: {} } },
     );
 

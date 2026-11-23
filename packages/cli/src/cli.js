@@ -10,7 +10,7 @@ import { configureLogger } from "./logger.js";
 import { runMigrateCorpus } from "./migrate-corpus.js";
 
 const { version } = createRequire(import.meta.url)("../package.json");
-const PROGRAM = "sklein-bibliography-corpus-rag-manager";
+const PROGRAM = "sklein-bibliography-corpus-indexer";
 
 const handle = (run) => async (argv) => {
     configureLogger({ verbose: argv.verbose });
@@ -52,11 +52,11 @@ const cli = yargs(hideBin(process.argv))
     .scriptName("")
     .usage(`${PROGRAM} <command> <path> [options]`)
     .option("url", {
-        describe: "Base URL of the webapp (default: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_URL)",
+        describe: "Base URL of the webapp (default: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_URL)",
         type: "string",
     })
     .option("token", {
-        describe: "Admin token (default: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_TOKEN)",
+        describe: "Admin token (default: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TOKEN)",
         type: "string",
     })
     .option("contents-dir", {

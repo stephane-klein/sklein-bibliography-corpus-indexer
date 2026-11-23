@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-    {{- include "sklein-bibliography-corpus-rag-manager.labels" . | nindent 4 }}
+    {{- include "sklein-bibliography-corpus-indexer.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.app.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: sklein-bibliography-corpus-rag-manager
+      app.kubernetes.io/name: sklein-bibliography-corpus-indexer
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        {{- include "sklein-bibliography-corpus-rag-manager.labels" . | nindent 8 }}
+        {{- include "sklein-bibliography-corpus-indexer.labels" . | nindent 8 }}
       {{- if .Values.metrics.enabled }}
       annotations:
         prometheus.io/scrape: "true"
@@ -53,9 +53,9 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.cnpg.clusterName }}-app
                   key: password
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL
               value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST).{{ .Values.cnpg.namespace }}:$(DB_PORT)/$(DB_NAME)"
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_SCHEMA
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_SCHEMA
               value: {{ .Values.postgresql.schema }}
             {{- if $.Values.optimizeForMemorySize }}
             - name: OPTIMIZE_FOR_MEMORY_SIZE
@@ -83,7 +83,7 @@ spec:
               {{- $addressHeader = "x-forwarded-for" }}
             {{- end }}
             {{- if $origin }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ORIGIN
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ORIGIN
               value: {{ $origin }}
             {{- end }}
             {{- if $addressHeader }}
@@ -101,31 +101,31 @@ spec:
             {{- end }}
             {{- end }}
             {{- if and .Values.adminToken (not .Values.secrets.existingSecret) }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN
               value: {{ .Values.adminToken }}
             {{- end }}
             {{- if .Values.embedding.provider }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_PROVIDER
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_PROVIDER
               value: {{ .Values.embedding.provider }}
             {{- end }}
             {{- if .Values.embedding.model }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_MODEL
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_MODEL
               value: {{ .Values.embedding.model }}
             {{- end }}
             {{- if .Values.embedding.queryModel }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_QUERY_MODEL
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_QUERY_MODEL
               value: {{ .Values.embedding.queryModel }}
             {{- end }}
             {{- if .Values.embedding.dimension }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_DIMENSION
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_DIMENSION
               value: {{ .Values.embedding.dimension | quote }}
             {{- end }}
             {{- if .Values.embedding.baseUrl }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_BASE_URL
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_BASE_URL
               value: {{ .Values.embedding.baseUrl }}
             {{- end }}
             {{- if and .Values.embedding.apiKey (not .Values.secrets.existingSecret) }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY
               value: {{ .Values.embedding.apiKey }}
             {{- end }}
             {{- if .Values.smtp.host }}
@@ -185,14 +185,14 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.cnpg.clusterName }}-app
                   key: password
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL
               value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST).{{ .Values.cnpg.namespace }}:$(DB_PORT)/$(DB_NAME)"
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_SCHEMA
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_SCHEMA
               value: {{ .Values.postgresql.schema }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_ROLE
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_ROLE
               value: {{ .Values.mcp.readerRole | quote }}
             {{- if not .Values.secrets.existingSecret }}
-            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD
+            - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD
               value: {{ .Values.mcp.readerPassword | quote }}
             {{- end }}
           ports:

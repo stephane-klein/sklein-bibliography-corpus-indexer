@@ -14,7 +14,7 @@ run = """
 #!/usr/bin/env bash
 set -euo pipefail
 mkdir -p "$HOME/.local/bin"
-target="$HOME/.local/bin/sklein-bibliography-corpus-rag-manager"
+target="$HOME/.local/bin/sklein-bibliography-corpus-indexer"
 if [[ -e "$target" || -L "$target" ]]; then
   rm -f "$target"
 fi
@@ -27,7 +27,7 @@ description = "Uninstall the dev version of the CLI installed globally on the wo
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-target="$HOME/.local/bin/sklein-bibliography-corpus-rag-manager"
+target="$HOME/.local/bin/sklein-bibliography-corpus-indexer"
 if [[ -e "$target" || -L "$target" ]]; then
   rm -f "$target"
   echo "Removed $target"

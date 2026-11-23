@@ -24,7 +24,7 @@
             },
             "options": {
                 "mode": "markdown",
-                "content": "# SvelteKit SSR Skeleton\n\n- **URL:** PLACEHOLDER_URL\n- **GitHub:** https://github.com/stephane-klein/sklein-bibliography-corpus-rag-manager\n- **Namespace:** PLACEHOLDER_NAMESPACE"
+                "content": "# SvelteKit SSR Skeleton\n\n- **URL:** PLACEHOLDER_URL\n- **GitHub:** https://github.com/stephane-klein/sklein-bibliography-corpus-indexer\n- **Namespace:** PLACEHOLDER_NAMESPACE"
             }
         },
         {
@@ -51,11 +51,11 @@
             },
             "targets": [
                 {
-                    "expr": "max by(container) (process_resident_memory_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"})",
+                    "expr": "max by(container) (process_resident_memory_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"})",
                     "legendFormat": "RSS"
                 },
                 {
-                    "expr": "max by(container) (container_spec_memory_limit_bytes{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-rag-manager\"})",
+                    "expr": "max by(container) (container_spec_memory_limit_bytes{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-indexer\"})",
                     "legendFormat": "Memory Limit"
                 }
             ],
@@ -126,11 +126,11 @@
             },
             "targets": [
                 {
-                    "expr": "max by(container) (nodejs_heap_size_used_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"})",
+                    "expr": "max by(container) (nodejs_heap_size_used_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"})",
                     "legendFormat": "Used"
                 },
                 {
-                    "expr": "max by(container) (nodejs_heap_size_total_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"})",
+                    "expr": "max by(container) (nodejs_heap_size_total_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"})",
                     "legendFormat": "Total"
                 }
             ],
@@ -170,7 +170,7 @@
             },
             "targets": [
                 {
-                    "expr": "max by(container) (nodejs_external_memory_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"})",
+                    "expr": "max by(container) (nodejs_external_memory_bytes{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"})",
                     "legendFormat": "External"
                 }
             ],
@@ -239,11 +239,11 @@
             },
             "targets": [
                 {
-                    "expr": "max by(container) (rate(process_cpu_seconds_total{namespace=\"PLACEHOLDER_NAMESPACE\",app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"}[$__rate_interval]))",
+                    "expr": "max by(container) (rate(process_cpu_seconds_total{namespace=\"PLACEHOLDER_NAMESPACE\",app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"}[$__rate_interval]))",
                     "legendFormat": "CPU cores"
                 },
                 {
-                    "expr": "max by(container) (container_spec_cpu_quota{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-rag-manager\"}) / ignoring(cpu) max by(container) (container_spec_cpu_period{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-rag-manager\"}) * 1000",
+                    "expr": "max by(container) (container_spec_cpu_quota{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-indexer\"}) / ignoring(cpu) max by(container) (container_spec_cpu_period{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-indexer\"}) * 1000",
                     "legendFormat": "CPU Limit"
                 }
             ],
@@ -297,7 +297,7 @@
             },
             "targets": [
                 {
-                    "expr": "max by(container) (rate(container_cpu_usage_seconds_total{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-rag-manager\"}[5m])) / ignoring(cpu) (max by(container) (container_spec_cpu_quota{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-rag-manager\"}) / ignoring(cpu) max by(container) (container_spec_cpu_period{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-rag-manager\"})) * 100",
+                    "expr": "max by(container) (rate(container_cpu_usage_seconds_total{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-indexer\"}[5m])) / ignoring(cpu) (max by(container) (container_spec_cpu_quota{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-indexer\"}) / ignoring(cpu) max by(container) (container_spec_cpu_period{namespace=\"PLACEHOLDER_NAMESPACE\",container=\"sklein-bibliography-corpus-indexer\"})) * 100",
                     "legendFormat": "CPU % of limit"
                 }
             ],
@@ -366,11 +366,11 @@
             },
             "targets": [
                 {
-                    "expr": "histogram_quantile(0.95, sum by(le, query, container) (rate(sql_query_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"}[5m])))",
+                    "expr": "histogram_quantile(0.95, sum by(le, query, container) (rate(sql_query_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"}[5m])))",
                     "legendFormat": "{{query}} p95"
                 },
                 {
-                    "expr": "histogram_quantile(0.5, sum by(le, query, container) (rate(sql_query_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"}[5m])))",
+                    "expr": "histogram_quantile(0.5, sum by(le, query, container) (rate(sql_query_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"}[5m])))",
                     "legendFormat": "{{query}} p50"
                 }
             ],
@@ -411,7 +411,7 @@
             },
             "targets": [
                 {
-                    "expr": "sum by(query, container) (rate(sql_query_duration_seconds_count{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"}[5m]))",
+                    "expr": "sum by(query, container) (rate(sql_query_duration_seconds_count{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"}[5m]))",
                     "legendFormat": "{{query}}"
                 }
             ],
@@ -464,11 +464,11 @@
             },
             "targets": [
                 {
-                    "expr": "histogram_quantile(0.95, sum by(le, route, container) (rate(sveltekit_render_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"}[5m])))",
+                    "expr": "histogram_quantile(0.95, sum by(le, route, container) (rate(sveltekit_render_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"}[5m])))",
                     "legendFormat": "{{route}} p95"
                 },
                 {
-                    "expr": "histogram_quantile(0.5, sum by(le, route, container) (rate(sveltekit_render_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"}[5m])))",
+                    "expr": "histogram_quantile(0.5, sum by(le, route, container) (rate(sveltekit_render_duration_seconds_bucket{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"}[5m])))",
                     "legendFormat": "{{route}} p50"
                 }
             ],
@@ -509,7 +509,7 @@
             },
             "targets": [
                 {
-                    "expr": "sum by(route, container) (rate(sveltekit_render_duration_seconds_count{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"}[5m]))",
+                    "expr": "sum by(route, container) (rate(sveltekit_render_duration_seconds_count{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"}[5m]))",
                     "legendFormat": "{{route}}"
                 }
             ],
@@ -562,7 +562,7 @@
             },
             "targets": [
                 {
-                    "expr": "max by(container) (nodejs_eventloop_lag_seconds{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-rag-manager\"})",
+                    "expr": "max by(container) (nodejs_eventloop_lag_seconds{namespace=\"PLACEHOLDER_NAMESPACE\", app_kubernetes_io_name=\"sklein-bibliography-corpus-indexer\"})",
                     "legendFormat": "lag"
                 }
             ],

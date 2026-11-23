@@ -24,7 +24,7 @@ if [ "$#" -eq 0 ]; then
     exit 64
 fi
 
-url="${SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL:-}"
+url="${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL:-}"
 
 if [ -z "$url" ] && [ "${_SKLEIN_EXECUTE_SQL_ENV_LOADED:-}" != "1" ]; then
     # When the script is called directly, ask mise to load the project
@@ -35,7 +35,7 @@ if [ -z "$url" ] && [ "${_SKLEIN_EXECUTE_SQL_ENV_LOADED:-}" != "1" ]; then
 fi
 
 if [ -z "$url" ]; then
-    echo "PostgreSQL is not reachable: SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL is empty." >&2
+    echo "PostgreSQL is not reachable: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL is empty." >&2
     echo "Start the container with: pitchfork start postgres" >&2
     exit 1
 fi

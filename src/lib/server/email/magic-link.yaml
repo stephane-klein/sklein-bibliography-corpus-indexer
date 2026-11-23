@@ -1,5 +1,5 @@
 en:
-  subject: "Sign in to Sklein Bibliography Corpus RAG Manager"
+  subject: "Sign in to Sklein Bibliography Corpus Indexer"
   text: |
     Click the link below to sign in.
 
@@ -8,7 +8,7 @@ en:
     This link expires in 15 minutes.
     If you didn't request this, you can ignore this email.
 fr:
-  subject: "Connexion à Sklein Bibliography Corpus RAG Manager"
+  subject: "Connexion à Sklein Bibliography Corpus Indexer"
   text: |
     Cliquez sur le lien ci-dessous pour vous connecter :
 

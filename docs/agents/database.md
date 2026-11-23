@@ -12,7 +12,7 @@ ports:
 Podman therefore picks a free host port, and the port changes when the
 container is recreated. `scripts/load_postgres_variables.sh` reads the current
 port and credentials from the running container, then exports
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL`. `mise.toml` sources that
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL`. `mise.toml` sources that
 script from `[env]._.source`, so every `mise run` sees a fresh URL.
 
 Do not hardcode the URL in a script or an editor configuration.

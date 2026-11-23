@@ -3,5 +3,5 @@ set -e
 
 cd "$(dirname "$0")/../"
 
-helm uninstall sklein-bibliography-corpus-rag-manager --namespace sklein-bibliography-corpus-rag-manager-test 2>/dev/null || true
-kubectl delete namespace sklein-bibliography-corpus-rag-manager-test 2>/dev/null || true
+helm uninstall sklein-bibliography-corpus-indexer --namespace sklein-bibliography-corpus-indexer-test 2>/dev/null || true
+kubectl delete namespace sklein-bibliography-corpus-indexer-test 2>/dev/null || true

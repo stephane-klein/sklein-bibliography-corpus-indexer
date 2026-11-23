@@ -123,9 +123,9 @@ export function GET() {
     return Response.json({
         openapi: "3.0.0",
         info: {
-            title: "Sklein Bibliography Corpus RAG Manager API",
+            title: "Sklein Bibliography Corpus Indexer API",
             version: "1.0.0",
-            description: "REST API for Sklein Bibliography Corpus RAG Manager",
+            description: "REST API for Sklein Bibliography Corpus Indexer",
         },
         servers: [{ url: "" }],
         paths: {
@@ -874,7 +874,7 @@ export function GET() {
                     type: "http",
                     scheme: "bearer",
                     description:
-                        "Super admin token set via SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN environment variable",
+                        "Super admin token set via SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN environment variable",
                 },
             },
         },

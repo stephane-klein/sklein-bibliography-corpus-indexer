@@ -47,9 +47,9 @@ The MCP server never uses the application database role for user SQL. It builds
 a separate connection from the application URL with the reader role and
 password:
 
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_ROLE`
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_ROLE`
   (default `sklein_bibliography_mcp_reader`)
-- `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD`
+- `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD`
 
 `ensureMcpReaderRole()` runs from `src/migrate.js`. It creates the role when the
 application role has `CREATEROLE` (the Helm chart sets `appRoleSuperuser: true`),
@@ -141,7 +141,7 @@ Limits (environment variables in `mcp-readonly-tools.js`):
 - max 8 distinct texts per query
 - max 2000 characters per text
 - max 100 000 characters per query
-- large-read warning threshold: `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_LARGE_RESULT_ROWS`
+- large-read warning threshold: `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_LARGE_RESULT_ROWS`
   (default 50)
 - no `SELECT INTO`, `FOR UPDATE`/`FOR SHARE`, DDL, `DO`, `COPY` or multiple
   statements

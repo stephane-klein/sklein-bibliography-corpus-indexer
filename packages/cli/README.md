@@ -1,7 +1,7 @@
-# Sklein Bibliography Corpus RAG Manager CLI
+# Sklein Bibliography Corpus Indexer CLI
 
-`sklein-bibliography-corpus-rag-manager` prepares and imports a Markdown corpus
-into the [Sklein Bibliography Corpus RAG Manager](https://github.com/stephane-klein/sklein-bibliography-corpus-rag-manager)
+`sklein-bibliography-corpus-indexer` prepares and imports a Markdown corpus
+into the [Sklein Bibliography Corpus Indexer](https://github.com/stephane-klein/sklein-bibliography-corpus-indexer)
 webapp.
 
 The corpus lives in a `contents/` directory with two collections:
@@ -32,28 +32,28 @@ before the others.
 
 ## Install
 
-The package is published on npmjs as `@stephane-klein/sklein-bibliography-corpus-rag-manager-cli`.
-Install it globally to get the `sklein-bibliography-corpus-rag-manager` command
+The package is published on npmjs as `@stephane-klein/sklein-bibliography-corpus-indexer-cli`.
+Install it globally to get the `sklein-bibliography-corpus-indexer` command
 on your `PATH`:
 
 ```sh
-$ npm install -g @stephane-klein/sklein-bibliography-corpus-rag-manager-cli
+$ npm install -g @stephane-klein/sklein-bibliography-corpus-indexer-cli
 ```
 
 With pnpm:
 
 ```sh
-$ pnpm add -g @stephane-klein/sklein-bibliography-corpus-rag-manager-cli
+$ pnpm add -g @stephane-klein/sklein-bibliography-corpus-indexer-cli
 ```
 
 Or run it without installing it:
 
 ```sh
-$ npx @stephane-klein/sklein-bibliography-corpus-rag-manager-cli generate-sidecars ./contents/books
-$ pnpx @stephane-klein/sklein-bibliography-corpus-rag-manager-cli generate-sidecars ./contents/books
+$ npx @stephane-klein/sklein-bibliography-corpus-indexer-cli generate-sidecars ./contents/books
+$ pnpx @stephane-klein/sklein-bibliography-corpus-indexer-cli generate-sidecars ./contents/books
 ```
 
-Run `sklein-bibliography-corpus-rag-manager --help` to list the commands.
+Run `sklein-bibliography-corpus-indexer --help` to list the commands.
 
 ## The path argument
 
@@ -64,16 +64,16 @@ any subdirectory of the corpus.
 
 ```sh
 # From the corpus root: the path is contents/ itself
-$ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents
-$ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/books
-$ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/single-document-texts/mr-phi
-$ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/books/wealth-of-nations/markdown/01-introduction.md
+$ sklein-bibliography-corpus-indexer generate-sidecars ./contents
+$ sklein-bibliography-corpus-indexer generate-sidecars ./contents/books
+$ sklein-bibliography-corpus-indexer generate-sidecars ./contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-indexer generate-sidecars ./contents/books/wealth-of-nations/markdown/01-introduction.md
 ```
 
 When the corpus directory is not named `contents`, pass `--contents-dir`:
 
 ```sh
-$ sklein-bibliography-corpus-rag-manager generate-sidecars ./corpus/books --contents-dir ./corpus
+$ sklein-bibliography-corpus-indexer generate-sidecars ./corpus/books --contents-dir ./corpus
 ```
 
 Each command applies its own rule:
@@ -92,17 +92,17 @@ differ from the ones `import-books` writes for the same book.
 
 ## Options
 
-| Option                 | Environment variable                                  | Default                  |
-| ---------------------- | ----------------------------------------------------- | ------------------------ |
-| `--url <url>`          | `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_URL`          | `http://localhost:5173`  |
-| `--token <token>`      | `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_TOKEN`        | none                     |
-| `--contents-dir <dir>` | `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_CONTENTS_DIR` | discovered from `<path>` |
-| `--verbose`            | —                                                     | `false`                  |
+| Option                 | Environment variable                              | Default                  |
+| ---------------------- | ------------------------------------------------- | ------------------------ |
+| `--url <url>`          | `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_URL`          | `http://localhost:5173`  |
+| `--token <token>`      | `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TOKEN`        | none                     |
+| `--contents-dir <dir>` | `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_CONTENTS_DIR` | discovered from `<path>` |
+| `--verbose`            | —                                                 | `false`                  |
 
 An option wins over its environment variable, which wins over the default.
 
 `--token` and the environment variable take the super-admin token: the value the
-webapp reads from `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN`. User API
+webapp reads from `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN`. User API
 tokens created in the webapp are not accepted by the `/api/v1/admin/*` routes.
 
 Prefer the environment variable in scripts. A token passed with `--token` appears
@@ -123,8 +123,8 @@ path starts with the breadcrumb built from `config.yaml.title` and the
 `00-index.md` pages.
 
 ```sh
-$ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/single-document-texts --dry-run
-$ sklein-bibliography-corpus-rag-manager generate-sidecars ./contents/books --force
+$ sklein-bibliography-corpus-indexer generate-sidecars ./contents/single-document-texts --dry-run
+$ sklein-bibliography-corpus-indexer generate-sidecars ./contents/books --force
 ```
 
 `--dry-run` reports what would be written. `--force` regenerates every sidecar.
@@ -150,8 +150,8 @@ line, followed by Float32LE vectors for each chunk. The sidecar manifest records
 the provider, the model, the dimension and the embedding file name.
 
 ```sh
-$ sklein-bibliography-corpus-rag-manager generate-embeddings ./contents/single-document-texts --dry-run
-$ sklein-bibliography-corpus-rag-manager generate-embeddings ./contents/books --force
+$ sklein-bibliography-corpus-indexer generate-embeddings ./contents/single-document-texts --dry-run
+$ sklein-bibliography-corpus-indexer generate-embeddings ./contents/books --force
 ```
 
 The command calls `GET /api/v1/admin/embeddings` to read the document model and
@@ -171,8 +171,8 @@ schema 1 to schema 2. The chunks and the vectors are copied as they are: the
 command never calls the webapp and never spends an embedding token.
 
 ```sh
-$ sklein-bibliography-corpus-rag-manager migrate-corpus ./contents --dry-run
-$ sklein-bibliography-corpus-rag-manager migrate-corpus ./contents
+$ sklein-bibliography-corpus-indexer migrate-corpus ./contents --dry-run
+$ sklein-bibliography-corpus-indexer migrate-corpus ./contents
 ```
 
 The manifest replaces `source_file_hash` with `source_content_hash` and bumps
@@ -198,9 +198,9 @@ chunks as rows of `content_chunks`. The command sends
 reindex the BM25 index when something changed.
 
 ```sh
-$ sklein-bibliography-corpus-rag-manager import-single-documents ./contents/single-document-texts --dry-run
-$ sklein-bibliography-corpus-rag-manager import-single-documents ./contents/single-document-texts/mr-phi
-$ sklein-bibliography-corpus-rag-manager import-single-documents ./contents/single-document-texts --prune
+$ sklein-bibliography-corpus-indexer import-single-documents ./contents/single-document-texts --dry-run
+$ sklein-bibliography-corpus-indexer import-single-documents ./contents/single-document-texts/mr-phi
+$ sklein-bibliography-corpus-indexer import-single-documents ./contents/single-document-texts --prune
 ```
 
 `--prune` deletes rows whose `markdown_source_file` is no longer in the imported
@@ -223,9 +223,9 @@ and content in `00-index.md`. The importer supports only the latest
 Every Markdown file that is not listed in `config.exclude` becomes a node.
 
 ```sh
-$ sklein-bibliography-corpus-rag-manager import-books ./contents/books
-$ sklein-bibliography-corpus-rag-manager import-books ./contents/books/wealth-of-nations --dry-run
-$ sklein-bibliography-corpus-rag-manager import-books ./contents/books --prune --require-embeddings
+$ sklein-bibliography-corpus-indexer import-books ./contents/books
+$ sklein-bibliography-corpus-indexer import-books ./contents/books/wealth-of-nations --dry-run
+$ sklein-bibliography-corpus-indexer import-books ./contents/books --prune --require-embeddings
 ```
 
 `--prune` deletes book nodes whose slug is no longer in the imported tree. It
@@ -242,7 +242,7 @@ The command exits with `0` on success and `1` on failure.
 ## Shell completion
 
 ```sh
-$ sklein-bibliography-corpus-rag-manager completion >> ~/.zshrc
+$ sklein-bibliography-corpus-indexer completion >> ~/.zshrc
 ```
 
 ## Install the development version globally on your workstation

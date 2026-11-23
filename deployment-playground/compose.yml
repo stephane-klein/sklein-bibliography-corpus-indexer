@@ -17,7 +17,7 @@ services:
       start_period: 30s
 
   app:
-    image: ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager:dev
+    image: ghcr.io/stephane-klein/sklein-bibliography-corpus-indexer:dev
     depends_on:
       postgres:
         condition: service_healthy
@@ -30,12 +30,12 @@ services:
       start_period: 30s
       retries: 3
     environment:
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL: postgres://postgres:password@postgres:5432/postgres
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN: playground-admin-token-change-me-in-prod
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ORIGIN: https://app.127.0.0.1.sslip.io
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL: postgres://postgres:password@postgres:5432/postgres
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN: playground-admin-token-change-me-in-prod
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ORIGIN: https://app.127.0.0.1.sslip.io
       ADDRESS_HEADER: x-forwarded-for
       AUTHELIA_ISSUER: https://auth.127.0.0.1.sslip.io
-      AUTHELIA_CLIENT_ID: sklein-bibliography-corpus-rag-manager
+      AUTHELIA_CLIENT_ID: sklein-bibliography-corpus-indexer
       AUTHELIA_CLIENT_SECRET: client-secret-playground
       NODE_TLS_REJECT_UNAUTHORIZED: 0
       SMTP_HOST: mailpit
@@ -45,11 +45,11 @@ services:
       SMTP_PASS: ""
       EMAIL_FROM: noreply@example.com
       TEST_EMAIL_TO: john.doe@example.com
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_PROVIDER: voyage
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_MODEL: voyage-4
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_QUERY_MODEL: voyage-4-lite
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_DIMENSION: "1024"
-      SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY: ""
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_PROVIDER: voyage
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_MODEL: voyage-4
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_QUERY_MODEL: voyage-4-lite
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_DIMENSION: "1024"
+      SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY: ""
 
   caddy:
     image: caddy:2-alpine

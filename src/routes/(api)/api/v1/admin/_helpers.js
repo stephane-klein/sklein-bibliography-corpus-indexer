@@ -1,6 +1,6 @@
 import { problem } from "#lib/server/problem.js";
 
-const ADMIN_TOKEN = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN;
+const ADMIN_TOKEN = process.env.SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN;
 
 export function requireAdminToken(event) {
     if (!ADMIN_TOKEN || ADMIN_TOKEN.length < 32) {

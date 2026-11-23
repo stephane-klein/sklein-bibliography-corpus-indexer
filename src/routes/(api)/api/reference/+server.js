@@ -53,7 +53,7 @@ export async function GET() {
         )
         .replace(
             '<div id="app">',
-            `<header class="app-header"><a href="/">Sklein Bibliography Corpus RAG Manager</a></header>\n<div id="app">`,
+            `<header class="app-header"><a href="/">Sklein Bibliography Corpus Indexer</a></header>\n<div id="app">`,
         )
         .replace(
             "</body>",

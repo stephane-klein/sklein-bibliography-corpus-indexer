@@ -1,11 +1,12 @@
 {
-  "name": "@stephane-klein/sklein-bibliography-corpus-rag-manager-cli",
+  "name": "@stephane-klein/sklein-bibliography-corpus-indexer-cli",
   "version": "0.4.0",
-  "description": "Command-line client for the Sklein Bibliography Corpus RAG Manager",
+  "description": "Command-line tools for the Sklein Bibliography Corpus Indexer",
   "keywords": [
     "bibliography",
     "corpus",
-    "rag",
+    "indexer",
+    "search",
     "embeddings",
     "cli"
   ],
@@ -15,11 +16,11 @@
     "src"
   ],
   "bin": {
-    "sklein-bibliography-corpus-rag-manager": "src/cli.js"
+    "sklein-bibliography-corpus-indexer": "src/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/stephane-klein/sklein-bibliography-corpus-rag-manager.git",
+    "url": "https://github.com/stephane-klein/sklein-bibliography-corpus-indexer.git",
     "directory": "packages/cli"
   },
   "type": "module",

@@ -13,7 +13,7 @@
     <h1>{title}</h1>
 
     <p class="mb-2">
-        <em>Sklein Bibliography Corpus RAG Manager</em> expose un serveur
+        <em>Sklein Bibliography Corpus Indexer</em> expose un serveur
         <a
             href="https://modelcontextprotocol.io/"
             class="text-blue-600 hover:underline">Model Context Protocol</a

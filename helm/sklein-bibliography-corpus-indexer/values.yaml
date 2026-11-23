@@ -1,4 +1,4 @@
-# Default values for sklein-bibliography-corpus-rag-manager.
+# Default values for sklein-bibliography-corpus-indexer.
 # This is a YAML-formatted file.
 
 seed:
@@ -6,7 +6,7 @@ seed:
 
 app:
   image:
-    repository: ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager
+    repository: ghcr.io/stephane-klein/sklein-bibliography-corpus-indexer
     tag: latest
     pullPolicy: Always
 
@@ -19,14 +19,14 @@ postgresql:
 # MCP read-only server. The application role creates the reader role and grants
 # SELECT on the corpus tables during `migrate`. Leave readerPassword empty to
 # disable the endpoint. When secrets.existingSecret is set, put the password in
-# that Secret under SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD.
+# that Secret under SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD.
 mcp:
   readerRole: sklein_bibliography_mcp_reader
   readerPassword: ""
 
 # CloudNativePG cluster configuration — deployed in the same namespace as the app.
 cnpg:
-  clusterName: sklein-bibliography-corpus-rag-manager
+  clusterName: sklein-bibliography-corpus-indexer
   namespace: ""
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:18.6-minimal-trixie
@@ -73,7 +73,7 @@ smtp:
   # Default recipient for the send-test-mail admin endpoint
   testTo: ""
 
-# Public origin URL (e.g. https://sklein-bibliography-corpus-rag-manager.example.com).
+# Public origin URL (e.g. https://sklein-bibliography-corpus-indexer.example.com).
 # Auto-derived from ingress.host when ingress is enabled.
 # Explicitly set this value to override.
 origin: ""
@@ -88,13 +88,13 @@ addressHeader: ""
 # Admin API token — Bearer authentication for /api/v1/admin/* endpoints.
 # Must be at least 32 characters long.
 # Only used when secrets.existingSecret is NOT set; otherwise the
-# SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN key of that Secret is injected via envFrom.
+# SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN key of that Secret is injected via envFrom.
 adminToken: ""
 
 # Embedding generation for sidecars. Voyage is the default provider; set
 # provider to openai to use the OpenAI-compatible client instead. The API key is
 # only used when secrets.existingSecret is NOT set; otherwise the Secret must
-# expose SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY.
+# expose SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY.
 embedding:
   provider: voyage
   model: voyage-4
@@ -116,9 +116,9 @@ oidc:
 # When set, the four following values are taken from an existing Secret
 # instead of being passed as literal env vars:
 #   - oidc.clientSecret -> AUTHELIA_CLIENT_SECRET
-#   - adminToken        -> SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN
+#   - adminToken        -> SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN
 #   - smtp.pass         -> SMTP_PASS
-#   - embedding.apiKey  -> SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY
+#   - embedding.apiKey  -> SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY
 # The referenced Secret must expose those four keys.
 secrets:
   existingSecret: ""

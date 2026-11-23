@@ -1,14 +1,14 @@
-# sklein-bibliography-corpus-rag-manager Helm chart
+# sklein-bibliography-corpus-indexer Helm chart
 
-Deploys the sklein-bibliography-corpus-rag-manager service on Kubernetes with a CloudNativePG PostgreSQL cluster
+Deploys the sklein-bibliography-corpus-indexer service on Kubernetes with a CloudNativePG PostgreSQL cluster
 in the same namespace.
 
 The deployment of this chart was tested in a
 [homelab playground](https://github.com/stephane-klein/homelab.sklein.xyz/tree/main/playground/sveltekit-ssr-skeleton).
 
 The container image is published on
-[GitHub Container Registry](https://github.com/users/stephane-klein/packages/container/package/sklein-bibliography-corpus-rag-manager):
-`ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager`.
+[GitHub Container Registry](https://github.com/users/stephane-klein/packages/container/package/sklein-bibliography-corpus-indexer):
+`ghcr.io/stephane-klein/sklein-bibliography-corpus-indexer`.
 
 ## Prerequisites
 
@@ -19,22 +19,22 @@ The container image is published on
 ## Quick start
 
 ```bash
-$ kubectl create namespace sklein-bibliography-corpus-rag-manager
-$ helm upgrade --install sklein-bibliography-corpus-rag-manager oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-rag-manager \
-    --namespace sklein-bibliography-corpus-rag-manager \
+$ kubectl create namespace sklein-bibliography-corpus-indexer
+$ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-indexer \
+    --namespace sklein-bibliography-corpus-indexer \
     --set ingress.enabled=true \
-    --set ingress.host=sklein-bibliography-corpus-rag-manager.example.com
+    --set ingress.host=sklein-bibliography-corpus-indexer.example.com
 ```
 
 ## Configuration
 
-See [values.yaml](https://github.com/stephane-klein/sklein-bibliography-corpus-rag-manager/blob/main/helm/sklein-bibliography-corpus-rag-manager/values.yaml).
+See [values.yaml](https://github.com/stephane-klein/sklein-bibliography-corpus-indexer/blob/main/helm/sklein-bibliography-corpus-indexer/values.yaml).
 
 Pass custom values via `--set` or a YAML file:
 
 ```bash
-$ helm upgrade --install sklein-bibliography-corpus-rag-manager oci://ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager \
-    --namespace sklein-bibliography-corpus-rag-manager \
+$ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-indexer \
+    --namespace sklein-bibliography-corpus-indexer \
     -f my-values.yaml
 ```
 
@@ -53,10 +53,10 @@ $ mise run destroy-helm-test
 
 The chart creates a CNPG `Cluster` resource in the same namespace. The CNPG
 operator automatically generates an app secret named `<clusterName>-app`
-(default: `sklein-bibliography-corpus-rag-manager-app`) with keys: `host`, `port`, `dbname`, `username`,
+(default: `sklein-bibliography-corpus-indexer-app`) with keys: `host`, `port`, `dbname`, `username`,
 `password`. The connection URL is built at pod startup as
 `postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)` and
-exposed via `SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL`.
+exposed via `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL`.
 
 ### PostgreSQL search extensions
 
@@ -84,7 +84,7 @@ The embedding endpoint uses Voyage by default. Configure it with:
 - `embedding.apiKey` (only when `secrets.existingSecret` is not set)
 
 When `secrets.existingSecret` is set, the Secret must also expose
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY`.
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY`.
 
 ### MCP read-only server
 
@@ -99,7 +99,7 @@ Configure it with:
 - `mcp.readerPassword` (only when `secrets.existingSecret` is not set)
 
 When `secrets.existingSecret` is set, the Secret must expose
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_MCP_READONLY_POSTGRES_PASSWORD`. Leave
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_PASSWORD`. Leave
 the password unset to keep the MCP endpoint disabled; the application and the
 rest of the API keep working.
 
@@ -114,7 +114,7 @@ The application can authenticate users via OpenID Connect. The implementation
 is currently specific to **Authelia** (endpoint paths are hardcoded to
 Authelia's convention).
 
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ORIGIN` (required for the OIDC
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ORIGIN` (required for the OIDC
 callback URL) is automatically derived from `ingress.host` when ingress is
 enabled. Set `origin` explicitly to override.
 
@@ -125,14 +125,14 @@ ingress already forwards, so no build-time `paths.origin` is needed.
 Enable OIDC with:
 
 ```bash
-$ helm upgrade --install sklein-bibliography-corpus-rag-manager oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-rag-manager \
-    --namespace sklein-bibliography-corpus-rag-manager \
+$ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-indexer \
+    --namespace sklein-bibliography-corpus-indexer \
     --set ingress.enabled=true \
-    --set ingress.host=sklein-bibliography-corpus-rag-manager.example.com \
+    --set ingress.host=sklein-bibliography-corpus-indexer.example.com \
     --set adminToken="$(openssl rand -hex 32)" \
     --set oidc.enabled=true \
     --set oidc.issuer=https://auth.example.com \
-    --set oidc.clientId=sklein-bibliography-corpus-rag-manager \
+    --set oidc.clientId=sklein-bibliography-corpus-indexer \
     --set oidc.clientSecret=...
 ```
 
@@ -146,15 +146,15 @@ final state.
 
 **Prerequisite** — the admin API must be enabled: set `adminToken` at install
 time (at least 32 characters), or use an existing secret exposing the
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN` key (`secrets.existingSecret`).
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN` key (`secrets.existingSecret`).
 
 Sync users against the deployed application:
 
 ```bash
-$ curl -s -X PUT -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN}" \
+$ curl -s -X PUT -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN}" \
     -H "Content-Type: application/json" \
     --data @api-payloads-examples/users-sync.json \
-    https://sklein-bibliography-corpus-rag-manager.example.com/api/v1/admin/users/sync | jq
+    https://sklein-bibliography-corpus-indexer.example.com/api/v1/admin/users/sync | jq
 ```
 
 A ready-to-use payload lives in
@@ -218,9 +218,9 @@ echoed in the response. Values generated by the server appear only in
 Filter the response before logging it in CI:
 
 ```bash
-$ curl -s -X PUT -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_ADMIN_TOKEN}" \
+$ curl -s -X PUT -H "Authorization: Bearer ${SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN}" \
     -H "Content-Type: application/json" \
     --data @api-payloads-examples/users-sync.json \
-    https://sklein-bibliography-corpus-rag-manager.example.com/api/v1/admin/users/sync \
+    https://sklein-bibliography-corpus-indexer.example.com/api/v1/admin/users/sync \
     | jq '{users: (.data.created + .data.updated), tokens: .data.tokens, raw_tokens: .data.raw_tokens}'
 ```

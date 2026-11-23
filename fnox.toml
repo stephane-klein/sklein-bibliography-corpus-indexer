@@ -6,4 +6,4 @@ type = "password-store"
 store_dir = "~/.local/share/gopass/stores/root"
 
 [secrets]
-SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_EMBEDDING_API_KEY = { provider = "gopass", value = "voyageai/apikey" }
+SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY = { provider = "gopass", value = "voyageai/apikey" }

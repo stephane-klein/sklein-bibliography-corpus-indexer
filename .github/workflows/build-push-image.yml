@@ -9,7 +9,7 @@ on:
         default: "main"
 
 env:
-  IMAGE: ghcr.io/stephane-klein/sklein-bibliography-corpus-rag-manager
+  IMAGE: ghcr.io/stephane-klein/sklein-bibliography-corpus-indexer
 
 jobs:
   build-and-push:

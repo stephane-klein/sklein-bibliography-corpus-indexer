@@ -2,7 +2,7 @@
 
 ## Project Context
 
-Manage a bibliography corpus and expose it to RAG pipelines.
+Index a bibliography corpus and expose full-text and semantic search to RAG pipelines.
 
 ## Language Policy
 
@@ -28,8 +28,8 @@ Configuration: `eslint.config.js`, `prettier.config.js`
 ## CLI Package
 
 The corpus commands live in `packages/cli`, published on npm as
-`@stephane-klein/sklein-bibliography-corpus-rag-manager-cli` with the binary
-`sklein-bibliography-corpus-rag-manager`:
+`@stephane-klein/sklein-bibliography-corpus-indexer-cli` with the binary
+`sklein-bibliography-corpus-indexer`:
 
 - `generate-sidecars`
 - `generate-embeddings`
@@ -44,10 +44,10 @@ They are no longer scripts under `src/`. The package owns the former
 
 Rules:
 
-- Run a command with `sklein-bibliography-corpus-rag-manager <command> <path>`.
+- Run a command with `sklein-bibliography-corpus-indexer <command> <path>`.
   The root package depends on the workspace package, so `pnpm install` links the
   command into `node_modules/.bin`, and mise puts that directory on the `PATH`.
-  In a shell without mise, use `pnpm exec sklein-bibliography-corpus-rag-manager`.
+  In a shell without mise, use `pnpm exec sklein-bibliography-corpus-indexer`.
   There are no mise tasks for these commands.
 - `<path>` is required and resolved against the current directory. It must land
   inside a directory named `contents`, found by walking up from the path.
@@ -107,7 +107,7 @@ mise run execute-read-sql -- "SELECT id, slug, title FROM hierarchical_content_n
 ```
 
 The container publishes a random host port. The task reloads
-`SKLEIN_BIBLIOGRAPHY_CORPUS_RAG_MANAGER_POSTGRES_URL` from the running container
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL` from the running container
 on every run, so the URL is always current. It runs one read-only statement
 with a 15-second timeout; add a `LIMIT` to every broad query.
 
