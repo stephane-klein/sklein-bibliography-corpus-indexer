@@ -5,6 +5,7 @@ experimental = true
 auto = true
 
 [env]
+BETTERLEAKS_CONFIG = "{{config_root}}/.betterleaks.toml"
 _.path = './node_modules/.bin'
 _.source = [
   { path = '.envrc', cacheable = false },
@@ -41,7 +42,7 @@ unfunction _epub-to-markdown_yargs_completions 2>/dev/null || true
 node = "26.13.0"
 pnpm = "12.16.1"
 "conda:postgresql" = "18.6" # to install PostgreSQL clients: psql, pg_dump, etc
-"aqua:gitleaks/gitleaks" = "8.30.1"
+"aqua:betterleaks/betterleaks" = "1.10.1"
 helm = "4.3.1"
 pitchfork = "2.33.0"
 mailpit = "1.33.0"
@@ -194,11 +195,11 @@ podman build \\
 [tasks.setup-git-hooks]
 run = "scripts/setup-git-hooks.sh"
 
-[tasks.gitleaks-check-push]
-run = "scripts/gitleaks-check-push.sh"
+[tasks.betterleaks-check-push]
+run = "scripts/betterleaks-check-push.sh"
 
-[tasks.gitleaks-scan]
-run = "gitleaks dir --no-banner -v {{config_root}}"
+[tasks.betterleaks-scan]
+run = "betterleaks dir --no-banner -v \"{{config_root}}\""
 
 [tasks.login-ghcr-helm]
 description = "Authenticate Helm with GitHub Container Registry using gh CLI"

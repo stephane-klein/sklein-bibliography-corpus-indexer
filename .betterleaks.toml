@@ -30,3 +30,13 @@ paths = [
 regexes = [
     '''playground-admin-token-change-me-in-prod''',
 ]
+
+# Betterleaks reports generic secret rules that Gitleaks did not have. These
+# values are local development placeholders, i18n labels and a package script,
+# never real credentials. The regexes are anchored to avoid hiding a real
+# secret that merely contains one of these words.
+[[allowlists]]
+description = "Local development placeholders and labels, not secrets"
+regexes = [
+    '''^(?:password|password123|admin123|change-me-mcp-reader|postgres|node src/hash-password\.js|Forgot password\?|Change password|Mot de passe oublié \?|Changer le mot de passe)$''',
+]

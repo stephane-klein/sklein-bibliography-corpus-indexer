@@ -30,7 +30,7 @@ This project was built on the [SvelteKit SSR skeleton](https://github.com/stepha
 - Tooling: [Mise](https://mise.jdx.dev/), [Pitchfork](https://pitchfork.jdx.dev/)
 - Dev mail: [Mailpit](https://github.com/axllent/mailpit) (SMTP + web UI)
 - Containers: Podman Compose
-- Secret detection: [gitleaks](https://github.com/gitleaks/gitleaks)
+- Secret detection: [betterleaks](https://github.com/betterleaks/betterleaks)
 
 ## Getting Started
 
