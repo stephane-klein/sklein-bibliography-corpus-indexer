@@ -32,10 +32,6 @@ spec:
     initdb:
       database: {{ .Release.Name }}
       owner: {{ .Release.Name }}
-      {{- with .Values.cnpg.bootstrapPassword }}
-      secret:
-        name: {{ $.Release.Name }}-bootstrap
-      {{- end }}
       # The application runs migrations at startup and needs to create
       # pg_search, which is not a trusted extension.
       postInitApplicationSQL:

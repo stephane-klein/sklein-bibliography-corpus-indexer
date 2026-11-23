@@ -42,9 +42,6 @@ cnpg:
       image: docker.io/paradedb/paradedb-extension:0.26.6-18-trixie
   storage:
     size: 1Gi
-  # PostgreSQL `postgres` user password (auto-generated if empty)
-  # Used for bootstrap and superuser access.
-  bootstrapPassword: ""
 
 # HTTP server (SvelteKit adapter-node)
 port: 3000
