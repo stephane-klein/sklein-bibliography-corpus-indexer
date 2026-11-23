@@ -157,6 +157,22 @@ metrics:
   grafanaDashboard:
     enabled: false
 
+# Pod and container security context. The image runs as the `node` user
+# (UID/GID 1000) and needs no privileges. Set either table to {} to disable it.
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+
 # Node selector, tolerations, affinity (optional)
 nodeSelector: {}
 tolerations: []

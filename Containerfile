@@ -63,6 +63,8 @@ RUN --mount=from=betterleaks,source=/usr/bin/betterleaks,target=/usr/local/bin/b
     betterleaks dir --no-banner --redact --config /tmp/.betterleaks.toml /app && \
     betterleaks dir --no-banner --redact --config /tmp/.betterleaks.toml /entrypoint.sh
 
+USER node
+
 HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=3 \
   CMD curl -f http://localhost:${PORT:-3000}/-/healthy || exit 1
 

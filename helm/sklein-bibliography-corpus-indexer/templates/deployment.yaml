@@ -21,12 +21,20 @@ spec:
         prometheus.io/path: "/-/metrics"
       {{- end }}
     spec:
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       dnsPolicy: {{ .Values.dnsPolicy }}
       {{- if .Values.seed.enabled }}
       initContainers:
         - name: seed
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           command: ["/entrypoint.sh", "seed"]
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: DB_HOST
               valueFrom:
@@ -61,11 +69,18 @@ spec:
             - name: OPTIMIZE_FOR_MEMORY_SIZE
               value: "true"
             {{- end }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- if .Values.secrets.existingSecret }}
           envFrom:
             - secretRef:
@@ -199,6 +214,9 @@ spec:
             - name: http
               containerPort: {{ .Values.port }}
               protocol: TCP
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           livenessProbe:
             httpGet:
               path: /-/healthy
@@ -215,3 +233,6 @@ spec:
             failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
