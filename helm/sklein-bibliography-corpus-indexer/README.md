@@ -53,10 +53,10 @@ $ mise run destroy-helm-test
 
 The chart creates a CNPG `Cluster` resource in the same namespace. The CNPG
 operator automatically generates an app secret named `<clusterName>-app`
-(default: `sklein-bibliography-corpus-indexer-app`) with keys: `host`, `port`, `dbname`, `username`,
-`password`. The connection URL is built at pod startup as
-`postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)` and
-exposed via `SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL`.
+(default: `sklein-bibliography-corpus-indexer-app`). The chart reads its `uri`
+key, which contains the complete connection URL with the namespace and the
+URL-encoded credentials, and exposes it as
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL`.
 
 ### PostgreSQL search extensions
 

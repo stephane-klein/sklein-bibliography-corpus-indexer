@@ -36,33 +36,11 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           env:
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: host
-            - name: DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: port
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: dbname
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: password
             - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL
-              value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST).{{ .Values.cnpg.namespace }}:$(DB_PORT)/$(DB_NAME)"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.cnpg.clusterName }}-app
+                  key: uri
             - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_SCHEMA
               value: {{ .Values.postgresql.schema }}
             {{- if $.Values.optimizeForMemorySize }}
@@ -175,33 +153,11 @@ spec:
             - name: NODE_TLS_REJECT_UNAUTHORIZED
               value: "0"
             {{- end }}
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: host
-            - name: DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: port
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: dbname
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cnpg.clusterName }}-app
-                  key: password
             - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL
-              value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST).{{ .Values.cnpg.namespace }}:$(DB_PORT)/$(DB_NAME)"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.cnpg.clusterName }}-app
+                  key: uri
             - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_SCHEMA
               value: {{ .Values.postgresql.schema }}
             - name: SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_MCP_READONLY_POSTGRES_ROLE

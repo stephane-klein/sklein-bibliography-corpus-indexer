@@ -11,8 +11,7 @@ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane
     --set ingress.host=sklein-bibliography-corpus-indexer-test.sklein.internal \
     --set-json 'ingress.annotations={"cert-manager.io/cluster-issuer":"homelab-ca"}' \
     --set-json 'ingress.tls=[{"hosts":["sklein-bibliography-corpus-indexer-test.sklein.internal"],"secretName":"sklein-bibliography-corpus-indexer-test-tls"}]' \
-    --set seed.enabled=true \
-    --set cnpg.namespace=sklein-bibliography-corpus-indexer-test
+    --set seed.enabled=true
 
 echo "Waiting for rollout to complete..."
 kubectl rollout status deployment/sklein-bibliography-corpus-indexer --namespace sklein-bibliography-corpus-indexer-test --timeout=300s

@@ -27,7 +27,6 @@ mcp:
 # CloudNativePG cluster configuration — deployed in the same namespace as the app.
 cnpg:
   clusterName: sklein-bibliography-corpus-indexer
-  namespace: ""
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:18.6-minimal-trixie
   # The application role owns the database and runs the migrations. It is a
