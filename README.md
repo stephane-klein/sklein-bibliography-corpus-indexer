@@ -461,6 +461,42 @@ $ pitchfork stop --local      # stop the daemons (PostgreSQL volume preserved)
 $ mise run teardown           # stop the daemons, remove containers and volumes (destructive, deletes PostgreSQL data)
 ```
 
+## Build and push container image
+
+```bash
+$ mise run build-image
+$ mise run login-ghcr
+$ mise run push-image
+```
+
+Alternatively, build and push via a GitHub Action workflow (manual trigger).
+Configure the repository settings once before the first run:
+
+```bash
+$ mise run setup-ghcr-actions
+```
+
+The task sets the `GHCR_USERNAME` variable with `gh variable set` and pushes
+`GHCR_PAT` with `fnox push`. `fnox.toml` declares `GHCR_PAT` and the
+`github-actions` push target.
+
+Then trigger the workflow:
+
+```bash
+$ mise run ci-build-push-image
+```
+
+This runs the `build-push-image.yml` workflow through `gh workflow run`. The
+workflow requires the `GHCR_PAT` secret (a PAT with `write:packages`) and the
+`GHCR_USERNAME` variable.
+
+## Publish Helm chart
+
+```bash
+$ mise run login-ghcr-helm
+$ mise run publish-chart
+```
+
 ## Local monitoring stack (VictoriaMetrics + Grafana)
 
 [`victoriametrics-grafana-test-dev/`](./victoriametrics-grafana-test-dev/)

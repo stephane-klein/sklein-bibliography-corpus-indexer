@@ -162,6 +162,16 @@ run = """
 gh workflow run build-push-image.yml --ref "main"
 """
 
+[tasks.setup-ghcr-actions]
+description = "Configure GHCR_USERNAME variable and GHCR_PAT secret for the GitHub Actions build-push-image workflow"
+run = """
+REPO="stephane-klein/sklein-bibliography-corpus-indexer"
+gh variable set GHCR_USERNAME --body "stephane-klein" --repo "$REPO"
+fnox push GHCR_PAT
+gh variable list --repo "$REPO"
+gh secret list --repo "$REPO"
+"""
+
 [tasks.build-dev-image]
 quiet = true
 run = """

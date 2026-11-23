@@ -5,5 +5,10 @@ enabled = true
 type = "password-store"
 store_dir = "~/.local/share/gopass/stores/root"
 
+[targets.github-actions]
+type = "github-actions"
+repo = "stephane-klein/sklein-bibliography-corpus-indexer"
+
 [secrets]
 SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY = { provider = "gopass", value = "voyageai/apikey" }
+GHCR_PAT = { provider = "gopass", value = "github-cli/token", push = ["github-actions"], env = false }
