@@ -11,4 +11,5 @@ repo = "stephane-klein/sklein-bibliography-corpus-indexer"
 
 [secrets]
 SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY = { provider = "gopass", value = "voyageai/apikey" }
+SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TEST_ADMIN_TOKEN = { provider = "gopass", value = "sklein_bibliography_corpus_indexer/sklein-bibliography-corpus-indexer-test.sklein.internal/SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN", env = false }
 GHCR_PAT = { provider = "gopass", value = "github-cli/token", push = ["github-actions"], env = false }

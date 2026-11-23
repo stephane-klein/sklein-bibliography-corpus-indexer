@@ -7,6 +7,8 @@ kubectl get namespace sklein-bibliography-corpus-indexer-test 2>/dev/null || kub
 
 helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-indexer \
     --namespace sklein-bibliography-corpus-indexer-test \
+    --set-string adminToken="$(fnox get SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TEST_ADMIN_TOKEN)" \
+    --set-string embedding.apiKey="$(fnox get SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY)" \
     --set ingress.enabled=true \
     --set ingress.host=sklein-bibliography-corpus-indexer-test.sklein.internal \
     --set-json 'ingress.annotations={"cert-manager.io/cluster-issuer":"homelab-ca"}' \
