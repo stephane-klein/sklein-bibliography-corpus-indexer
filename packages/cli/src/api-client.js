@@ -11,7 +11,7 @@ export function resolveApiOptions({ url, token }, env = process.env) {
 
 export function createApiClient({ url, token }) {
     async function request(method, path, { body, timeoutMs = 180_000 } = {}) {
-        const headers = { Authorization: `Bearer ${token}` };
+        const headers = { Authorization: `Bearer ${token}`, Accept: "application/json" };
         const payload = body === undefined ? undefined : JSON.stringify(body);
 
         if (payload !== undefined) {
@@ -35,7 +35,7 @@ export function createApiClient({ url, token }) {
         const result = await response.json().catch(() => null);
 
         if (!response.ok) {
-            throw new Error(result?.detail || `HTTP ${response.status} from ${endpoint}`);
+            throw new Error(result?.detail || result?.message || `HTTP ${response.status} from ${endpoint}`);
         }
 
         if (!result?.data) {

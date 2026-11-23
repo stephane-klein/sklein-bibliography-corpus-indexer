@@ -251,7 +251,7 @@ async function sendSyncRequest(api, path, payload) {
 }
 
 async function reindexIndex(api) {
-    return await api.post("/api/v1/admin/hierarchical-content-nodes/reindex");
+    return await api.post("/api/v1/admin/hierarchical-content-nodes/reindex", {});
 }
 
 function toApiDocument(document) {
