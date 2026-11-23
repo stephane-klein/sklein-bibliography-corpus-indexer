@@ -9,6 +9,7 @@ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane
     --namespace sklein-bibliography-corpus-indexer-test \
     --set-string adminToken="$(fnox get SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TEST_ADMIN_TOKEN)" \
     --set-string embedding.apiKey="$(fnox get SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY)" \
+    --set-string mcp.readerPassword="$(fnox get SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TEST_MCP_READONLY_POSTGRES_PASSWORD)" \
     --set ingress.enabled=true \
     --set ingress.host=sklein-bibliography-corpus-indexer-test.sklein.internal \
     --set-json 'ingress.annotations={"cert-manager.io/cluster-issuer":"homelab-ca"}' \
