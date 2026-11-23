@@ -111,7 +111,7 @@ export const sql = instrumentSql(raw);
 
 onShutdown(() => sql.end({ timeout: 5 }));
 
-export async function waitForDb(maxRetries = 10, delayMs = 1000) {
+export async function waitForDb(maxRetries = 60, delayMs = 2000) {
     logger.info(`Attempting to connect to ${POSTGRES_URL.replace(/\/\/.*:/, "//xxxxx:")}`);
 
     for (let i = 1; i <= maxRetries; i++) {
@@ -120,6 +120,9 @@ export async function waitForDb(maxRetries = 10, delayMs = 1000) {
             return;
         } catch (err) {
             if (i === maxRetries) throw err;
+            if (i === 1 || i % 5 === 0) {
+                logger.warn({ attempt: i, maxRetries, delayMs }, "PostgreSQL not ready, retrying");
+            }
             await new Promise((r) => setTimeout(r, delayMs));
         }
     }
