@@ -144,7 +144,9 @@ async function requestHandler({ event, resolve }) {
 
     // Prevent the one-time magic-login token (carried in the callback URL) from
     // leaking to third-party sites via the Referer header of subsequent requests.
-    response.headers.set("Referrer-Policy", "no-referrer");
+    // `no-referrer` makes browsers send Origin: null on form POSTs, which breaks
+    // SvelteKit's CSRF check, so keep the referrer on same-origin requests only.
+    response.headers.set("Referrer-Policy", "same-origin");
 
     return response;
 }
