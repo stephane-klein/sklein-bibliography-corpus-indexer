@@ -3,8 +3,8 @@
 Deploys the sklein-bibliography-corpus-indexer service on Kubernetes with a CloudNativePG PostgreSQL cluster
 in the same namespace.
 
-The deployment of this chart was tested in a
-[homelab playground](https://github.com/stephane-klein/homelab.sklein.xyz/tree/main/playground/sveltekit-ssr-skeleton).
+The deployment of this chart is tested on the homelab k3s cluster with
+`mise run deploy-helm-test` (see below).
 
 The container image is published on
 [GitHub Container Registry](https://github.com/users/stephane-klein/packages/container/package/sklein-bibliography-corpus-indexer):
@@ -51,6 +51,16 @@ $ mise run deploy-helm-test
 ...
 $ mise run destroy-helm-test
 ```
+
+The test deployment reads three secrets from gopass through fnox:
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TEST_ADMIN_TOKEN`,
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_EMBEDDING_API_KEY` and
+`SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_TEST_MCP_READONLY_POSTGRES_PASSWORD`.
+They are declared in `fnox.toml`.
+
+The test deployment enables `seed.enabled`, which loads the development seeds:
+the demo account `alice@example.com` / `password123` and a demo MCP token.
+Never enable the seed in production.
 
 ## How it works
 
@@ -124,8 +134,11 @@ callback URL) is automatically derived from `ingress.host` when ingress is
 enabled. Set `origin` explicitly to override.
 
 This variable only feeds the OIDC callback URL. SvelteKit derives the origin
-used for CSRF checks from the `Host` and `X-Forwarded-Proto` headers that the
-ingress already forwards, so no build-time `paths.origin` is needed.
+used for CSRF checks from the `Host` header, with `https` as the default
+protocol. The application returns `Referrer-Policy: same-origin`, so browsers
+keep the `Origin` header on form POSTs. A `no-referrer` policy makes them send
+`Origin: null`, which SvelteKit rejects with "Cross-site POST form submissions
+are forbidden".
 
 Enable OIDC with:
 
@@ -140,6 +153,12 @@ $ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stepha
     --set oidc.clientId=sklein-bibliography-corpus-indexer \
     --set oidc.clientSecret=...
 ```
+
+### Data retention
+
+`helm uninstall` deletes the CNPG `Cluster` and its PVCs. The chart does not
+configure backups. Take a dump or a volume snapshot before uninstalling the
+release.
 
 ## Managing users (idempotent GitOps)
 

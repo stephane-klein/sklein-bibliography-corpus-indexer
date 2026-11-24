@@ -2,7 +2,7 @@ apiVersion: v2
 name: sklein-bibliography-corpus-indexer
 description: A Helm chart for sklein-bibliography-corpus-indexer
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: latest
 home: https://github.com/users/stephane-klein/packages/container/package/charts%2Fsklein-bibliography-corpus-indexer
 sources:
