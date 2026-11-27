@@ -57,6 +57,19 @@ Default user (see [`./sqls/seeds/00002_users.sql`](./sqls/seeds/00002_users.sql)
 To send a test email, run `mise run send-test-mail`. Mailpit captures all the
 emails it sends: run `pitchfork proxy status` to get its URL.
 
+### Signup
+
+Public signup is closed by default. The `/signup` page shows a message and the
+"Create account" links are hidden. Set `SIGNUP_ENABLED=true` to open it.
+
+Local development enables signup through `.envrc`, which mise and direnv load.
+The Helm chart exposes `signup.enabled`, which defaults to `false`.
+
+When signup is closed, create accounts with the admin API
+(`PUT /api/v1/admin/users`, see the
+[Helm chart README](./helm/sklein-bibliography-corpus-indexer/README.md#managing-users-idempotent-gitops))
+or `pnpm add-user`.
+
 ### Web application environment variables
 
 The web application reads these variables at runtime. The defaults apply when a
@@ -83,6 +96,8 @@ variable is unset or empty.
     per email address. Default `5`.
   - `LOGIN_WINDOW_MS` — window of the sign-in throttle, in milliseconds. Default
     `900000` (15 minutes).
+  - `SIGNUP_ENABLED` — public signup. Only the literal `true` opens it; any
+    other value, or an unset variable, keeps it closed. Default empty.
 - **Mail**
   - `SMTP_HOST` — SMTP host. Default empty, which disables email sending.
   - `SMTP_PORT` — SMTP port. Default `587`.

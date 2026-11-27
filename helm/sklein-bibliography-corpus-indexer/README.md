@@ -154,6 +154,23 @@ $ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stepha
     --set oidc.clientSecret=...
 ```
 
+### Public signup
+
+Public signup is closed by default: `/signup` shows a message and the "Create
+account" links are hidden. When signup is closed, create accounts with the admin
+API (`PUT /api/v1/admin/users`) or the `pnpm add-user` CLI.
+
+Existing deployments that relied on public signup must set
+`signup.enabled=true` after upgrading.
+
+Open signup with:
+
+```bash
+$ helm upgrade --install sklein-bibliography-corpus-indexer oci://ghcr.io/stephane-klein/charts/sklein-bibliography-corpus-indexer \
+    --namespace sklein-bibliography-corpus-indexer \
+    --set signup.enabled=true
+```
+
 ### Data retention
 
 `helm uninstall` deletes the CNPG `Cluster` and its PVCs. The chart does not

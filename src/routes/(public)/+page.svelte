@@ -1,5 +1,7 @@
 <script>
     import { m } from "#lib/paraglide/messages.js";
+
+    let { data } = $props();
 </script>
 
 <svelte:head>
@@ -17,11 +19,14 @@
                 href="/login"
                 class="text-sm text-gray-500 no-underline hover:text-blue-600 hover:underline">{m.sign_in()}</a
             >
-            |
-            <a
-                href="/signup"
-                class="text-sm text-gray-500 no-underline hover:text-blue-600 hover:underline">{m.create_account()}</a
-            >
+            {#if data.signupEnabled}
+                |
+                <a
+                    href="/signup"
+                    class="text-sm text-gray-500 no-underline hover:text-blue-600 hover:underline"
+                    >{m.create_account()}</a
+                >
+            {/if}
         </nav>
     </div>
 </header>

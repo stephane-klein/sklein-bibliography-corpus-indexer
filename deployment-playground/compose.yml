@@ -33,6 +33,7 @@ services:
       SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_POSTGRES_URL: postgres://postgres:password@postgres:5432/postgres
       SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ADMIN_TOKEN: playground-admin-token-change-me-in-prod
       SKLEIN_BIBLIOGRAPHY_CORPUS_INDEXER_ORIGIN: https://app.127.0.0.1.sslip.io
+      SIGNUP_ENABLED: "true"
       ADDRESS_HEADER: x-forwarded-for
       AUTHELIA_ISSUER: https://auth.127.0.0.1.sslip.io
       AUTHELIA_CLIENT_ID: sklein-bibliography-corpus-indexer

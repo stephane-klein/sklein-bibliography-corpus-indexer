@@ -4,6 +4,8 @@
 
     let { user, extra } = $props();
 
+    const signupEnabled = $derived(page.data.signupEnabled ?? false);
+
     function isActive(href) {
         return page.url.pathname === href || page.url.pathname.startsWith(`${href}/`);
     }
@@ -66,12 +68,14 @@
                         href="/login"
                         class="text-sm text-gray-500 no-underline hover:text-blue-600 hover:underline">{m.sign_in()}</a
                     >
-                    |
-                    <a
-                        href="/signup"
-                        class="text-sm text-gray-500 no-underline hover:text-blue-600 hover:underline"
-                        >{m.create_account()}</a
-                    >
+                    {#if signupEnabled}
+                        |
+                        <a
+                            href="/signup"
+                            class="text-sm text-gray-500 no-underline hover:text-blue-600 hover:underline"
+                            >{m.create_account()}</a
+                        >
+                    {/if}
                 {/if}
             </nav>
         </div>
